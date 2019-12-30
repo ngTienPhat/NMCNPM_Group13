@@ -28,10 +28,10 @@ public class NOTEBOOK {
         this.createDate = createDate;
     }
 
-    void addNote(NOTE note) {
+    public void addNote(NOTE note) {
         notes.add(note);
     }
-    void removeNote(String noteID) {
+    public void removeNote(String noteID) {
         for (int i = 0; i < notes.size(); i++) {
             if (noteID == notes.get(i).getNoteID()) {
                 notes.remove(i);

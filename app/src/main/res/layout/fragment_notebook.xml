@@ -14,7 +14,7 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_margin="10dp"
-            android:src="@drawable/icon_search"/>
+            android:src="@drawable/ic_search"/>
         <EditText
             android:id="@+id/notebook_search"
             android:layout_width="match_parent"
@@ -25,7 +25,11 @@
             android:textStyle="normal"
             android:textColor="#666666"/>
     </LinearLayout>
-
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView_whenEmpty"
+        android:textAlignment="center"/>
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

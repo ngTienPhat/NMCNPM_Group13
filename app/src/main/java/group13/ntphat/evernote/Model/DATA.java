@@ -24,6 +24,4 @@ public class DATA {
 
         return conn;
     }
-
-
 }

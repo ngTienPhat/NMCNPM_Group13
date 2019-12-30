@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -12,6 +13,8 @@ import androidx.lifecycle.ViewModelProviders;
 
 import java.util.ArrayList;
 
+import group13.ntphat.evernote.Model.NOTEBOOK;
+import group13.ntphat.evernote.Model.USER;
 import group13.ntphat.evernote.R;
 
 public class NotebookFragment extends Fragment {
@@ -21,12 +24,14 @@ public class NotebookFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_notebook, container, false);
 
         final ListView listView = root.findViewById(R.id.list_notebooks);
-        ArrayList<ListNotebookItem> notebooks = new ArrayList<ListNotebookItem>();
-//        notebooks.add(new ListNotebookItem("Notebook1", 2));
-//        notebooks.add(new ListNotebookItem("Notebook2", 3));
-//        notebooks.add(new ListNotebookItem("Notebook3", 4));
+        ArrayList<NOTEBOOK> notebooks = USER.getInstance().getAllNoteBook();
 
-        listView.setAdapter(new ListNotebookAdapter(inflater, notebooks));
+        if (notebooks.size() != 0)
+            listView.setAdapter(new ListNotebookAdapter(inflater, notebooks));
+        else {
+            TextView textView = (TextView)root.findViewById(R.id.textView_whenEmpty);
+            textView.setText("Không có sổ tay nào");
+        }
         return root;
     }
 }

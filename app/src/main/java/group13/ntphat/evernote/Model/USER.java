@@ -13,14 +13,22 @@ public class USER {
     private String userName;
     private ArrayList<NOTEBOOK> notebooks;
 
-    private USER() {}
+    private USER() {
+        notebooks = new ArrayList<NOTEBOOK>();
+    }
 
-    public static final USER INSTANCE = new USER();
+    private static USER INSTANCE = null;
+    public static USER getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new USER();
+        }
+        return INSTANCE;
+    }
 
-    void addNoteBook(NOTEBOOK notebook) {
+    public void addNoteBook(NOTEBOOK notebook) {
         notebooks.add(notebook);
     }
-    void removeNoteBook(String notebookID) {
+    public void removeNoteBook(String notebookID) {
         for (int i = 0; i < notebooks.size(); i++) {
             if (notebookID == notebooks.get(i).getNotebookID()) {
                 notebooks.remove(i);
@@ -29,7 +37,7 @@ public class USER {
         }
     }
 
-    ArrayList<NOTE> getAllNote() {
+    public ArrayList<NOTE> getAllNote() {
         ArrayList<NOTE> ans = new ArrayList<>();
         for (int i = 0; i < notebooks.size(); i++) {
             NOTEBOOK notebook = notebooks.get(i);
@@ -38,11 +46,11 @@ public class USER {
         return ans;
     }
 
-    ArrayList<NOTEBOOK> getAllNoteBook() {
+    public ArrayList<NOTEBOOK> getAllNoteBook() {
         return notebooks;
     }
 
-    Map getAllTag() {
+    public Map getAllTag() {
         Map ans = new HashMap<String, Integer>();
         ArrayList<NOTE> notes = getAllNote();
         for (int i = 0; i < notes.size(); i++) {
@@ -61,7 +69,7 @@ public class USER {
         return ans;
     }
 
-    ArrayList<NOTE> getNoteTag(String Tag) {
+    public ArrayList<NOTE> getNoteTag(String Tag) {
         ArrayList<NOTE> ans = new ArrayList<>();
         for (int i = 0; i < notebooks.size(); i++) {
             ArrayList<NOTE> notes = notebooks.get(i).notes;

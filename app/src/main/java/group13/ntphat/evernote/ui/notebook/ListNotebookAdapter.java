@@ -8,13 +8,14 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import group13.ntphat.evernote.Model.NOTEBOOK;
 import group13.ntphat.evernote.R;
 
 public class ListNotebookAdapter extends BaseAdapter {
-    private List<ListNotebookItem> items;
+    private List<NOTEBOOK> items;
     private LayoutInflater inflater;
 
-    public ListNotebookAdapter(LayoutInflater inflater, List<ListNotebookItem> items) {
+    public ListNotebookAdapter(LayoutInflater inflater, List<NOTEBOOK> items) {
         this.inflater = inflater;
         this.items = items;
     }
@@ -47,9 +48,9 @@ public class ListNotebookAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        ListNotebookItem item = this.items.get(position);
-        holder.notebookName.setText(item.getName());
-        holder.numberOfNotes.setText(item.getNumberOfNotes() + " ghi chú");
+        NOTEBOOK item = this.items.get(position);
+        holder.notebookName.setText(item.getNameNoteBook());
+        holder.numberOfNotes.setText(item.notes.size() + " ghi chú");
         return convertView;
     }
 

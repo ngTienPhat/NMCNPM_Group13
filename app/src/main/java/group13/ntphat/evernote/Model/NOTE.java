@@ -42,18 +42,18 @@ public class NOTE {
         this.dir = dir;
     }
 
-    boolean isHasTag(String tag) {
+    public boolean isHasTag(String tag) {
         for (int i = 0; i < tags.size(); i++) {
             if (tags.get(i) == tag) return true;
         }
         return false;
     }
 
-    void addTag(String tag) {
+    public void addTag(String tag) {
         tags.add(tag);
     }
 
-    void remove(String tag) {
+    public void remove(String tag) {
         for (int i = 0; i < tags.size(); i++) {
             if (tag == tags.get(i)) {
                 tags.remove(i);
