@@ -9,6 +9,10 @@ public class DATA {
     static private final String user = "postgres";
     static private final String password = "<add your password>";
 
+    static public String login(String userName, String password) {
+        //check login
+        return "";
+    }
     static public Connection connect() {
         Connection conn = null;
         try {
