@@ -8,25 +8,25 @@
     <fragment
         android:id="@+id/nav_home"
         android:name="group13.ntphat.evernote.ui.allnotes.AllnotesFragment"
-        android:label="@string/menu_home"
+        android:label="@string/menu_allnotes"
         tools:layout="@layout/fragment_allnotes" />
 
     <fragment
         android:id="@+id/nav_gallery"
         android:name="group13.ntphat.evernote.ui.notebook.NotebookFragment"
-        android:label="@string/menu_gallery"
+        android:label="@string/menu_notebook"
         tools:layout="@layout/fragment_notebook" />
 
     <fragment
         android:id="@+id/nav_slideshow"
         android:name="group13.ntphat.evernote.ui.photos.PhotoFragment"
-        android:label="@string/menu_slideshow"
+        android:label="@string/menu_collect_photos"
         tools:layout="@layout/fragment_photos" />
 
     <fragment
         android:id="@+id/nav_tools"
         android:name="group13.ntphat.evernote.ui.workchat.WorkchatFragment"
-        android:label="@string/menu_tools"
+        android:label="@string/menu_workchat"
         tools:layout="@layout/fragment_workchat" />
 
     <fragment
