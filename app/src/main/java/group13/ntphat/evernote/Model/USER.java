@@ -13,6 +13,10 @@ public class USER {
     private String userName;
     private ArrayList<NOTEBOOK> notebooks;
 
+    private USER() {}
+
+    private static final USER INSTANCE = new USER();
+
     void addNoteBook(NOTEBOOK notebook) {
         notebooks.add(notebook);
     }
