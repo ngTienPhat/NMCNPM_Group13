@@ -16,20 +16,9 @@ import group13.ntphat.evernote.R;
 
 public class WorkchatFragment extends Fragment {
 
-    private WorkchatViewModel toolsViewModel;
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        toolsViewModel =
-                ViewModelProviders.of(this).get(WorkchatViewModel.class);
         View root = inflater.inflate(R.layout.fragment_workchat, container, false);
-        final TextView textView = root.findViewById(R.id.text_tools);
-        toolsViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
         return root;
     }
 }

@@ -21,7 +21,6 @@ import group13.ntphat.evernote.R;
 
 public class NotesFragment extends Fragment {
 
-    private NotesViewModel homeViewModel;
     private ListView listView;
     private ArrayList<NOTE> listNote;
     private NoteAdapter listNoteAdapter;
@@ -29,18 +28,7 @@ public class NotesFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel =
-                ViewModelProviders.of(this).get(NotesViewModel.class);
         root = inflater.inflate(R.layout.fragment_allnotes, container, false);
-
-        final TextView textView = root.findViewById(R.id.text_home);
-        homeViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
-
 //        loadListNotes();
 //        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //            @Override

@@ -16,12 +16,8 @@ import group13.ntphat.evernote.R;
 
 public class TagFragment extends Fragment {
 
-    private TagViewModel sendViewModel;
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        sendViewModel =
-                ViewModelProviders.of(this).get(TagViewModel.class);
         View root = inflater.inflate(R.layout.fragment_tag, container, false);
         final ListView listView = root.findViewById(R.id.list_tags);
         ArrayList<ListTagItem> tags = new ArrayList<ListTagItem>();

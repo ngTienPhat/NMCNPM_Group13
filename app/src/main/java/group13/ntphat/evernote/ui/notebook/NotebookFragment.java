@@ -16,12 +16,8 @@ import group13.ntphat.evernote.R;
 
 public class NotebookFragment extends Fragment {
 
-    private NotebookViewModel galleryViewModel;
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        galleryViewModel =
-                ViewModelProviders.of(this).get(NotebookViewModel.class);
         View root = inflater.inflate(R.layout.fragment_notebook, container, false);
 
         final ListView listView = root.findViewById(R.id.list_notebooks);
