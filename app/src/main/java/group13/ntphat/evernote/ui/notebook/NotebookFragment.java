@@ -26,9 +26,9 @@ public class NotebookFragment extends Fragment {
 
         final ListView listView = root.findViewById(R.id.list_notebooks);
         ArrayList<ListNotebookItem> notebooks = new ArrayList<ListNotebookItem>();
-        notebooks.add(new ListNotebookItem("Notebook1", 2));
-        notebooks.add(new ListNotebookItem("Notebook2", 3));
-        notebooks.add(new ListNotebookItem("Notebook3", 4));
+//        notebooks.add(new ListNotebookItem("Notebook1", 2));
+//        notebooks.add(new ListNotebookItem("Notebook2", 3));
+//        notebooks.add(new ListNotebookItem("Notebook3", 4));
 
         listView.setAdapter(new ListNotebookAdapter(inflater, notebooks));
         return root;
