@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="group13.ntphat.evernote.ui.allnotes.AllnotesFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_allnotes" />
+
+    <fragment
+        android:id="@+id/nav_gallery"
+        android:name="group13.ntphat.evernote.ui.notebook.NotebookFragment"
+        android:label="@string/menu_gallery"
+        tools:layout="@layout/fragment_notebook" />
+
+    <fragment
+        android:id="@+id/nav_slideshow"
+        android:name="group13.ntphat.evernote.ui.photos.PhotoFragment"
+        android:label="@string/menu_slideshow"
+        tools:layout="@layout/fragment_photos" />
+
+    <fragment
+        android:id="@+id/nav_tools"
+        android:name="group13.ntphat.evernote.ui.workchat.WorkchatFragment"
+        android:label="@string/menu_tools"
+        tools:layout="@layout/fragment_workchat" />
+
+    <fragment
+        android:id="@+id/nav_share"
+        android:name="group13.ntphat.evernote.ui.share.ShareFragment"
+        android:label="@string/menu_share"
+        tools:layout="@layout/fragment_share" />
+
+    <fragment
+        android:id="@+id/nav_send"
+        android:name="group13.ntphat.evernote.ui.tag.TagFragment"
+        android:label="@string/menu_send"
+        tools:layout="@layout/fragment_tag" />
+</navigation>

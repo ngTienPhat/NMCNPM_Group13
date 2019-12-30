@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">evernote</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_allnotes">All notes</string>
+    <string name="menu_notebook">Notebooks</string>
+    <string name="menu_tags">Tags</string>
+    <string name="menu_share">Share with me</string>
+    <string name="menu_collect_photos">Collect photos</string>
+    <string name="menu_workchat">Work Chat</string>
+    <string name="menu_setting">Setting</string>
+    <string name="menu_send">Send</string>
+</resources>
