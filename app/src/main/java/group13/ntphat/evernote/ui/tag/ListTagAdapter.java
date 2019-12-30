@@ -1,25 +1,21 @@
-package group13.ntphat.evernote.ui.notebook;
+package group13.ntphat.evernote.ui.tag;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import androidx.fragment.app.Fragment;
-
 import java.util.List;
 
 import group13.ntphat.evernote.R;
 
-public class NotebookAdapter extends BaseAdapter {
-    private List<NotebookItem> items;
+public class ListTagAdapter extends BaseAdapter {
+    private List<ListTagItem> items;
     private LayoutInflater inflater;
-    private Fragment context;
 
-    public NotebookAdapter(Fragment c, List<NotebookItem> items) {
-        this.context = c;
+    public ListTagAdapter(LayoutInflater inflater, List<ListTagItem> items) {
+        this.inflater = inflater;
         this.items = items;
     }
 
@@ -42,23 +38,23 @@ public class NotebookAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.list_notebook_item, null);
+            convertView = this.inflater.inflate(R.layout.list_tag_item, null);
             holder = new ViewHolder();
-            holder.notebookName = (TextView) convertView.findViewById(R.id.textView_notebookName);
+            holder.tagName = (TextView) convertView.findViewById(R.id.textView_tagName);
             holder.numberOfNotes = (TextView) convertView.findViewById(R.id.textView_numberOfNotes);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        NotebookItem item = this.items.get(position);
-        holder.notebookName.setText(item.getName());
+        ListTagItem item = this.items.get(position);
+        holder.tagName.setText(item.getName());
         holder.numberOfNotes.setText(item.getNumberOfNotes() + " ghi chú");
         return convertView;
     }
 
     static class ViewHolder {
-        TextView notebookName;
+        TextView tagName;
         TextView numberOfNotes;
     }
 }

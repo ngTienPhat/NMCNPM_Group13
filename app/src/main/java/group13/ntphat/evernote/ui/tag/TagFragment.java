@@ -4,13 +4,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.ListView;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+
+import java.util.ArrayList;
 
 import group13.ntphat.evernote.R;
 
@@ -23,13 +23,13 @@ public class TagFragment extends Fragment {
         sendViewModel =
                 ViewModelProviders.of(this).get(TagViewModel.class);
         View root = inflater.inflate(R.layout.fragment_tag, container, false);
-        final TextView textView = root.findViewById(R.id.text_send);
-        sendViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+        final ListView listView = root.findViewById(R.id.list_tags);
+        ArrayList<ListTagItem> tags = new ArrayList<ListTagItem>();
+        tags.add(new ListTagItem("Tag 1", 2));
+        tags.add(new ListTagItem("Tag 2", 3));
+        tags.add(new ListTagItem("Tag 3", 4));
+
+        listView.setAdapter(new ListTagAdapter(inflater, tags));
         return root;
     }
 }

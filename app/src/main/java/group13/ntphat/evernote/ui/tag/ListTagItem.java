@@ -1,10 +1,10 @@
-package group13.ntphat.evernote.ui.notebook;
+package group13.ntphat.evernote.ui.tag;
 
-public class NotebookItem {
+public class ListTagItem {
     private String name;
     private int numberOfNotes;
 
-    public NotebookItem(String name, int numberOfNotes) {
+    public ListTagItem(String name, int numberOfNotes) {
         this.name = name;
         this.numberOfNotes = numberOfNotes;
     }
