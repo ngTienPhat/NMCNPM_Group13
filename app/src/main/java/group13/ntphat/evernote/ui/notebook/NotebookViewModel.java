@@ -10,7 +10,7 @@ public class NotebookViewModel extends ViewModel {
 
     public NotebookViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is gallery fragment");
+        mText.setValue("This is notebook fragment");
     }
 
     public LiveData<String> getText() {
