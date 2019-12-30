@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_allnotes, R.id.nav_notebook, R.id.nav_tags,
-                R.id.nav_photos, R.id.nav_workchat, R.id.nav_setting)
+                R.id.nav_photos, R.id.nav_workchat, R.id.nav_setting, R.id.nav_share)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -59,8 +59,8 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navController);
 
         // markd_editor and editor_control_bar
-        markDEditor = findViewById(R.id.mdEditor);
-        editorControlBar = findViewById(R.id.controlBar);
+        //markDEditor = findViewById(R.id.mdEditor);
+        //editorControlBar = findViewById(R.id.controlBar);
     }
 
     @Override
