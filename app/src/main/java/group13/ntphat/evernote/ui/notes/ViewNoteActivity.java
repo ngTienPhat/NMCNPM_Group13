@@ -1,4 +1,4 @@
-package group13.ntphat.evernote.ui.allnotes;
+package group13.ntphat.evernote.ui.notes;
 
 import android.os.Bundle;
 

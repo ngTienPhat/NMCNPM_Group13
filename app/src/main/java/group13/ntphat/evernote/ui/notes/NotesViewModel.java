@@ -1,14 +1,14 @@
-package group13.ntphat.evernote.ui.allnotes;
+package group13.ntphat.evernote.ui.notes;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class AllnotesViewModel extends ViewModel {
+public class NotesViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public AllnotesViewModel() {
+    public NotesViewModel() {
         mText = new MutableLiveData<>();
         mText.setValue("This is all note fragment");
     }

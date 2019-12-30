@@ -1,4 +1,4 @@
-package group13.ntphat.evernote.ui.allnotes;
+package group13.ntphat.evernote.ui.notes;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,8 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
-import java.util.List;
 
+import group13.ntphat.evernote.Model.NOTE;
 import group13.ntphat.evernote.R;
 
 public class NoteAdapter extends ArrayAdapter<NOTE> {

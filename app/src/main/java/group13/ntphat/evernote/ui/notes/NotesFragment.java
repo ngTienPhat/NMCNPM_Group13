@@ -1,11 +1,10 @@
-package group13.ntphat.evernote.ui.allnotes;
+package group13.ntphat.evernote.ui.notes;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -17,11 +16,12 @@ import androidx.lifecycle.ViewModelProviders;
 
 import java.util.ArrayList;
 
+import group13.ntphat.evernote.Model.NOTE;
 import group13.ntphat.evernote.R;
 
-public class AllnotesFragment extends Fragment {
+public class NotesFragment extends Fragment {
 
-    private AllnotesViewModel homeViewModel;
+    private NotesViewModel homeViewModel;
     private ListView listView;
     private ArrayList<NOTE> listNote;
     private NoteAdapter listNoteAdapter;
@@ -30,7 +30,7 @@ public class AllnotesFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         homeViewModel =
-                ViewModelProviders.of(this).get(AllnotesViewModel.class);
+                ViewModelProviders.of(this).get(NotesViewModel.class);
         root = inflater.inflate(R.layout.fragment_allnotes, container, false);
 
         final TextView textView = root.findViewById(R.id.text_home);
