@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="10dp">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView_notebookName"
+        android:text="Notebook name"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:textColor="#000"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView_numberOfNotes"
+        android:text="number of notes"
+        android:textStyle="normal"
+        android:textSize="12dp"
+        android:textColor="#444444"/>
+</LinearLayout>
