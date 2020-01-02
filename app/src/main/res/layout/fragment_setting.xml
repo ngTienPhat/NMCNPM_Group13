@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fancy="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -40,4 +41,19 @@
             android:textStyle="normal"
             android:layout_gravity="center"/>
     </LinearLayout>
+    <mehdi.sakout.fancybuttons.FancyButton
+        android:id="@+id/btn_spotify_follow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="10dp"
+        fancy:fb_borderColor="#00AA11"
+        fancy:fb_borderWidth="2dp"
+        fancy:fb_defaultColor="#FFF"
+        fancy:fb_focusColor="#424243"
+        fancy:fb_radius="5dp"
+        fancy:fb_text="FOLLOW"
+        fancy:fb_textColor="#00AA11"/>
 </LinearLayout>

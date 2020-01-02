@@ -10,6 +10,16 @@ public class NOTE {
     private String content;
     public ArrayList<String> tags;
 
+    public NOTE() {}
+    public NOTE(String noteID, String notebookID, String title, String createDate, String content) {
+        this.noteID = noteID;
+        this.notebookID = notebookID;
+        this.title = title;
+        this.createDate = createDate;
+        this.content = content;
+        this.tags = new ArrayList<>();
+    }
+
     public String getNoteID() {
         return noteID;
     }
@@ -49,5 +59,9 @@ public class NOTE {
             if (tags.get(i).equals(tag)) return true;
         }
         return false;
+    }
+
+    public void addTag(String tag) {
+        tags.add(tag);
     }
 }
