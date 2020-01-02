@@ -7,7 +7,9 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -54,13 +56,12 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.note_edit);
 
         isNewNote=false;
         Intent intentCatcher = getIntent();
         getClickedNote(intentCatcher);
         initComponent();
-
-        setContentView(R.layout.note_edit);
     }
 
     @Override
@@ -97,10 +98,11 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
         else{
             content = initDraftContent();
         }
-        notebook.setText(USER.getInstance().getNoteBook(clickedNote.getNoteID()).getNameNoteBook());
+        String notebookName = USER.getInstance().getNoteBook(notebookId).getNameNoteBook();
+        notebook.setText(notebookName);
         markDEditor = findViewById(R.id.mdEditor);
         markDEditor.configureEditor(
-                "https://1f8a79eb.ngrok.io/uploader/",
+                "https://be4808e3.ngrok.io/uploader/",
                 "",
                 true,
                 "Start Here...",
@@ -186,5 +188,15 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
         catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void choose_notebook(View view) {
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_edit_note, menu);
+        return true;
     }
 }

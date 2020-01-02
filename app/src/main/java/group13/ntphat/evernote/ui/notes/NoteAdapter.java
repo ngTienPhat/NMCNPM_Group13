@@ -41,6 +41,10 @@ public class NoteAdapter extends ArrayAdapter<NOTE> {
         ImageView noteImg = convertView.findViewById(R.id.note_img);
         TextView noteContent = convertView.findViewById(R.id.note_content);
 
+        NOTE note = listNotes.get(position);
+        noteTitle.setText(note.getTitle());
+        noteDate.setText(note.getCreateDate());
+
         return convertView;
     }
 
