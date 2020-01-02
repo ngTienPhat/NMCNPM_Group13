@@ -1,12 +1,20 @@
 package group13.ntphat.evernote.ui.notes;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 
+import group13.ntphat.evernote.Model.NOTE;
+import group13.ntphat.evernote.Model.USER;
 import group13.ntphat.evernote.R;
 import xute.markdeditor.EditorControlBar;
 import xute.markdeditor.MarkDEditor;
@@ -23,11 +31,21 @@ import static xute.markdeditor.components.TextComponentItem.MODE_PLAIN;
 public class ViewNoteActivity extends AppCompatActivity implements EditorControlBar.EditorControlListener  {
     private final int REQUEST_IMAGE_SELECTOR = 110;
     private MarkDEditor markDEditor;
+    private DraftModel content;
     private EditorControlBar editorControlBar;
+    private NOTE clickedNote;
+
+    private EditText title;
+    private TextView notebook;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Intent intentCatcher = getIntent();
+        getClickedNote(intentCatcher);
+        initComponent();
+
         setContentView(R.layout.note_edit);
     }
 
@@ -42,6 +60,30 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
 
     }
 
+    private void getClickedNote(Intent catcher){
+        String notebookId = catcher.getStringExtra("notebookid");
+        String noteId = catcher.getStringExtra("noteid");
+        clickedNote = USER.getInstance().getNote(notebookId, noteId);
+    }
+
+    private void initComponent(){
+        content = new Gson().fromJson(clickedNote.getContent(), DraftModel.class);
+        title.setText(clickedNote.getTitle());
+        notebook.setText(USER.getInstance().getNoteBook(clickedNote.getNoteID()).getNameNoteBook());
+
+        markDEditor = findViewById(R.id.mdEditor);
+        markDEditor.configureEditor(
+                "https://1f8a79eb.ngrok.io/uploader/",
+                "",
+                true,
+                "Start Here...",
+                BLOCKQUOTE
+        );
+        markDEditor.loadDraft(content);
+        editorControlBar = findViewById(R.id.controlBar);
+        editorControlBar.setEditorControlListener(this);
+        editorControlBar.setEditor(markDEditor);
+    }
 
     // Init note content
     private DraftModel initDraftContent() {
@@ -99,4 +141,7 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
     }
 
 
+    public void save_content(MenuItem item) {
+
+    }
 }

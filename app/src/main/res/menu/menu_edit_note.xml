@@ -4,6 +4,7 @@
     <item android:id="@+id/save"
         android:title="save"
         app:showAsAction="always"
+        android:onClick="save_content"
         android:icon="@drawable/ic_tags"/>
 
     <item android:id="@+id/undo"
