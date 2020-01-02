@@ -1,4 +1,7 @@
 apply plugin: 'com.android.application'
+apply from: 'phat.gradle'
+apply from: 'tuan.gradle'
+apply from: 'vu.gradle'
 
 android {
     compileSdkVersion 29
@@ -32,6 +35,6 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'com.github.bxute:MarkDEditor:v0.16'
-    implementation 'de.hdodenhof:circleimageview:3.0.1'
-    implementation 'com.google.code.gson:gson:2.8.2'
+    //implementation 'de.hdodenhof:circleimageview:3.0.1'
+//    implementation 'com.google.code.gson:gson:2.8.2'
 }
