@@ -1,7 +1,11 @@
 package group13.ntphat.evernote;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,6 +25,13 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+
+import group13.ntphat.evernote.Model.DATA;
+import group13.ntphat.evernote.Model.USER;
 import group13.ntphat.evernote.ui.notes.ViewNoteActivity;
 import group13.ntphat.evernote.ui.setting.SettingActivity;
 import xute.markdeditor.EditorControlBar;
@@ -37,6 +48,34 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static int lastFragment;
     public static NavController navController;
 
+//    private class MyReceiver extends BroadcastReceiver {
+//        @Override
+//        public void onReceive(Context context, Intent intent) {
+//            String name = intent.getStringExtra("name");
+//            int success = intent.getIntExtra("success", 0);
+//
+//            if (name.equals("login")) {
+//                if (success == 1) {
+//                    DATA.getAllInfo(context, USER.getInstance().getUserID());
+//                }else {
+//
+//                }
+//            }
+//
+//            if (name.equals("singup")) {
+//                if (success == 1) {
+//
+//                }else {
+//
+//                }
+//            }
+//
+//            if (name.equals("getAllInfo")) {
+//
+//            }
+//        }
+//    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +89,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 createPopupMenu(view);
             }
         });
+
+//        IntentFilter intentFilter = new IntentFilter();
+//        intentFilter.addAction("DATA");
+//        registerReceiver(new MyReceiver(), intentFilter);
+//        DATA.login(this.getBaseContext(), "user003", "123456");
 
         this.drawer = findViewById(R.id.drawer_layout);
         this.navigationView = findViewById(R.id.nav_view);

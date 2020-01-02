@@ -4,9 +4,31 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import static java.lang.System.gc;
+
 public class USER {
     private String userID;
     private String fullName;
+
+    public String getUserID() {
+        return userID;
+    }
+    public String getFullName() {
+        return fullName;
+    }
+    public String getUserEmail() {
+        return userEmail;
+    }
+    public int getAccountLevel() {
+        return accountLevel;
+    }
+    public String getMemberSince() {
+        return memberSince;
+    }
+    public String getUserName() {
+        return userName;
+    }
+
     private String userEmail;
     private int accountLevel;
     private String memberSince;
@@ -53,6 +75,16 @@ public class USER {
         this.notebooks = new ArrayList<>();
     }
 
+    public void remove() {
+        this.userID = "";
+        this.fullName = "";
+        this.userEmail = "";
+        this.accountLevel = 0;
+        this.memberSince = "";
+        this.userName = "";
+        this.notebooks = new ArrayList<>();
+        gc();
+    }
     public ArrayList<NOTEBOOK> getAllNoteBook() {
         return notebooks;
     }
