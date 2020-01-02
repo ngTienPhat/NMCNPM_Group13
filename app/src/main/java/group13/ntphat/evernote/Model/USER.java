@@ -25,38 +25,6 @@ public class USER {
         return INSTANCE;
     }
 
-    public void addNoteBook(NOTEBOOK notebook) {
-        notebooks.add(notebook);
-    }
-    public void removeNoteBook(String notebookID) {
-        for (int i = 0; i < notebooks.size(); i++) {
-            if (notebookID == notebooks.get(i).getNotebookID()) {
-                notebooks.remove(i);
-                break;
-            }
-        }
-    }
-
-    public void addNote(String notebookID, NOTE note) {
-
-    }
-
-    public void removeNote(String notebookID, String noteID) {
-
-    }
-
-    public void addTag(String notebookID, String noteID, String tag) {
-
-    }
-
-    public void removeTag(String notebookID, String noteID, String tag) {
-
-    }
-
-    public void changeNotebook(String noteID, String oldNotebookID, String newNotebookID) {
-
-    }
-
     public ArrayList<NOTE> getAllNote() {
         ArrayList<NOTE> ans = new ArrayList<>();
         for (int i = 0; i < notebooks.size(); i++) {
@@ -101,16 +69,95 @@ public class USER {
     }
 
     public NOTEBOOK getNoteBook(String notebookID) {
-        for (int i = 0; i < notebooks.size(); i++) {
-            if (notebooks.get(i).getNotebookID().equals(notebookID)) {
-                return notebooks.get(i);
-            }
+        for (NOTEBOOK notebook:notebooks) {
+            if (!notebook.getNotebookID().equals(notebookID)) continue;
+            return notebook;
         }
         return null;
     }
 
     public NOTE getNote(String notebookID, String noteID) {
+        for (NOTEBOOK notebook:notebooks) {
+            if (!notebook.getNotebookID().equals(notebookID)) continue;
+            for (NOTE note:notebook.notes) {
+                if (!note.getNoteID().equals(noteID)) continue;
+                return note;
+            }
+        }
         return null;
+    }
+
+
+    public void addNoteBook(NOTEBOOK notebook) {
+        notebooks.add(notebook);
+    }
+    public void removeNoteBook(String notebookID) {
+        for (int i = 0; i < notebooks.size(); i++) {
+            if (notebookID == notebooks.get(i).getNotebookID()) {
+                notebooks.remove(i);
+                break;
+            }
+        }
+    }
+
+    public void addNote(String notebookID, NOTE note) {
+        for (NOTEBOOK notebook:notebooks) {
+            if (!notebook.getNotebookID().equals(notebookID)) continue;
+            notebook.notes.add(note);
+            break;
+        }
+    }
+    public void removeNote(String notebookID, String noteID) {
+        for (NOTEBOOK notebook:notebooks) {
+            if (!notebook.getNotebookID().equals(notebookID)) continue;
+            for (int i = 0; i < notebook.notes.size(); i++) {
+                NOTE note = notebook.notes.get(i);
+                if (note.getNoteID().equals(noteID)) {
+                    notebook.notes.remove(i);
+                    break;
+                }
+            }
+        }
+    }
+
+    public void addTag(String notebookID, String noteID, String tag) {
+        for (NOTEBOOK notebook:notebooks) {
+            if (!notebook.getNotebookID().equals(notebookID)) continue;
+            for (NOTE note:notebook.notes) {
+                if (!note.getNoteID().equals(noteID)) continue;
+                note.tags.add(tag);
+                break;
+            }
+            break;
+        }
+    }
+    public void removeTag(String notebookID, String noteID, String tag) {
+        for (NOTEBOOK notebook:notebooks) {
+            if (!notebook.getNotebookID().equals(notebookID)) continue;
+            for (NOTE note:notebook.notes) {
+                if (!note.getNoteID().equals(noteID)) continue;
+                note.tags.remove(tag);
+                break;
+            }
+            break;
+        }
+    }
+
+    public void changeNotebook(String noteID, String oldNotebookID, String newNotebookID) {
+        NOTE noteChanged = new NOTE();
+        for (NOTEBOOK notebook:notebooks) {
+            if (!notebook.getNotebookID().equals(oldNotebookID)) continue;
+            for (NOTE note:notebook.notes) {
+                if (!note.getNoteID().equals(noteID)) continue;
+                noteChanged = note;
+                break;
+            }
+            notebook.notes.remove(noteChanged);
+            break;
+        }
+
+        noteChanged.setNotebookID(newNotebookID);
+        this.addNote(newNotebookID, noteChanged);
     }
 
     public void download() {

@@ -4,19 +4,21 @@ import java.util.ArrayList;
 
 public class NOTE {
     private String noteID;
-    private String notebookName;
+    private String notebookID;
     private String title;
     private String createDate;
-    private String dir;
+    private String content;
     public ArrayList<String> tags;
 
     public String getNoteID() {
         return noteID;
     }
 
-    public String getNotebookName() {
-        return notebookName;
+    public String getNotebookID() {
+        return notebookID;
     }
+
+    public void setNotebookID(String notebookID) { this.notebookID = notebookID;}
 
     public String getTitle() {
         return title;
@@ -34,17 +36,17 @@ public class NOTE {
         this.createDate = createDate;
     }
 
-    public String getDir() {
-        return dir;
+    public String getContent() {
+        return content;
     }
 
-    public void setDir(String dir) {
-        this.dir = dir;
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public boolean isHasTag(String tag) {
         for (int i = 0; i < tags.size(); i++) {
-            if (tags.get(i) == tag) return true;
+            if (tags.get(i).equals(tag)) return true;
         }
         return false;
     }
