@@ -10,7 +10,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -27,6 +30,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import group13.ntphat.evernote.Model.NOTE;
+import group13.ntphat.evernote.Model.NOTEBOOK;
 import group13.ntphat.evernote.Model.USER;
 import group13.ntphat.evernote.R;
 import xute.markdeditor.EditorControlBar;
@@ -53,6 +57,9 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
     private EditText title;
     private TextView notebook;
     private boolean isNewNote;
+    private Spinner spinner;
+    ArrayList<String> nb_names = new ArrayList<>();
+    ArrayList<String> nb_ids = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -92,15 +99,39 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
     private void initComponent(){
         title = findViewById(R.id.noteview_title);
         notebook = findViewById(R.id.noteview_notebook);
-
+        spinner = findViewById(R.id.notebook_chooser);
         if (!isNewNote){
             content = new Gson().fromJson(clickedNote.getContent(), DraftModel.class);
             title.setText(clickedNote.getTitle());
             if (content == null){
                 content = initDraftContent();
             }
+
         }
         else{
+            ArrayList<NOTEBOOK> list_nb = USER.getInstance().getAllNoteBook();
+
+            for (int i = 0; i <  list_nb.size(); i++){
+                nb_names.add(list_nb.get(i).getNameNoteBook());
+                nb_ids.add(list_nb.get(i).getNotebookID());
+            }
+            // Creating adapter for spinner
+            ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, nb_names);
+            // Drop down layout style - list view with radio button
+            dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            // attaching data adapter to spinner
+            spinner.setAdapter(dataAdapter);
+            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                    notebookId = nb_ids.get(position);
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+                    notebookId = nb_ids.get(0);
+                }
+            });
             content = initDraftContent();
         }
         String notebookName = USER.getInstance().getNoteBook(notebookId).getNameNoteBook();

@@ -11,8 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ui.notes.ViewNoteActivity"
-            android:parentActivityName=".MainActivity"
-            android:launchMode="singleTop"/>
+            android:parentActivityName=".MainActivity"/>
         <activity android:name=".ui.setting.SettingActivity"
             android:parentActivityName=".MainActivity"/>
         <activity android:name=".ui.notebook.ViewListnoteActivity"

@@ -36,6 +36,10 @@
                     android:id="@+id/notebook_icon"
                     android:src="@drawable/ic_notebook"
                     android:gravity="center"/>
+                <Spinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/notebook_chooser" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"

@@ -5,12 +5,12 @@
         android:title="save"
         app:showAsAction="always"
         android:onClick="save_content"
-        android:icon="@drawable/ic_tags"/>
+        android:icon="@drawable/ic_check"/>
 
     <item android:id="@+id/undo"
         android:title="undo"
         app:showAsAction="always"
-        android:icon="@drawable/ic_tags"/>
+        android:icon="@drawable/ic_undo_foreground"/>
 
     <item android:id="@+id/redo"
         android:title="redo"
