@@ -15,4 +15,5 @@
     <string name="menu_workchat">Work Chat</string>
     <string name="menu_setting">Setting</string>
     <string name="menu_send">Send</string>
+    <string name="action_create_notbook">Thêm sổ tay</string>
 </resources>

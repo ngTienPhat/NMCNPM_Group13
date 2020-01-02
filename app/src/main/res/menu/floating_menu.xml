@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_add_reminder"
+        android:orderInCategory="100"
+        android:title="Thêm lời nhắc"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_add_record"
+        android:orderInCategory="100"
+        android:title="Ghi âm thanh"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_add_attachment"
+        android:orderInCategory="100"
+        android:title="Thêm tệp đính kèm"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_add_outline"
+        android:orderInCategory="100"
+        android:title="Bắt đầu phát thảo"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_add_picture"
+        android:orderInCategory="100"
+        android:title="Chụp ảnh"
+        app:showAsAction="never" />
+    <itemote
+        android:id="@+id/action_add_note"
+        android:orderInCategory="100"
+        android:title="Thêm ghi chú trống"
+        app:showAsAction="never" />
+</menu>

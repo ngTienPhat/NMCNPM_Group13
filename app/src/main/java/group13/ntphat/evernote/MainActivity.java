@@ -1,25 +1,22 @@
 package group13.ntphat.evernote;
 
 import android.os.Bundle;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.PopupMenu;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-
-import androidx.drawerlayout.widget.DrawerLayout;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
-import android.view.Menu;
 
 import xute.markdeditor.EditorControlBar;
 import xute.markdeditor.MarkDEditor;
@@ -40,8 +37,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                createPopupMenu(view);
             }
         });
 
@@ -75,5 +71,37 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    private void createPopupMenu(View v) {
+        PopupMenu popup = new PopupMenu(this, v);
+        popup.inflate(R.menu.floating_menu);
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.action_add_reminder:
+                        Toast.makeText(MainActivity.this, "Reminder!", Toast.LENGTH_SHORT).show();
+                        return true;
+                    case R.id.action_add_record:
+                        Toast.makeText(MainActivity.this, "Record!", Toast.LENGTH_SHORT).show();
+                        return true;
+                    case R.id.action_add_attachment:
+                        Toast.makeText(MainActivity.this, "Attachment!", Toast.LENGTH_SHORT).show();
+                        return true;
+                    case R.id.action_add_outline:
+                        Toast.makeText(MainActivity.this, "Outline!", Toast.LENGTH_SHORT).show();
+                        return true;
+                    case R.id.action_add_picture:
+                        Toast.makeText(MainActivity.this, "Picture!", Toast.LENGTH_SHORT).show();
+                        return true;
+                    case R.id.action_add_note:
+                        Toast.makeText(MainActivity.this, "Note!", Toast.LENGTH_SHORT).show();
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+        });
+        popup.show();
     }
 }
