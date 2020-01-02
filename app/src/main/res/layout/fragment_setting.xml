@@ -4,8 +4,7 @@
     xmlns:fancy="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:layout_marginHorizontal="10dp">
+    android:orientation="vertical">
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -47,15 +46,19 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@android:color/darker_gray"
-        android:layout_marginVertical="10dp"/>
+        android:layout_margin="10dp"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="10dp">
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?android:attr/selectableItemBackground">
             <ImageView
                 android:layout_width="25dp"
                 android:layout_height="25dp"
@@ -74,16 +77,17 @@
             android:id="@+id/btn_spotify_follow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingBottom="10dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:paddingTop="10dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="5dp"
             fancy:fb_borderColor="#00AA11"
             fancy:fb_borderWidth="2dp"
             fancy:fb_defaultColor="#FFF"
             fancy:fb_focusColor="#424243"
             fancy:fb_radius="5dp"
             fancy:fb_text="Nâng cấp"
+            fancy:fb_textSize="12dp"
             fancy:fb_textColor="#00AA11"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"/>
@@ -91,7 +95,11 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:paddingHorizontal="10dp"
+        android:orientation="horizontal"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?android:attr/selectableItemBackground">
         <ImageView
             android:layout_width="25dp"
             android:layout_height="25dp"
@@ -109,8 +117,11 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <ImageView
+        android:paddingHorizontal="10dp"
+        android:orientation="horizontal"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?android:attr/selectableItemBackground">        <ImageView
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:src="@drawable/ic_menu_camera"
@@ -127,7 +138,11 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:paddingHorizontal="10dp"
+        android:orientation="horizontal"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?android:attr/selectableItemBackground">
         <ImageView
             android:layout_width="25dp"
             android:layout_height="25dp"
@@ -145,7 +160,11 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:paddingHorizontal="10dp"
+        android:orientation="horizontal"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?android:attr/selectableItemBackground">
         <ImageView
             android:layout_width="25dp"
             android:layout_height="25dp"
@@ -163,7 +182,11 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:paddingHorizontal="10dp"
+        android:orientation="horizontal"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?android:attr/selectableItemBackground">
         <ImageView
             android:layout_width="25dp"
             android:layout_height="25dp"
@@ -182,13 +205,16 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@android:color/darker_gray"
-        android:layout_marginVertical="10dp"/>
+        android:background="@android:color/darker_gray"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:paddingHorizontal="10dp"
+        android:orientation="horizontal"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?android:attr/selectableItemBackground">
         <ImageView
             android:layout_width="25dp"
             android:layout_height="25dp"
@@ -203,11 +229,14 @@
             android:textSize="20dp"
             android:layout_gravity="center"/>
     </LinearLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:paddingHorizontal="10dp"
+        android:orientation="horizontal"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?android:attr/selectableItemBackground">
         <ImageView
             android:layout_width="25dp"
             android:layout_height="25dp"
