@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/save"
+        android:title="save"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_tags"/>
+
+    <item android:id="@+id/undo"
+        android:title="undo"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_tags"/>
+
+    <item android:id="@+id/redo"
+        android:title="redo"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_tags"/>
+
+    <item android:id="@+id/text"
+        android:title="edit"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_tags"/>
+
+    <item android:id="@+id/attachment"
+        android:title="attach"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_tags"/>
+
+    <item android:id="@+id/capture"
+        android:title="camera"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_tags"/>
+
+</menu>
