@@ -33,6 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="notebook name"
+                android:onClick="choose_notebook"
                 android:id="@+id/noteview_notebook"/>
 
             <ImageButton

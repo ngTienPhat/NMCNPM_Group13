@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -186,5 +187,9 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
         catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void choose_notebook(View view) {
+
     }
 }
