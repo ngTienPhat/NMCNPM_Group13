@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.app.NavUtils;
 
 import com.google.gson.Gson;
 
@@ -84,6 +85,7 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
         else{
             notebookId = catcher.getStringExtra("notebookid");
             clickedNote = USER.getInstance().getNote(notebookId, noteId);
+            //notebookId = clickedNote.getNotebookID();
         }
     }
 
@@ -94,6 +96,9 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
         if (!isNewNote){
             content = new Gson().fromJson(clickedNote.getContent(), DraftModel.class);
             title.setText(clickedNote.getTitle());
+            if (content == null){
+                content = initDraftContent();
+            }
         }
         else{
             content = initDraftContent();
@@ -119,9 +124,9 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
         ArrayList<DraftDataItemModel> contentTypes = new ArrayList<>();
         DraftDataItemModel heading = new DraftDataItemModel();
         heading.setItemType(DraftModel.ITEM_TYPE_TEXT);
-        heading.setContent("Edit your note here");
+        heading.setContent("take note here");
         heading.setMode(MODE_PLAIN);
-        heading.setStyle(H3);
+        heading.setStyle(NORMAL);
 
         contentTypes.add(heading);
         DraftModel contentModel = new DraftModel(contentTypes);
@@ -137,7 +142,7 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
     }
 
     public void save_content(MenuItem item) {
-        clickedNote.setContent(new Gson().toJson(content));
+        clickedNote.setContent(new Gson().toJson(markDEditor.getDraft()));
         clickedNote.setTitle(title.getText().toString());
         clickedNote.setCreateDate(getCurrentDateAsFormat("dd-MM-yyyy"));
 
@@ -199,4 +204,5 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
         getMenuInflater().inflate(R.menu.menu_edit_note, menu);
         return true;
     }
+
 }

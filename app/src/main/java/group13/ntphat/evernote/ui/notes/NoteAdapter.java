@@ -19,7 +19,7 @@ import group13.ntphat.evernote.R;
 public class NoteAdapter extends ArrayAdapter<NOTE> {
     private Context mContext;
     private ArrayList<NOTE> listNotes;
-    int resource;
+    private int resource;
 
     public NoteAdapter(@NonNull Context context, int resource, @NonNull ArrayList<NOTE> objects) {
         super(context, resource, objects);

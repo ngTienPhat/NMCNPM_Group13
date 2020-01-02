@@ -29,8 +29,6 @@ import xute.markdeditor.MarkDEditor;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     private AppBarConfiguration mAppBarConfiguration;
-    private MarkDEditor markDEditor;
-    private EditorControlBar editorControlBar;
     private DrawerLayout drawer;
     private NavigationView navigationView;
 

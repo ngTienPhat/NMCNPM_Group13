@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
@@ -23,9 +24,11 @@ public class NotesFragment extends Fragment {
     private ArrayList<NOTE> listNote;
     static private NoteAdapter listNoteAdapter;
     private View root;
+    private boolean isHasListnote;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        isHasListnote=false;
         root = inflater.inflate(R.layout.fragment_notes, container, false);
         loadListNotes();
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -39,6 +42,7 @@ public class NotesFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
         return root;
     }
 
@@ -46,8 +50,22 @@ public class NotesFragment extends Fragment {
         listNoteAdapter.notifyDataSetChanged();
     }
 
+    private void getListNoteIfExist(){
+        String passedNotebookId = "";
+        isHasListnote=false;
+        try{
+            passedNotebookId = getArguments().getParcelable("notebookid");
+        } catch (Exception e) {
+            return;
+        }
+        listNote = USER.getInstance().getNoteBook(passedNotebookId).notes;
+        isHasListnote = true;
+    }
+
     private void loadListNotes(){
-        initListNote();
+        getListNoteIfExist();
+        if (!isHasListnote)
+            initListNote();
         listNoteAdapter = new NoteAdapter(getContext(), R.layout.note_item, listNote);
         listView = root.findViewById(R.id.list_notes);
         listView.setAdapter(listNoteAdapter);
@@ -61,6 +79,6 @@ public class NotesFragment extends Fragment {
 //        intent.putExtra("Notebook_name", USER.getInstance().getNoteBook(note.getNotebookID()).getNameNoteBook());
 //        intent.putExtra("content", note.getContent());
         intent.putExtra("noteid", note.getNoteID());
+        intent.putExtra("notebookid", note.getNotebookID());
     }
-
 }
