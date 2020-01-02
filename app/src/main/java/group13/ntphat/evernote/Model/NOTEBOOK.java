@@ -27,17 +27,4 @@ public class NOTEBOOK {
     public void setCreateDate(String createDate) {
         this.createDate = createDate;
     }
-
-    public void addNote(NOTE note) {
-        notes.add(note);
-    }
-    public void removeNote(String noteID) {
-        for (int i = 0; i < notes.size(); i++) {
-            if (noteID == notes.get(i).getNoteID()) {
-                notes.remove(i);
-                break;
-            }
-        }
-    }
-
 }

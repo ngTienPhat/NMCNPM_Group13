@@ -48,17 +48,4 @@ public class NOTE {
         }
         return false;
     }
-
-    public void addTag(String tag) {
-        tags.add(tag);
-    }
-
-    public void remove(String tag) {
-        for (int i = 0; i < tags.size(); i++) {
-            if (tag == tags.get(i)) {
-                tags.remove(i);
-                break;
-            }
-        }
-    }
 }

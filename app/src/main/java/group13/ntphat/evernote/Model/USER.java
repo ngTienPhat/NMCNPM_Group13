@@ -37,6 +37,26 @@ public class USER {
         }
     }
 
+    public void addNote(String notebookID, NOTE note) {
+
+    }
+
+    public void removeNote(String notebookID, String noteID) {
+
+    }
+
+    public void addTag(String notebookID, String noteID, String tag) {
+
+    }
+
+    public void removeTag(String notebookID, String noteID, String tag) {
+
+    }
+
+    public void changeNotebook(String noteID, String oldNotebookID, String newNotebookID) {
+
+    }
+
     public ArrayList<NOTE> getAllNote() {
         ArrayList<NOTE> ans = new ArrayList<>();
         for (int i = 0; i < notebooks.size(); i++) {
@@ -80,4 +100,24 @@ public class USER {
         return ans;
     }
 
+    public NOTEBOOK getNoteBook(String notebookID) {
+        for (int i = 0; i < notebooks.size(); i++) {
+            if (notebooks.get(i).getNotebookID().equals(notebookID)) {
+                return notebooks.get(i);
+            }
+        }
+        return null;
+    }
+
+    public NOTE getNote(String notebookID, String noteID) {
+        return null;
+    }
+
+    public void download() {
+
+    }
+
+    public void upload() {
+
+    }
 }
