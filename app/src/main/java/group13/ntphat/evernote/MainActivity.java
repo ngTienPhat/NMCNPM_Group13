@@ -19,6 +19,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
+import group13.ntphat.evernote.Model.DATA;
 import group13.ntphat.evernote.ui.notes.ViewNoteActivity;
 import xute.markdeditor.EditorControlBar;
 import xute.markdeditor.MarkDEditor;
@@ -42,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
                 createPopupMenu(view);
             }
         });
+
+        DATA.getAllInfo(this.getBaseContext(), "c3acc55a2d1411eab30000d86105dafc");
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
