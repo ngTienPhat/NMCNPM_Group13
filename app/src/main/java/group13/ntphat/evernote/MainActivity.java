@@ -33,7 +33,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private EditorControlBar editorControlBar;
     private DrawerLayout drawer;
     private NavigationView navigationView;
-    private NavController navController;
+
+    public static int lastFragment;
+    public static NavController navController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,9 +61,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 R.id.nav_workchat, R.id.nav_setting, R.id.nav_share, R.id.nav_send)
                 .setDrawerLayout(drawer)
                 .build();
+        this.lastFragment = R.id.nav_allnotes;
         this.navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-//        NavigationUI.setupWithNavController(navigationView, navController);
     }
 
     @Override
@@ -72,6 +74,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             intent = new Intent(this, SettingActivity.class);
             startActivity(intent);
         } else {
+            lastFragment = item.getItemId();
             NavigationUI.onNavDestinationSelected(item, this.navController);
         }
         this.drawer.closeDrawer(GravityCompat.START);

@@ -13,14 +13,31 @@ public class USER {
     private String userName;
     private ArrayList<NOTEBOOK> notebooks;
 
-    private USER() {
-        notebooks = new ArrayList<NOTEBOOK>();
+    private USER(String userID, String fullName, String userEmail, int accountLevel,
+                 String memberSince, String userName) {
+        this.userID = userID;
+        this.fullName = fullName;
+        this.userEmail = userEmail;
+        this.accountLevel = accountLevel;
+        this.memberSince = memberSince;
+        this.userName = userName;
+        this.notebooks = new ArrayList<>();
     }
 
     private static USER INSTANCE = null;
     public static USER getInstance() {
         if (INSTANCE == null) {
-            INSTANCE = new USER();
+            INSTANCE = new USER("123", "haituan134", "haituan134@gmail.com",
+                    1, "10/5/2019", "haituan134");
+            NOTEBOOK notebook = new NOTEBOOK("345", "NMCNPM", "10/5/2019");
+            NOTE note = new NOTE("678", "345", "Báo cáo", "10/5", "");
+            NOTE note1 = new NOTE("789", "345", "Thực hành", "10/5", "");
+            note.addTag("a");
+            note.addTag("b");
+            note1.addTag("b");
+            notebook.addNote(note);
+            notebook.addNote(note1);
+            INSTANCE.addNoteBook(notebook);
         }
         return INSTANCE;
     }
@@ -159,13 +176,5 @@ public class USER {
 
         noteChanged.setNotebookID(newNotebookID);
         this.addNote(newNotebookID, noteChanged);
-    }
-
-    public void download() {
-
-    }
-
-    public void upload() {
-
     }
 }

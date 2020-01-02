@@ -21,7 +21,7 @@ public class NotesFragment extends Fragment {
 
     private ListView listView;
     private ArrayList<NOTE> listNote;
-    private NoteAdapter listNoteAdapter;
+    static private NoteAdapter listNoteAdapter;
     private View root;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -40,6 +40,10 @@ public class NotesFragment extends Fragment {
             }
         });
         return root;
+    }
+
+    static public void updateListNotes(){
+        listNoteAdapter.notifyDataSetChanged();
     }
 
     private void loadListNotes(){
