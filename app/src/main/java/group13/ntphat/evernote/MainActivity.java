@@ -1,5 +1,6 @@
 package group13.ntphat.evernote;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,6 +19,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
+import group13.ntphat.evernote.ui.notes.ViewNoteActivity;
 import xute.markdeditor.EditorControlBar;
 import xute.markdeditor.MarkDEditor;
 
@@ -94,8 +96,12 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.action_add_picture:
                         Toast.makeText(MainActivity.this, "Picture!", Toast.LENGTH_SHORT).show();
                         return true;
+
                     case R.id.action_add_note:
-                        Toast.makeText(MainActivity.this, "Note!", Toast.LENGTH_SHORT).show();
+                        Intent intent;
+                        intent = new Intent(getApplicationContext(), ViewNoteActivity.class);
+                        intent.putExtra("noteid", "-1");
+                        startActivity(intent);
                         return true;
                     default:
                         return false;

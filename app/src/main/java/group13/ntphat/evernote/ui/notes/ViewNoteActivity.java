@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -75,7 +76,7 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
 
     private void getClickedNote(Intent catcher){
         String noteId = catcher.getStringExtra("noteid");
-        if (noteId == "-1"){
+        if (noteId.equals("-1")){
             clickedNote = new NOTE();
             notebookId = USER.getInstance().getAllNoteBook().get(0).getNotebookID();
             isNewNote=true;
@@ -186,5 +187,9 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
         catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void choose_notebook(View view) {
+
     }
 }
