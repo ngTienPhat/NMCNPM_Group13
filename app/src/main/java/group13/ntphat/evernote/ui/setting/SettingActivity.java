@@ -13,6 +13,6 @@ public class SettingActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_setting);
-        setTitle("Cài đặt");
+        setTitle("Setting");
     }
 }

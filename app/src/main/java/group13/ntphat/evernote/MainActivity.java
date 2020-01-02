@@ -1,6 +1,5 @@
 package group13.ntphat.evernote;
 
-import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -27,13 +26,14 @@ import group13.ntphat.evernote.ui.setting.SettingActivity;
 import xute.markdeditor.EditorControlBar;
 import xute.markdeditor.MarkDEditor;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     private AppBarConfiguration mAppBarConfiguration;
     private MarkDEditor markDEditor;
     private EditorControlBar editorControlBar;
     private DrawerLayout drawer;
     private NavigationView navigationView;
+    private NavController navController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,30 +51,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         this.drawer = findViewById(R.id.drawer_layout);
         this.navigationView = findViewById(R.id.nav_view);
-
+        this.navigationView.setNavigationItemSelectedListener(this);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_allnotes, R.id.nav_notebook, R.id.nav_tags,
-                R.id.nav_photos, R.id.nav_workchat, R.id.nav_setting, R.id.nav_share)
+                R.id.nav_allnotes, R.id.nav_notebook, R.id.nav_tags, R.id.nav_photos,
+                R.id.nav_workchat, R.id.nav_setting, R.id.nav_share, R.id.nav_send)
                 .setDrawerLayout(drawer)
                 .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        this.navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-        NavigationUI.setupWithNavController(navigationView, navController);
-        this.navigationView.setNavigationItemSelectedListener(this);
+//        NavigationUI.setupWithNavController(navigationView, navController);
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
-        switch (item.getItemId()) {
-            case R.id.nav_setting: {
-                Intent intent;
-                intent = new Intent(this, SettingActivity.class);
-                startActivity(intent);
-                break;
-            }
+        if (item.getItemId() == R.id.nav_setting) {
+            Intent intent;
+            intent = new Intent(this, SettingActivity.class);
+            startActivity(intent);
+        } else {
+            NavigationUI.onNavDestinationSelected(item, this.navController);
         }
         this.drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -82,7 +80,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }

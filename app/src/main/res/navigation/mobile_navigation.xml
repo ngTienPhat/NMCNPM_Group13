@@ -23,12 +23,6 @@
         android:label="@string/menu_collect_photos"
         tools:layout="@layout/fragment_photos" />
 
-<!--    <fragment-->
-<!--        android:id="@+id/nav_setting"-->
-<!--        android:name="group13.ntphat.evernote.ui.setting.SettingFragment"-->
-<!--        android:label="@string/menu_setting"-->
-<!--        tools:layout="@layout/fragment_setting" />-->
-
     <fragment
         android:id="@+id/nav_workchat"
         android:name="group13.ntphat.evernote.ui.workchat.WorkchatFragment"
@@ -46,5 +40,12 @@
         android:name="group13.ntphat.evernote.ui.tag.TagFragment"
         android:label="@string/menu_tags"
         tools:layout="@layout/fragment_tag" />
+
+    <fragment
+        android:id="@+id/nav_send"
+        android:name="group13.ntphat.evernote.ui.send.SendFragment"
+        android:label="@string/menu_send"
+        tools:layout="@layout/fragment_send" />
+
 
 </navigation>
