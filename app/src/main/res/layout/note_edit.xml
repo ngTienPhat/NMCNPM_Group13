@@ -11,50 +11,73 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:orientation="vertical"
+        android:layout_marginHorizontal="10dp"
         android:id="@+id/note_header">
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="title"
+            android:hint="Tiêu đề"
             android:textSize="20dp"
             android:id="@+id/noteview_title"
-            android:textStyle="bold"/>
-        <LinearLayout
+            android:textStyle="bold"
+            android:layout_marginVertical="10dp"/>
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-            <ImageView
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:id="@+id/notebook_icon"
-                android:src="@drawable/ic_notebook"/>
-
-            <TextView
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:tint="#444444"
+                    android:id="@+id/notebook_icon"
+                    android:src="@drawable/ic_notebook"
+                    android:gravity="center"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Tên sổ tay"
+                    android:textStyle="bold"
+                    android:textColor="#000"
+                    android:id="@+id/noteview_notebook"
+                    android:gravity="center"/>
+            </LinearLayout>
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="notebook name"
-                android:onClick="choose_notebook"
-                android:id="@+id/noteview_notebook"/>
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_alignParentEnd="true">
+                <ImageButton
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:id="@+id/btn_reminder"
+                    android:src="@drawable/ic_notification"
+                    android:tint="#444444"
+                    android:scaleType="centerCrop"
+                    android:backgroundTint="#FFFFFF"/>
 
-            <ImageButton
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:id="@+id/btn_reminder"
-                android:src="@drawable/reminder"
-                android:scaleType="fitXY"/>
+                <ImageButton
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:id="@+id/btn_addtag"
+                    android:src="@drawable/ic_tags"
+                    android:tint="#444444"
+                    android:scaleType="centerCrop"
+                    android:backgroundTint="#FFFFFF"/>
 
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:id="@+id/btn_addtag"
-                android:src="@drawable/ic_tags"/>
-
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:id="@+id/btn_detail"
-                android:src="@drawable/ic_notebook"/>
-        </LinearLayout>
+                <ImageButton
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:id="@+id/btn_detail"
+                    android:src="@android:drawable/ic_dialog_info"
+                    android:tint="#444444"
+                    android:scaleType="centerCrop"
+                    android:backgroundTint="#FFFFFF"/>
+            </LinearLayout>
+        </RelativeLayout>
 
 
     </LinearLayout>
