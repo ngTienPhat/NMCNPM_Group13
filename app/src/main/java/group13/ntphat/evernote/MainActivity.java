@@ -56,9 +56,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-        // markd_editor and editor_control_bar
-        //markDEditor = findViewById(R.id.mdEditor);
-        //editorControlBar = findViewById(R.id.controlBar);
+
     }
 
     @Override
