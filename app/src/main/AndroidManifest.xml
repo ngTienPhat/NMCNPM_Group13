@@ -15,7 +15,7 @@
         <activity android:name=".ui.setting.SettingActivity"
             android:parentActivityName=".MainActivity"/>
         <activity android:name=".ui.notebook.ViewListnoteActivity"
-            android:parentActivityName=".MainActivity"/>
+            android:launchMode="singleTop" />
         <activity android:name=".ui.notebook.ViewCommonNoteActivity"
             android:parentActivityName=".ui.notebook.ViewListnoteActivity"/>
         <activity

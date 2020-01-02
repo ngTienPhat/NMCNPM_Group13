@@ -53,7 +53,7 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
     private EditorControlBar editorControlBar;
     private NOTE clickedNote;
 
-    private String notebookId;
+    static public String notebookId;
     private EditText title;
     private TextView notebook;
     private boolean isNewNote;
@@ -234,6 +234,10 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_edit_note, menu);
         return true;
+    }
+
+    public String getNotebookId(){
+        return notebookId;
     }
 
 }

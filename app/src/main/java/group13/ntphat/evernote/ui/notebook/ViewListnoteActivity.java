@@ -1,7 +1,9 @@
 package group13.ntphat.evernote.ui.notebook;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -49,10 +51,23 @@ public class ViewListnoteActivity extends AppCompatActivity {
                 NOTE chosenNote = listNote.get(position);
 
                 putNoteToViewNoteActivity(intent, chosenNote);
-                startActivity(intent);
+                startActivityForResult(intent, 1);
             }
         });
         //openNoteFragment(notebookId);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if (resultCode == Activity.RESULT_OK) {
+                notebookId = data.getStringExtra("notebookid");
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                //Write your code if there's no result
+            }
+        }
     }
 
     private void getKeyToGetListNote(Intent intentCatcher){
@@ -82,4 +97,8 @@ public class ViewListnoteActivity extends AppCompatActivity {
         intent.putExtra("notebookid", note.getNotebookID());
     }
 
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
 }
