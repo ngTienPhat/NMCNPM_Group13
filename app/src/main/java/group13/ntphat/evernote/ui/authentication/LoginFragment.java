@@ -5,22 +5,24 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentActivity;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
 import group13.ntphat.evernote.MainActivity;
 import group13.ntphat.evernote.Model.DATA;
-import group13.ntphat.evernote.Model.USER;
 import group13.ntphat.evernote.R;
 
 
 
-public class LoginActivity extends FragmentActivity {
+public class LoginFragment extends Fragment {
+
     class MyReceiver extends BroadcastReceiver {
         public int state;
 
@@ -32,36 +34,24 @@ public class LoginActivity extends FragmentActivity {
             if (name.equals("login")) {
                 if (success == 1) {
                     //DATA.getAllInfo(context, USER.getInstance().getUserID());
-                    Intent intentSuccess = new Intent(LoginActivity.this, MainActivity.class);
+                    // Intent intentSuccess = new Intent(LoginFragment.this, MainActivity.class);
+                    Intent intentSuccess = new Intent(LoginFragment.this.getContext(), MainActivity.class);
                     context.startActivity(intentSuccess);
                 }else {
-                    Toast.makeText(context, "Wrong password!",
+                    Toast.makeText(LoginFragment.this.getContext(), "Wrong password!",
                             Toast.LENGTH_LONG).show();
                 }
             }
-//        if (name.equals("singup")) {
-//            if (success == 1) {
-//
-//            }else {
-//
-//            }
-//        }
-//
-//        if (name.equals("getAllInfo")) {
-//
-//        }
         }
     }
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-        setTitle("Evernote");
 
-        final EditText editTxtUsername = findViewById(R.id.editTxt_username);
-        final EditText editTxtPassword = findViewById(R.id.editTxt_password);
-        View btn = findViewById(R.id.btn_login);
+    public View onCreateView(@NonNull final LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
+        View root = inflater.inflate(R.layout.fragment_login, container, false);
+        final EditText editTxtUsername = root.findViewById(R.id.editTxt_username);
+        final EditText editTxtPassword = root.findViewById(R.id.editTxt_password);
 
+        View btn = root.findViewById(R.id.btn_login);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,9 +60,18 @@ public class LoginActivity extends FragmentActivity {
                 // Do login
                 IntentFilter intentFilter = new IntentFilter();
                 intentFilter.addAction("DATA");
-                registerReceiver(new MyReceiver(), intentFilter);
-                DATA.login(getBaseContext(), username, password);
+                LoginFragment.this.getContext().registerReceiver(new MyReceiver(), intentFilter);
+                DATA.login(getContext(), username, password);
             }
         });
+
+        View txtSignUp = root.findViewById(R.id.txt_signUp);
+        txtSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AuthenticationActivity.SwapFragment(AuthenticationActivity.FRAGMENT_SIGN_UP);
+            }
+        });
+        return root;
     }
 }
