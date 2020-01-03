@@ -27,6 +27,8 @@ public class NotebookFragment extends Fragment {
     private ListView listView;
     private ArrayList<NOTEBOOK> notebooks;
 
+    public ListNotebookAdapter listNotebookAdapter;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_notebook, container, false);
@@ -35,8 +37,10 @@ public class NotebookFragment extends Fragment {
         listView = root.findViewById(R.id.list_notebooks);
         notebooks = USER.getInstance().getAllNoteBook();
 
-        if (notebooks.size() != 0)
-            listView.setAdapter(new ListNotebookAdapter(inflater, notebooks));
+        if (notebooks.size() != 0){
+            listNotebookAdapter = new ListNotebookAdapter(inflater, notebooks);
+            listView.setAdapter(listNotebookAdapter);
+        }
         else {
             TextView textView = (TextView)root.findViewById(R.id.textView_whenEmpty);
             textView.setText("Không có sổ tay nào");
@@ -49,17 +53,6 @@ public class NotebookFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-//                Bundle args = new Bundle();
-//                args.putString("listnote", notebooks.get(position).getNotebookID());
-//                NotesFragment notesFragment = new NotesFragment();
-//                notesFragment.setArguments(args);
-//                getActivity().getSupportFragmentManager().beginTransaction()
-//                        .replace(R.id.nav_notebook, notesFragment, "findThisFragment")
-//                        .addToBackStack(null)
-//                        .commit();
-//                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-//                fragmentTransaction.replace(R.id.nav_allnotes, notesFragment);
-//                fragmentTransaction.commit();
                 Intent intent = new Intent(getContext(), ViewListnoteActivity.class);
                 intent.putExtra("notebookid", notebooks.get(position).getNotebookID());
                 startActivity(intent);

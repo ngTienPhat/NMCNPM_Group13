@@ -113,6 +113,7 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
             if (content == null){
                 content = initDraftContent();
             }
+            spinner.setBackground(null);
         }
         else{
             ArrayList<NOTEBOOK> list_nb = USER.getInstance().getAllNoteBook();
@@ -138,6 +139,7 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
                     notebookId = nb_ids.get(0);
                 }
             });
+            notebook.setVisibility(View.INVISIBLE);
             USER.getInstance().addNote(this.getBaseContext(), notebookId, "");
             content = initDraftContent();
         }
@@ -238,7 +240,6 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
     }
 
     public void choose_notebook(View view) {
-
     }
 
     @Override

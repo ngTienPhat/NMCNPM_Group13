@@ -22,7 +22,7 @@ public class NotesFragment extends Fragment {
 
     private ListView listView;
     private ArrayList<NOTE> listNote;
-    static private NoteAdapter listNoteAdapter;
+    static public NoteAdapter listNoteAdapter;
     private View root;
     private boolean isHasListnote;
 

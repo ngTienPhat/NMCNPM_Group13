@@ -25,9 +25,9 @@ import group13.ntphat.evernote.ui.notes.ViewNoteActivity;
 
 public class ViewListnoteActivity extends AppCompatActivity {
     private ListView listView;
-    private ArrayList<NOTE> listNote;
+    public ArrayList<NOTE> listNote;
     static private NoteAdapter listNoteAdapter;
-    private String notebookId;
+    public String notebookId;
     private String tagId;
     private String notebookName;
     @Override
@@ -38,8 +38,7 @@ public class ViewListnoteActivity extends AppCompatActivity {
         Intent intentCatcher = getIntent();
         getKeyToGetListNote(intentCatcher);
         loadListNoteByKey(notebookId);
-        notebookName = USER.getInstance().getNoteBook(notebookId).getNameNoteBook();
-        setTitle(notebookName);
+
 
         listView = findViewById(R.id.list_notes);
         listNoteAdapter = new NoteAdapter(getApplicationContext(), R.layout.note_item, listNote);
@@ -72,12 +71,14 @@ public class ViewListnoteActivity extends AppCompatActivity {
         }
     }
 
-    private void getKeyToGetListNote(Intent intentCatcher){
+    public void getKeyToGetListNote(Intent intentCatcher){
         notebookId = intentCatcher.getStringExtra("notebookid");
     }
 
-    private void loadListNoteByKey(String key){
+    public void loadListNoteByKey(String key){
         listNote = USER.getInstance().getNoteBook(key).notes;
+        notebookName = USER.getInstance().getNoteBook(notebookId).getNameNoteBook();
+        setTitle(notebookName);
     }
 
     private void openNoteFragment(String notebookId){
