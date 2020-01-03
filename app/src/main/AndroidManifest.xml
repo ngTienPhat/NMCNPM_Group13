@@ -14,8 +14,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".ui.authentication.LoginActivity"
-            android:windowSoftInputMode="adjustPan|adjustResize"
-            android:label="@string/title_activity_login">
+            android:windowSoftInputMode="adjustPan|adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
