@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>API Document</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    </head>
+    <body style="padding: 10px">
+        <h1>API Documents for Flask server</h1>
+        <hr/>
+        <div class="card mb-2" style="width: 30rem;">
+            <div class="card-header">
+                Info example user
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">userid: c3acc55a2d1411eab30000d86105dafc</li>
+                <li class="list-group-item">username: user003</li>
+                <li class="list-group-item">password: 123456</li>
+            </ul>
+        </div>
+        <button class="btn btn-primary mt-2" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+            <strong>https://localhost:5000/users/signIn?username=_____ & userpwd=_____ ( request parameter )</strong>
+        </button>
+        <div class="collapse mt-2 " id="collapseExample">
+            <div class="card card-body">
+                                <pre>{
+    "accountlevel": 0,
+    "fullname": "Lâm Anh",
+    "logIn": 1,
+    "membersince": "Thu, 02 Jan 2020 00:00:00 GMT",
+    "useremail": "lamanh123@gmail.com",
+    "userid": "c3acc55a2d1411eab30000d86105dafc",
+    "username": "user003",
+    "userpassword": "e10adc3949ba59abbe56e057f20f883e"
+}
+                </pre>
+            </div>
+        </div>
+        <button class="btn btn-primary mt-2" type="button" data-toggle="collapse" data-target="#createUser" aria-expanded="false" aria-controls="collapseExample">
+            <strong>https://localhost:5000/users/create -> POST method</strong>
+        </button>
+        <div class="collapse mt-2" id="createUser">
+            <div class="card card-body">
+                Body parameter include: fullname, username, useremail, password
+            </div>
+        </div>
+        <button class="btn btn-primary mt-2" type="button" data-toggle="collapse" data-target="#nothing" aria-expanded="false" aria-controls="collapseExample">
+            <strong>https://localhost:5000/uploader/upload -- upload file to server</strong>
+        </button>
+        <button class="btn btn-primary mt-2" type="button" data-toggle="collapse" data-target="#downloadFile" aria-expanded="false" aria-controls="collapseExample">
+            <strong>https://localhost:5000/download/option/filename -- download file from server</strong>
+        </button>
+        <div class="collapse mt-2" id="downloadFile">
+            <div class="card card-body">
+                     option = 'image' or 'json'
+                <br> example: https://localhost:5000/download/image/img01.jpg
+                <br> example: https://localhost:5000/download/json/j01.json
+            </div>
+        </div>
+        <button class="btn btn-primary mt-2" type="button" data-toggle="collapse" data-target="#getInfo" aria-expanded="false" aria-controls="collapseExample">
+            <strong>https://localhost:5000/users/userid/getAllInfo -- get all infomations about notebooks, notes.</strong>
+        </button>
+        <div class="collapse mt-2" id="getInfo">
+            <div class="card card-body">
+                <br> userid = userid get from signIn json
+                <pre>[
+    {
+        "createdate": "Thu, 02 Jan 2020 00:00:00 GMT",
+        "name": "First Notebook",
+        "notebookid": "c3ad3a342d1411ea948a00d86105dafc",
+        "notes": [
+            {
+                "contentfile": "lalalala",
+                "createddate": "Thu, 02 Jan 2020 00:00:00 GMT",
+                "noteid": "c3ad3a342d1411ea948a00d86105da01",
+                "tags": [
+                    {
+                        "tagname": "tag01"
+                    },
+                    {
+                        "tagname": "tag02"
+                    }
+                ],
+                "title": "First notebook"
+            },
+            {
+                "contentfile": "hahaha",
+                "createddate": "Thu, 02 Jan 2020 00:00:00 GMT",
+                "noteid": "c3ad3a342d1411ea948a00d86105da02",
+                "tags": [
+                    {
+                        "tagname": "tag01"
+                    }
+                ],
+                "title": "Second Notebook"
+            }
+        ],
+        "owner": "c3acc55a2d1411eab30000d86105dafc",
+        "workspaceid": null
+    }
+]
+                </pre>
+            </div>
+        </div>
+        <button class="btn btn-primary mt-2" type="button" data-toggle="collapse" data-target="#handleNotebook" aria-expanded="false" aria-controls="collapseExample">
+            <strong>https://localhost:5000/users/userid/notebook -- handle create notebook</strong><br>
+            <strong>https://localhost:5000/users/userid/notebook/notebookid -- handle update, delete notebook</strong>
+        </button>
+        <div class="collapse mt-2" id="handleNotebook">
+            <div class="card card-body">
+                <br> Method:
+                <br> + Post: to create a new notebook with notebookname
+                <br> ++ Example: ttps://localhost:5000/users/c3acc55a2d1411eab30000d86105dafc/notebook (body parameter: notebookname)
+                <br> + Put: update notebook with notebookid ( parameter body: notebookname )
+                <br> ++ Example: ttps://localhost:5000/users/c3acc55a2d1411eab30000d86105dafc/notebook/c3ad3a342d1411ea948a00d86105dafc (body parameter: notebookname)
+                <br> + Delete: del notebook with notebookid
+            </div>
+        </div>
+        <button class="btn btn-primary mt-2" type="button" data-toggle="collapse" data-target="#handleNote" aria-expanded="false" aria-controls="collapseExample">
+            <strong>https://localhost:5000/users/userid/note -- handle create note</strong> <br>
+            <strong>https://localhost:5000/users/userid/note/noteid -- handle update, delete note</strong>
+        </button>
+        <div class="collapse mt-2" id="handleNote">
+            <div class="card card-body">
+                <br> Method:
+                <br> + Post: to create a new note with notename
+                <br> ++ Example: https://localhost:5000/users/userid/note/
+                <br> ++ Content example:
+                <pre>
+{
+    "contentfile": "lalalala",
+    "tags": [
+        {
+            "tagname": "tag01"
+        },
+        {
+            "tagname": "tag02"
+        }
+    ],
+    "title": "First notebook",
+    "notebook": "c3ad3a342d1411ea948a00d86105dafc"
+}
+                </pre>
+                <br> + Put: update note with noteid ( parameter body: notename )
+                <br> + Delete: del note with noteid
+            </div>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    </body>
+</html>
