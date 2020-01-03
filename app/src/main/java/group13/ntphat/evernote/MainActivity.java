@@ -32,6 +32,7 @@ import java.io.InputStream;
 import group13.ntphat.evernote.Model.DATA;
 import group13.ntphat.evernote.Model.USER;
 import group13.ntphat.evernote.ui.notebook.NewNotebookDialog;
+import group13.ntphat.evernote.ui.notebook.NotebookFragment;
 import group13.ntphat.evernote.ui.notes.ViewNoteActivity;
 import group13.ntphat.evernote.ui.setting.SettingActivity;
 import xute.markdeditor.EditorControlBar;
@@ -183,5 +184,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void applyTexts(String notebookName) throws JSONException {
         USER.getInstance().addNoteBook(this.getBaseContext(), notebookName);
+        NotebookFragment.listNotebookAdapter.notifyDataSetChanged();
     }
 }

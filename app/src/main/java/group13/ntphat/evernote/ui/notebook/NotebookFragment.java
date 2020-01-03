@@ -27,7 +27,7 @@ public class NotebookFragment extends Fragment {
     private ListView listView;
     private ArrayList<NOTEBOOK> notebooks;
 
-    public ListNotebookAdapter listNotebookAdapter;
+    static public ListNotebookAdapter listNotebookAdapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
