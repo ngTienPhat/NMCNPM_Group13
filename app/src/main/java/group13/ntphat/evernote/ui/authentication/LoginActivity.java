@@ -1,5 +1,6 @@
 package group13.ntphat.evernote.ui.authentication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -7,6 +8,7 @@ import android.widget.EditText;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import group13.ntphat.evernote.MainActivity;
 import group13.ntphat.evernote.R;
 
 public class LoginActivity extends AppCompatActivity {
@@ -26,6 +28,8 @@ public class LoginActivity extends AppCompatActivity {
                 String username = editTxtUsername.getText().toString();
                 String password = editTxtPassword.getText().toString();
                 // Do login
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
     }

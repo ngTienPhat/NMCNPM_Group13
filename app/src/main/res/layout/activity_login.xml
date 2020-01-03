@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fancy="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <ProgressBar
-        android:id="@+id/login_progress"
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:visibility="gone" />
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:visibility="gone" />
         <ImageView
             android:layout_width="200dp"
             android:layout_height="200dp"
@@ -22,25 +23,65 @@
             android:src="@drawable/ic_evernote_lockup_secondary_rgb"
             android:layout_marginVertical="20dp"/>
 
-        <EditText
-            android:id="@+id/editTxt_username"
-            android:layout_width="fill_parent"
-            android:layout_height="200dp"
-            android:hint="username"
-            android:layout_gravity="center"
-            android:inputType="text"/>
-        <EditText
-            android:id="@+id/editTxt_password"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="240dp"
             android:layout_height="wrap_content"
-            android:hint="password"
-            android:layout_gravity="center"
-            android:inputType="textPassword"/>
-        <Button
-            android:id="@+id/btn_login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="login"
-            android:layout_gravity="center"/>
+            android:orientation="vertical"
+            android:layout_gravity="center">
+            <EditText
+                android:id="@+id/editTxt_username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="username"
+                android:inputType="text"/>
+            <EditText
+                android:id="@+id/editTxt_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="password"
+                android:inputType="textPassword"/>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <mehdi.sakout.fancybuttons.FancyButton
+                    android:id="@+id/btn_login"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_height="30dp"
+                    android:layout_width="match_parent"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="5dp"
+                    fancy:fb_borderColor="#00AA11"
+                    fancy:fb_borderWidth="2dp"
+                    fancy:fb_defaultColor="#00AA11"
+                    fancy:fb_focusColor="#424243"
+                    fancy:fb_radius="5dp"
+                    fancy:fb_text=""
+                    fancy:fb_textColor="#FFF"
+                    fancy:fb_textSize="12dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="ĐĂNG NHẬP"
+                    android:textSize="12dp"
+                    android:textStyle="bold"
+                    android:textColor="#FFF" />
+            </RelativeLayout>
+            <TextView
+                android:id="@+id/txt_forgetPassword"
+                android:clickable="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginVertical="10dp"
+                android:text="Quên mật khẩu"
+                android:textSize="12dp"
+                android:textStyle="bold"
+                android:textColor="#00AA11" />
+        </LinearLayout>
+
     </LinearLayout>
 </ScrollView>
