@@ -20,6 +20,8 @@ import androidx.core.app.ActivityCompat;
 
 import com.google.gson.Gson;
 
+import org.json.JSONException;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -136,13 +138,13 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
         return formattedDate;
     }
 
-    public void save_content(MenuItem item) {
+    public void save_content(MenuItem item) throws JSONException {
         clickedNote.setContent(new Gson().toJson(content));
         clickedNote.setTitle(title.getText().toString());
         clickedNote.setCreateDate(getCurrentDateAsFormat("dd-MM-yyyy"));
 
         String newNotebookId = notebookId;
-        USER.getInstance().updateNote(newNotebookId, clickedNote);
+        USER.getInstance().updateNote(this.getBaseContext(), newNotebookId, clickedNote);
     }
 
     @Override

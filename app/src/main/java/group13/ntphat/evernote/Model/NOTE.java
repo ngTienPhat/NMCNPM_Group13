@@ -1,5 +1,9 @@
 package group13.ntphat.evernote.Model;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 public class NOTE {
@@ -19,6 +23,38 @@ public class NOTE {
         this.content = content;
         this.tags = new ArrayList<>();
     }
+    public NOTE(JSONObject noteJSON) throws JSONException {
+        noteID = noteJSON.getString("noteid");
+        title = noteJSON.getString("title");
+        createDate = noteJSON.getString("createddate");
+        content = noteJSON.getString("contentfile");
+
+        JSONArray tagsJSON = noteJSON.getJSONArray("tags");
+        tags = new ArrayList<>();
+        for (int k = 0; k < tagsJSON.length(); k++) {
+            String tag = tagsJSON.getJSONObject(k).getString("tagname");
+            tags.add(tag);
+        }
+    }
+    JSONObject toJSONObject() throws JSONException {
+        JSONObject body = new JSONObject();
+        body.put("contentfile", content);
+        body.put("title", title);
+        body.put("notebookid", notebookID);
+
+        JSONArray tagsJSON = new JSONArray();
+        for (int i = 0; i < tags.size(); i++) {
+            JSONObject tag = new JSONObject();
+            tag.put("tagname", tags.get(i));
+
+            tagsJSON.put(tag);
+        }
+
+        body.put("tags", tagsJSON);
+
+        return body;
+    }
+
 
     public String getNoteID() {
         return noteID;

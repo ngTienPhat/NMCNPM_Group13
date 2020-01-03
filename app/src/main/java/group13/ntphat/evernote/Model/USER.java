@@ -1,5 +1,9 @@
 package group13.ntphat.evernote.Model;
 
+import android.content.Context;
+
+import org.json.JSONException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -35,6 +39,9 @@ public class USER {
     private String userName;
     private ArrayList<NOTEBOOK> notebooks;
 
+    private String newNoteID;
+    private String newNotebookID;
+
     private USER(String userID, String fullName, String userEmail, int accountLevel,
                  String memberSince, String userName) {
         this.userID = userID;
@@ -59,7 +66,7 @@ public class USER {
             note1.addTag("b");
             notebook.addNote(note);
             notebook.addNote(note1);
-            INSTANCE.addNoteBook(notebook);
+            INSTANCE.heper_addNoteBook(notebook);
         }
         return INSTANCE;
     }
@@ -85,6 +92,21 @@ public class USER {
         this.notebooks = new ArrayList<>();
         gc();
     }
+
+    public String getNewNoteID() {
+        return newNoteID;
+    }
+    public void setNewNoteID(String newNoteID) {
+        this.newNoteID = newNoteID;
+    }
+
+    public String getNewNotebookID() {
+        return newNotebookID;
+    }
+    public void setNewNotebookID(String newNotebookID) {
+        this.newNotebookID = newNotebookID;
+    }
+
     public ArrayList<NOTEBOOK> getAllNoteBook() {
         return notebooks;
     }
@@ -95,10 +117,13 @@ public class USER {
         }
         return null;
     }
-    public void addNoteBook(NOTEBOOK notebook) {
+    public void heper_addNoteBook(NOTEBOOK notebook) {
         notebooks.add(notebook);
     }
-    public void removeNoteBook(String notebookID) {
+    public void addNoteBook(Context context, String nameNotebook) throws JSONException {
+        DATA.createNotebook(context, nameNotebook);
+    }
+    public void heper_removeNoteBook(String notebookID) {
         for (int i = 0; i < notebooks.size(); i++) {
             if (notebookID == notebooks.get(i).getNotebookID()) {
                 notebooks.remove(i);
@@ -106,9 +131,14 @@ public class USER {
             }
         }
     }
-    public void updateNotebook(NOTEBOOK notebook) {
-        removeNoteBook(notebook.getNotebookID());
-        addNoteBook(notebook);
+    public void removeNoteBook(Context context, String notebookID) {
+        heper_removeNoteBook(notebookID);
+        DATA.removeNotebook(context, notebookID);
+    }
+    public void updateNotebook(Context context, NOTEBOOK notebook) throws JSONException {
+        heper_removeNoteBook(notebook.getNotebookID());
+        heper_addNoteBook(notebook);
+        DATA.updateNameNotebook(context, notebook.getNotebookID(), notebook.getNameNoteBook());
     }
 
     public ArrayList<NOTE> getAllNote() {
@@ -139,14 +169,17 @@ public class USER {
         }
         return ans;
     }
-    public void addNote(String notebookID, NOTE note) {
+    public void heper_addNote(String notebookID, NOTE note) {
         for (NOTEBOOK notebook:notebooks) {
             if (!notebook.getNotebookID().equals(notebookID)) continue;
             notebook.notes.add(note);
             break;
         }
     }
-    public void removeNote(String notebookID, String noteID) {
+    public void addNote(Context context, String notebookID, String nameNote) throws JSONException {
+        DATA.createNote(context, notebookID, nameNote);
+    }
+    public void heper_removeNote(String notebookID, String noteID) {
         for (NOTEBOOK notebook:notebooks) {
             if (!notebook.getNotebookID().equals(notebookID)) continue;
             for (int i = 0; i < notebook.notes.size(); i++) {
@@ -158,9 +191,14 @@ public class USER {
             }
         }
     }
-    public void updateNote(String notebookID, NOTE note) {
-        removeNote(notebookID, note.getNoteID());
-        addNote(notebookID, note);
+    public void removeNote(Context context, String notebookID, String noteID) {
+        heper_removeNote(notebookID, noteID);
+        DATA.removeNote(context, notebookID, noteID);
+    }
+    public void updateNote(Context context, String notebookID, NOTE note) throws JSONException {
+        heper_removeNote(notebookID, note.getNoteID());
+        heper_addNote(notebookID, note);
+        DATA.updateNote(context, note);
     }
 
     public Map getAllTag() {
@@ -218,6 +256,6 @@ public class USER {
         }
 
         noteChanged.setNotebookID(newNotebookID);
-        this.addNote(newNotebookID, noteChanged);
+        this.heper_addNote(newNotebookID, noteChanged);
     }
 }

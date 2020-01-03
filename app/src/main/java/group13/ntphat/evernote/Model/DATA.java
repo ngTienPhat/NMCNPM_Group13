@@ -21,7 +21,7 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 
 public class DATA {
-    static private String link = "https://b24dbbcb.ngrok.io/";
+    static private String link = "https://6eae35b4.ngrok.io/";
 
     static private void sendIntendBroadcast(Context context, String name, int success) {
         Intent intent = new Intent();
@@ -72,11 +72,10 @@ public class DATA {
 
         queue.add(stringRequest);
     }
-
     static public void signup(final Context context, final String userName, final String userEmail,
                               final String fullName, String password) throws JSONException {
         RequestQueue queue = Volley.newRequestQueue(context);
-        String url = link + "student";
+        String url = link + "users/create";
 
         final JSONObject body = new JSONObject();
         body.put("fullname", fullName);
@@ -144,6 +143,7 @@ public class DATA {
 
     }
 
+
     static public void getAllInfo(final Context context, String userID) {
         RequestQueue queue = Volley.newRequestQueue(context);
         String url = link + "users/" + userID + "/getAllInfo";
@@ -156,30 +156,8 @@ public class DATA {
                             JSONArray notebooks = new JSONArray(response);
 
                             for (int i = 0; i < notebooks.length(); i++) {
-                                JSONObject notebookJSON = notebooks.getJSONObject(i);
-                                String notebookID = notebookJSON.getString("notebookid");
-                                String nameNotebook = notebookJSON.getString("name");
-                                String createDate = notebookJSON.getString("createdate");
-                                NOTEBOOK notebook = new NOTEBOOK(notebookID, nameNotebook, createDate);
-
-                                JSONArray notes = notebooks.getJSONObject(i).getJSONArray("notes");
-                                for (int j = 0; j < notes.length(); j++) {
-                                    JSONObject noteJSON = notes.getJSONObject(j);
-                                    String noteID = noteJSON.getString("noteid");
-                                    String title = noteJSON.getString("title");
-                                    String noteCreateDate = noteJSON.getString("createddate");
-                                    String content = noteJSON.getString("contentfile");
-                                    NOTE note = new NOTE(noteID, notebookID, title, noteCreateDate, content);
-
-                                    JSONArray tags = noteJSON.getJSONArray("tags");
-                                    for (int k = 0; k < tags.length(); k++) {
-                                        String tag = tags.getJSONObject(k).getString("tagname");
-                                        note.addTag(tag);
-                                    }
-                                    notebook.addNote(note);
-                                }
-
-                                USER.getInstance().addNoteBook(notebook);
+                                NOTEBOOK notebook = new NOTEBOOK(notebooks.getJSONObject(i));
+                                USER.getInstance().heper_addNoteBook(notebook);
                             }
 
                             sendIntendBroadcast(context,"getAllInfo", 1);
@@ -201,7 +179,290 @@ public class DATA {
         queue.add(stringRequest);
     }
 
-    static public void upload() {
 
+    static public void createNotebook(final Context context, final String nameNotebook) throws JSONException {
+        RequestQueue queue = Volley.newRequestQueue(context);
+        String url = link + "users/" + USER.getInstance().getUserID() + "/notebook";
+
+        final JSONObject body = new JSONObject();
+        body.put("notebookname", nameNotebook);
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject notebookJSON = new JSONObject(response);
+                            NOTEBOOK notebook = new NOTEBOOK(notebookJSON);
+
+                            USER.getInstance().heper_addNoteBook(notebook);
+                            USER.getInstance().setNewNotebookID(notebook.getNotebookID());
+                            //DATA.sendIntendBroadcast(context, "signup", status);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        String msg;
+                        try {
+                            if (error.networkResponse.statusCode == 500) {
+                                msg = "Lỗi hệ thống";
+                            } else {
+                                JSONObject json = new JSONObject(new String(error.networkResponse.data, "utf-8"));
+                                msg = json.getString("message");
+                            }
+                            Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+                        } catch (JSONException | UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+        ) {
+            @Override
+            public String getBodyContentType() {
+                return "application/json; charset=utf-8";
+            }
+
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+                try {
+                    return body.toString().getBytes("utf-8");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                    return null;
+                }
+            }
+        };
+
+        queue.add(stringRequest);
+    }
+    static public void updateNameNotebook(final Context context, final String notebookID,
+                                          String nameNotebook) throws JSONException {
+        RequestQueue queue = Volley.newRequestQueue(context);
+        String url = link + "users/" + USER.getInstance().getUserID() + "/notebook/" + notebookID;
+
+        final JSONObject body = new JSONObject();
+        body.put("notebookname", nameNotebook);
+
+        StringRequest stringRequest = new StringRequest(Request.Method.PUT, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        //TODO
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        String msg;
+                        try {
+                            if (error.networkResponse.statusCode == 500) {
+                                msg = "Lỗi hệ thống";
+                            } else {
+                                JSONObject json = new JSONObject(new String(error.networkResponse.data, "utf-8"));
+                                msg = json.getString("message");
+                            }
+                            Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+                        } catch (JSONException | UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+        ) {
+            @Override
+            public String getBodyContentType() {
+                return "application/json; charset=utf-8";
+            }
+
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+                try {
+                    return body.toString().getBytes("utf-8");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                    return null;
+                }
+            }
+        };
+
+        queue.add(stringRequest);
+    }
+    static public void removeNotebook(final Context context, final String notebookID) {
+        RequestQueue queue = Volley.newRequestQueue(context);
+        String url = link + "users/" + USER.getInstance().getUserID() + "/notebook/" + notebookID;
+
+        StringRequest stringRequest = new StringRequest(Request.Method.DELETE, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        String msg;
+                        try {
+                            if (error.networkResponse.statusCode == 500) {
+                                msg = "Lỗi hệ thống";
+                            } else {
+                                JSONObject json = new JSONObject(new String(error.networkResponse.data, "utf-8"));
+                                msg = json.getString("message");
+                            }
+                            Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+                        } catch (JSONException | UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+        );
+        queue.add(stringRequest);
+    }
+
+
+    static public void createNote(final Context context, final String notebookID, final  String nameNote) throws JSONException {
+        RequestQueue queue = Volley.newRequestQueue(context);
+        String url = link + "users/" + USER.getInstance().getUserID() + "/note";
+
+        final JSONObject body = new JSONObject();
+        body.put("notebookid", notebookID);
+        body.put("notename", nameNote);
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject noteJSON = new JSONObject(response);
+                            NOTE note = new NOTE(noteJSON);
+
+                            USER.getInstance().heper_addNote(notebookID, note);
+                            USER.getInstance().setNewNoteID(note.getNoteID());
+                            //DATA.sendIntendBroadcast(context, "signup", status);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        String msg;
+                        try {
+                            if (error.networkResponse.statusCode == 500) {
+                                msg = "Lỗi hệ thống";
+                            } else {
+                                JSONObject json = new JSONObject(new String(error.networkResponse.data, "utf-8"));
+                                msg = json.getString("message");
+                            }
+                            Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+                        } catch (JSONException | UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+        ) {
+            @Override
+            public String getBodyContentType() {
+                return "application/json; charset=utf-8";
+            }
+
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+                try {
+                    return body.toString().getBytes("utf-8");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                    return null;
+                }
+            }
+        };
+
+        queue.add(stringRequest);
+    }
+    static public void updateNote(final Context context, final NOTE note) throws JSONException {
+        RequestQueue queue = Volley.newRequestQueue(context);
+        String url = link + "users/" + USER.getInstance().getUserID() + "/note/" + note.getNoteID();
+
+        final JSONObject body = note.toJSONObject();
+
+        StringRequest stringRequest = new StringRequest(Request.Method.PUT, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        //TODO
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        String msg;
+                        try {
+                            if (error.networkResponse.statusCode == 500) {
+                                msg = "Lỗi hệ thống";
+                            } else {
+                                JSONObject json = new JSONObject(new String(error.networkResponse.data, "utf-8"));
+                                msg = json.getString("message");
+                            }
+                            Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+                        } catch (JSONException | UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+        ) {
+            @Override
+            public String getBodyContentType() {
+                return "application/json; charset=utf-8";
+            }
+
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+                try {
+                    return body.toString().getBytes("utf-8");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                    return null;
+                }
+            }
+        };
+
+        queue.add(stringRequest);
+    }
+    static public void removeNote(final Context context, final String notebookID, final String noteID) {
+        RequestQueue queue = Volley.newRequestQueue(context);
+        String url = link + "users/" + USER.getInstance().getUserID() + "/note/" + noteID;
+
+        StringRequest stringRequest = new StringRequest(Request.Method.DELETE, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        String msg;
+                        try {
+                            if (error.networkResponse.statusCode == 500) {
+                                msg = "Lỗi hệ thống";
+                            } else {
+                                JSONObject json = new JSONObject(new String(error.networkResponse.data, "utf-8"));
+                                msg = json.getString("message");
+                            }
+                            Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+                        } catch (JSONException | UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+        );
+        queue.add(stringRequest);
     }
 }
