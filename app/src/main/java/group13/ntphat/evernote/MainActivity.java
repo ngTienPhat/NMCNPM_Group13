@@ -2,6 +2,7 @@ package group13.ntphat.evernote;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,12 +22,14 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
+import group13.ntphat.evernote.ui.notebook.NewNotebookDialog;
 import group13.ntphat.evernote.ui.notes.ViewNoteActivity;
 import group13.ntphat.evernote.ui.setting.SettingActivity;
 import xute.markdeditor.EditorControlBar;
 import xute.markdeditor.MarkDEditor;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
+, NewNotebookDialog.NewNotebookDialogListener{
 
     private AppBarConfiguration mAppBarConfiguration;
     private DrawerLayout drawer;
@@ -126,5 +129,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
         popup.show();
+    }
+
+    @Override
+    public void applyTexts(String notebookName) {
+        int a = 9;
+        Log.d("newnotebook", notebookName);
     }
 }
