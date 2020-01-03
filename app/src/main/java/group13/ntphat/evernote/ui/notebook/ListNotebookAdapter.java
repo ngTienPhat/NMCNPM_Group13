@@ -12,6 +12,10 @@ import group13.ntphat.evernote.Model.NOTEBOOK;
 import group13.ntphat.evernote.R;
 
 public class ListNotebookAdapter extends BaseAdapter {
+    public void setItems(List<NOTEBOOK> items) {
+        this.items = items;
+    }
+
     private List<NOTEBOOK> items;
     private LayoutInflater inflater;
 
