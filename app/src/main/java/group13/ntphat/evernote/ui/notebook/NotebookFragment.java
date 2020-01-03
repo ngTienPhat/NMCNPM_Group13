@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
 
+import group13.ntphat.evernote.MainActivity;
 import group13.ntphat.evernote.Model.NOTEBOOK;
 import group13.ntphat.evernote.Model.USER;
 import group13.ntphat.evernote.R;
@@ -31,6 +32,8 @@ public class NotebookFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        MainActivity.nb_fragment_id = getId();
+
         View root = inflater.inflate(R.layout.fragment_notebook, container, false);
         setHasOptionsMenu(true);
 
