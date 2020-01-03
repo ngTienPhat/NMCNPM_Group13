@@ -22,6 +22,8 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
+import org.json.JSONException;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -172,8 +174,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
-    public void applyTexts(String notebookName) {
-        int a = 9;
-        Log.d("newnotebook", notebookName);
+    public void applyTexts(String notebookName) throws JSONException {
+        USER.getInstance().addNoteBook(this.getBaseContext(), notebookName);
     }
 }

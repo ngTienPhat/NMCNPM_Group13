@@ -13,6 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
+import org.json.JSONException;
+
 import group13.ntphat.evernote.R;
 
 public class NewNotebookDialog extends AppCompatDialogFragment {
@@ -40,7 +42,11 @@ public class NewNotebookDialog extends AppCompatDialogFragment {
                 .setPositiveButton("xác nhận", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        listener.applyTexts(editText.getText().toString());
+                        try {
+                            listener.applyTexts(editText.getText().toString());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
 
@@ -60,7 +66,7 @@ public class NewNotebookDialog extends AppCompatDialogFragment {
     }
 
     public interface NewNotebookDialogListener {
-        void applyTexts(String notebookName);
+        void applyTexts(String notebookName) throws JSONException;
     }
 
 }
