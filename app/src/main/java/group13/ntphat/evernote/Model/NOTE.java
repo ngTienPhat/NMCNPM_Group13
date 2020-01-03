@@ -14,7 +14,9 @@ public class NOTE {
     private String content;
     public ArrayList<String> tags;
 
-    public NOTE() {}
+    public NOTE() {
+        tags = new ArrayList<>();
+    }
     public NOTE(String noteID, String notebookID, String title, String createDate, String content) {
         this.noteID = noteID;
         this.notebookID = notebookID;
