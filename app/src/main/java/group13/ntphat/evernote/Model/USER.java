@@ -56,7 +56,7 @@ public class USER {
     private static USER INSTANCE = null;
     public static USER getInstance() {
         if (INSTANCE == null) {
-            INSTANCE = new USER("c3acc55a2d1411eab30000d86105dafc", "haituan134", "haituan134@gmail.com",
+            INSTANCE = new USER("c3acc55a2d1411eab3000086105dafc", "haituan134", "haituan134@gmail.com",
                     1, "10/5/2019", "haituan134");
             NOTEBOOK notebook = new NOTEBOOK("345", "NMCNPM", "10/5/2019");
             NOTE note = new NOTE("678", "345", "Báo cáo", "10/5", "");
