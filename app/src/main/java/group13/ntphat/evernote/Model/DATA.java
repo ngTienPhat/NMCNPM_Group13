@@ -339,6 +339,7 @@ public class DATA {
                         try {
                             JSONObject noteJSON = new JSONObject(response);
                             NOTE note = new NOTE(noteJSON);
+                            note.setNotebookID(notebookID);
 
                             USER.getInstance().heper_addNote(notebookID, note);
                             USER.getInstance().setNewNoteID(note.getNoteID());
