@@ -10,12 +10,12 @@
     <item android:id="@+id/undo"
         android:title="undo"
         app:showAsAction="always"
-        android:icon="@drawable/ic_undo_foreground"/>
+        android:icon="@drawable/ic_undo"/>
 
     <item android:id="@+id/redo"
         android:title="redo"
         app:showAsAction="always"
-        android:icon="@drawable/ic_tags"/>
+        android:icon="@drawable/ic_redo"/>
 
     <item android:id="@+id/text"
         android:title="edit"

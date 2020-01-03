@@ -1,5 +1,7 @@
 package group13.ntphat.evernote;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -32,6 +34,7 @@ import java.io.InputStream;
 import group13.ntphat.evernote.Model.DATA;
 import group13.ntphat.evernote.Model.USER;
 import group13.ntphat.evernote.ui.notebook.NewNotebookDialog;
+import group13.ntphat.evernote.ui.notebook.NotebookFragment;
 import group13.ntphat.evernote.ui.notes.ViewNoteActivity;
 import group13.ntphat.evernote.ui.setting.SettingActivity;
 import xute.markdeditor.EditorControlBar;
@@ -47,34 +50,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static int lastFragment;
     public static NavController navController;
 
-//    private class MyReceiver extends BroadcastReceiver {
-//        @Override
-//        public void onReceive(Context context, Intent intent) {
-//            String name = intent.getStringExtra("name");
-//            int success = intent.getIntExtra("success", 0);
-//
-//            if (name.equals("login")) {
-//                if (success == 1) {
-//                    DATA.getAllInfo(context, USER.getInstance().getUserID());
-//                }else {
-//
-//                }
-//            }
-//
-//            if (name.equals("singup")) {
-//                if (success == 1) {
-//
-//                }else {
-//
-//                }
-//            }
-//
-//            if (name.equals("getAllInfo")) {
-//
-//            }
-//        }
-//    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -183,5 +159,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void applyTexts(String notebookName) throws JSONException {
         USER.getInstance().addNoteBook(this.getBaseContext(), notebookName);
+
+        NotebookFragment.listNotebookAdapter.notifyDataSetChanged();
     }
 }

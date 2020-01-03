@@ -18,6 +18,11 @@ import group13.ntphat.evernote.R;
 
 public class NoteAdapter extends ArrayAdapter<NOTE> {
     private Context mContext;
+
+    public void setListNotes(ArrayList<NOTE> listNotes) {
+        this.listNotes = listNotes;
+    }
+
     private ArrayList<NOTE> listNotes;
     private int resource;
 
@@ -47,5 +52,7 @@ public class NoteAdapter extends ArrayAdapter<NOTE> {
 
         return convertView;
     }
+
+
 
 }

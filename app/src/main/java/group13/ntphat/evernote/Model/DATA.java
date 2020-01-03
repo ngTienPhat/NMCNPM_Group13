@@ -21,7 +21,7 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 
 public class DATA {
-    static public String link = "https://6eae35b4.ngrok.io/";
+    static public String link = "https://e62fd3d2.ngrok.io/";
 
     static private void sendIntendBroadcast(Context context, String name, int success) {
         Intent intent = new Intent();
@@ -138,9 +138,7 @@ public class DATA {
                 }
             }
         };
-
         queue.add(stringRequest);
-
     }
 
 
