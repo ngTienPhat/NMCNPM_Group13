@@ -71,7 +71,11 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
         isNewNote=false;
         Intent intentCatcher = getIntent();
         getClickedNote(intentCatcher);
-        initComponent();
+        try {
+            initComponent();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -98,7 +102,7 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
         }
     }
 
-    private void initComponent(){
+    private void initComponent() throws JSONException {
         title = findViewById(R.id.noteview_title);
         notebook = findViewById(R.id.noteview_notebook);
         spinner = findViewById(R.id.notebook_chooser);
@@ -134,6 +138,7 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
                     notebookId = nb_ids.get(0);
                 }
             });
+            USER.getInstance().addNote(this.getBaseContext(), notebookId, "");
             content = initDraftContent();
         }
         String notebookName = USER.getInstance().getNoteBook(notebookId).getNameNoteBook();
@@ -174,25 +179,19 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
         return formattedDate;
     }
 
-<<<<<<< HEAD
-    public void save_content(MenuItem item) {
-        clickedNote.setContent(new Gson().toJson(markDEditor.getDraft()));
-=======
+
     public void save_content(MenuItem item) throws JSONException {
-        clickedNote.setContent(new Gson().toJson(content));
->>>>>>> origin/haituan134
+        clickedNote.setContent(new Gson().toJson(markDEditor.getDraft()));
         clickedNote.setTitle(title.getText().toString());
         clickedNote.setCreateDate(getCurrentDateAsFormat("dd-MM-yyyy"));
 
         String newNotebookId = notebookId;
-<<<<<<< HEAD
         if (clickedNote.getNoteID() != null)
-            USER.getInstance().updateNote(newNotebookId, clickedNote);
-        else
-            USER.getInstance().addNote(newNotebookId, clickedNote);
-=======
-        USER.getInstance().updateNote(this.getBaseContext(), newNotebookId, clickedNote);
->>>>>>> origin/haituan134
+            USER.getInstance().updateNote(this.getBaseContext(), newNotebookId, clickedNote);
+        else{
+            clickedNote.setNoteID(USER.getInstance().getNewNoteID());
+            USER.getInstance().updateNote(this.getBaseContext(), newNotebookId, clickedNote);
+        }
     }
 
     @Override

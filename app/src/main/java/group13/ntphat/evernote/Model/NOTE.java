@@ -60,6 +60,10 @@ public class NOTE {
         return noteID;
     }
 
+    public void setNoteID(String noteID) {
+        this.noteID = noteID;
+    }
+
     public String getNotebookID() {
         return notebookID;
     }
