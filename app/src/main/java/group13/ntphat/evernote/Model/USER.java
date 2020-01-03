@@ -42,7 +42,9 @@ public class USER {
     private String newNoteID;
     private String newNotebookID;
 
-    USER(){}
+    private USER() {
+        notebooks = new ArrayList<>();
+    }
     private USER(String userID, String fullName, String userEmail, int accountLevel,
                  String memberSince, String userName) {
         this.userID = userID;

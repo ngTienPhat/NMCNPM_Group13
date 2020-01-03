@@ -20,6 +20,8 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 
+import group13.ntphat.evernote.ui.notes.NotesFragment;
+
 public class DATA {
     static public String link = "https://e62fd3d2.ngrok.io/";
 
@@ -158,7 +160,8 @@ public class DATA {
                                 USER.getInstance().heper_addNoteBook(notebook);
                             }
 
-                            sendIntendBroadcast(context,"getAllInfo", 1);
+                            NotesFragment.updateListNotes();
+                            sendIntendBroadcast(context,"update", 1);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

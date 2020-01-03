@@ -36,7 +36,6 @@ import java.io.InputStream;
 import group13.ntphat.evernote.Model.DATA;
 import group13.ntphat.evernote.Model.USER;
 import group13.ntphat.evernote.ui.notebook.NewNotebookDialog;
-import group13.ntphat.evernote.ui.notebook.NotebookFragment;
 import group13.ntphat.evernote.ui.notes.ViewNoteActivity;
 import group13.ntphat.evernote.ui.setting.SettingActivity;
 import xute.markdeditor.EditorControlBar;
@@ -66,7 +65,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
