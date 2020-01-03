@@ -21,7 +21,7 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 
 public class DATA {
-    static private String link = "https://6eae35b4.ngrok.io/";
+    static public String link = "https://6eae35b4.ngrok.io/";
 
     static private void sendIntendBroadcast(Context context, String name, int success) {
         Intent intent = new Intent();
@@ -339,6 +339,7 @@ public class DATA {
                         try {
                             JSONObject noteJSON = new JSONObject(response);
                             NOTE note = new NOTE(noteJSON);
+                            note.setNotebookID(notebookID);
 
                             USER.getInstance().heper_addNote(notebookID, note);
                             USER.getInstance().setNewNoteID(note.getNoteID());

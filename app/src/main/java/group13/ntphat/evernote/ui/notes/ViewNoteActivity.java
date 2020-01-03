@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import group13.ntphat.evernote.Model.DATA;
 import group13.ntphat.evernote.Model.NOTE;
 import group13.ntphat.evernote.Model.NOTEBOOK;
 import group13.ntphat.evernote.Model.USER;
@@ -112,7 +113,6 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
             if (content == null){
                 content = initDraftContent();
             }
-
         }
         else{
             ArrayList<NOTEBOOK> list_nb = USER.getInstance().getAllNoteBook();
@@ -145,7 +145,7 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
         notebook.setText(notebookName);
         markDEditor = findViewById(R.id.mdEditor);
         markDEditor.configureEditor(
-                "https://be4808e3.ngrok.io/uploader/",
+                DATA.link + "uploader/",
                 "",
                 true,
                 "Start Here...",
@@ -170,7 +170,6 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
         DraftModel contentModel = new DraftModel(contentTypes);
         return contentModel;
     }
-
     private String getCurrentDateAsFormat(String format){
         Date c = Calendar.getInstance().getTime();
 
@@ -178,7 +177,6 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
         String formattedDate = df.format(c);
         return formattedDate;
     }
-
 
     public void save_content(MenuItem item) throws JSONException {
         clickedNote.setContent(new Gson().toJson(markDEditor.getDraft()));

@@ -28,6 +28,7 @@ public class NOTEBOOK {
         notes = new ArrayList<>();
         for (int j = 0; j < notesJSON.length(); j++) {
             NOTE note = new NOTE(notesJSON.getJSONObject(j));
+            note.setNotebookID(notebookID);
             notes.add(note);
         }
     }
