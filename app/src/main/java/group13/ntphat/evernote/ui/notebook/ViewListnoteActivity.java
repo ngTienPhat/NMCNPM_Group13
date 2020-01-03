@@ -1,8 +1,10 @@
 package group13.ntphat.evernote.ui.notebook;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -95,10 +97,5 @@ public class ViewListnoteActivity extends AppCompatActivity {
 //        intent.putExtra("content", note.getContent());
         intent.putExtra("noteid", note.getNoteID());
         intent.putExtra("notebookid", note.getNotebookID());
-    }
-
-    @Override
-    public void onBackPressed() {
-        finish();
     }
 }

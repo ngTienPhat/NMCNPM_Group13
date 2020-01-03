@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import group13.ntphat.evernote.Model.USER;
@@ -19,10 +20,12 @@ import group13.ntphat.evernote.R;
 
 public class TagFragment extends Fragment {
 
+    private ListView listView;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_tag, container, false);
-        final ListView listView = root.findViewById(R.id.list_tags);
+        listView = root.findViewById(R.id.list_tags);
         ArrayList<ListTagItem> tags = getTags();
         if (tags.size() != 0)
             listView.setAdapter(new ListTagAdapter(inflater, tags));

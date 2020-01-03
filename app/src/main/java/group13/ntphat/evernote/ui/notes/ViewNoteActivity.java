@@ -178,7 +178,10 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
         clickedNote.setCreateDate(getCurrentDateAsFormat("dd-MM-yyyy"));
 
         String newNotebookId = notebookId;
-        USER.getInstance().updateNote(newNotebookId, clickedNote);
+        if (clickedNote.getNoteID() != null)
+            USER.getInstance().updateNote(newNotebookId, clickedNote);
+        else
+            USER.getInstance().addNote(newNotebookId, clickedNote);
     }
 
     @Override
