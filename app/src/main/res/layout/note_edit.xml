@@ -70,6 +70,7 @@
                     android:src="@drawable/ic_tags"
                     android:tint="#444444"
                     android:scaleType="centerCrop"
+                    android:onClick="add_tag"
                     android:backgroundTint="#FFFFFF"/>
 
                 <ImageButton

@@ -24,7 +24,7 @@ import group13.ntphat.evernote.ui.notebook.NotebookFragment;
 import group13.ntphat.evernote.ui.notes.NotesFragment;
 
 public class DATA {
-    static public String link = "https://941506ae.ngrok.io/";
+    static public String link = "https://project-nmcnpm.herokuapp.com/";
 
     static private void sendIntendBroadcast(Context context, String name, int success) {
         Intent intent = new Intent();

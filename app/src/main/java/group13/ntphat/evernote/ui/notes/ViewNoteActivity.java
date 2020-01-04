@@ -2,6 +2,7 @@ package group13.ntphat.evernote.ui.notes;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -20,7 +21,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.core.app.NavUtils;
 
 import com.google.gson.Gson;
 
@@ -31,7 +31,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-import group13.ntphat.evernote.MainActivity;
 import group13.ntphat.evernote.Model.DATA;
 import group13.ntphat.evernote.Model.NOTE;
 import group13.ntphat.evernote.Model.NOTEBOOK;
@@ -44,13 +43,10 @@ import xute.markdeditor.models.DraftModel;
 import xute.markdeditor.utilities.FilePathUtils;
 
 import static xute.markdeditor.Styles.TextComponentStyle.BLOCKQUOTE;
-import static xute.markdeditor.Styles.TextComponentStyle.H1;
-import static xute.markdeditor.Styles.TextComponentStyle.H3;
 import static xute.markdeditor.Styles.TextComponentStyle.NORMAL;
-import static xute.markdeditor.components.TextComponentItem.MODE_OL;
 import static xute.markdeditor.components.TextComponentItem.MODE_PLAIN;
 
-public class ViewNoteActivity extends AppCompatActivity implements EditorControlBar.EditorControlListener  {
+public class ViewNoteActivity extends AppCompatActivity implements EditorControlBar.EditorControlListener {
     private final int REQUEST_IMAGE_SELECTOR = 110;
     private MarkDEditor markDEditor;
     private DraftModel content;
@@ -261,4 +257,34 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
         }
         return super.onOptionsItemSelected(item);
     }
+
+    public void add_tag(View view) {
+        final Dialog d = new Dialog(ViewNoteActivity.this);
+        d.setContentView(R.layout.dialog_note_add_tag);
+        d.show();
+
+        final EditText tagEditText = d.findViewById(R.id.note_add_tag);
+        View btnConfirm = d.findViewById(R.id.btn_addtag_confirm);
+        View btnClose = d.findViewById(R.id.btn_addtag_close);
+
+        btnConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                USER.getInstance().addTag(notebookId, clickedNote.getNoteID(), tagEditText.getText().toString());
+                d.cancel();
+            }
+        });
+
+        btnClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                d.cancel();
+            }
+        });
+    }
+//
+//    @Override
+//    public void applyTexts(String tagName) throws JSONException {
+//        USER.getInstance().addTag(notebookId, clickedNote.getNoteID(), tagName);
+//    }
 }
