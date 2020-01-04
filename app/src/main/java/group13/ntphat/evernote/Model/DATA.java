@@ -24,7 +24,7 @@ import group13.ntphat.evernote.ui.notebook.NotebookFragment;
 import group13.ntphat.evernote.ui.notes.NotesFragment;
 
 public class DATA {
-    static public String link = "https://941506ae.ngrok.io/";
+    static public String link = "https://project-nmcnpm.herokuapp.com/";
 
     static private void sendIntendBroadcast(Context context, String name, int success) {
         Intent intent = new Intent();
@@ -153,7 +153,6 @@ public class DATA {
                     @Override
                     public void onResponse(String response) {
                         try {
-                            USER.getInstance().remove();
                             JSONArray notebooks = new JSONArray(response);
 
                             for (int i = 0; i < notebooks.length(); i++) {
@@ -345,7 +344,6 @@ public class DATA {
                             USER.getInstance().heper_addNote(notebookID, note);
                             USER.getInstance().setNewNoteID(note.getNoteID());
                             NotesFragment.updateListNotes();
-                            //DATA.sendIntendBroadcast(context, "signup", status);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

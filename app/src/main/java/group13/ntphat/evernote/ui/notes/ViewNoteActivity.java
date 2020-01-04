@@ -184,7 +184,7 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
     public void save_content(MenuItem item) throws JSONException {
         clickedNote.setContent(new Gson().toJson(markDEditor.getDraft()));
         clickedNote.setTitle(title.getText().toString());
-        clickedNote.setCreateDate(getCurrentDateAsFormat("dd-MM-yyyy"));
+        clickedNote.setCreateDate(getCurrentDateAsFormat("HH:mm:ss dd-MM-yyyy"));
 
         String newNotebookId = notebookId;
         if (clickedNote.getNoteID() != null)
