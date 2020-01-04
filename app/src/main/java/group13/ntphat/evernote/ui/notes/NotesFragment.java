@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
 
+import group13.ntphat.evernote.MainActivity;
 import group13.ntphat.evernote.Model.NOTE;
 import group13.ntphat.evernote.Model.USER;
 import group13.ntphat.evernote.R;
@@ -48,6 +49,7 @@ public class NotesFragment extends Fragment {
 
     static public void updateListNotes(){
         listNoteAdapter.notifyDataSetChanged();
+        MainActivity.navController.navigate(MainActivity.lastFragment);
     }
 
     private void getListNoteIfExist(){

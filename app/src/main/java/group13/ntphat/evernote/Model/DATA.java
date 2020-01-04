@@ -20,8 +20,11 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 
+import group13.ntphat.evernote.ui.notebook.NotebookFragment;
+import group13.ntphat.evernote.ui.notes.NotesFragment;
+
 public class DATA {
-    static public String link = "https://e62fd3d2.ngrok.io/";
+    static public String link = "https://941506ae.ngrok.io/";
 
     static private void sendIntendBroadcast(Context context, String name, int success) {
         Intent intent = new Intent();
@@ -157,7 +160,7 @@ public class DATA {
                                 NOTEBOOK notebook = new NOTEBOOK(notebooks.getJSONObject(i));
                                 USER.getInstance().heper_addNoteBook(notebook);
                             }
-
+                            NotesFragment.updateListNotes();
                             sendIntendBroadcast(context,"getAllInfo", 1);
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -195,6 +198,7 @@ public class DATA {
 
                             USER.getInstance().heper_addNoteBook(notebook);
                             USER.getInstance().setNewNotebookID(notebook.getNotebookID());
+                            NotebookFragment.updateListNotebooks();
                             //DATA.sendIntendBroadcast(context, "signup", status);
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -250,7 +254,7 @@ public class DATA {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        //TODO
+                        NotebookFragment.updateListNotebooks();
                     }
                 },
                 new Response.ErrorListener() {
@@ -297,7 +301,7 @@ public class DATA {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-
+                        NotebookFragment.updateListNotebooks();
                     }
                 },
                 new Response.ErrorListener() {
@@ -341,6 +345,7 @@ public class DATA {
 
                             USER.getInstance().heper_addNote(notebookID, note);
                             USER.getInstance().setNewNoteID(note.getNoteID());
+                            NotesFragment.updateListNotes();
                             //DATA.sendIntendBroadcast(context, "signup", status);
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -394,7 +399,7 @@ public class DATA {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        //TODO
+                        NotesFragment.updateListNotes();
                     }
                 },
                 new Response.ErrorListener() {
@@ -441,7 +446,7 @@ public class DATA {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-
+                        NotesFragment.updateListNotes();
                     }
                 },
                 new Response.ErrorListener() {

@@ -159,7 +159,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void applyTexts(String notebookName) throws JSONException {
         USER.getInstance().addNoteBook(this.getBaseContext(), notebookName);
+    }
 
-        NotebookFragment.listNotebookAdapter.notifyDataSetChanged();
+    public static void loadLastFragment() {
+        navController.navigate(lastFragment);
     }
 }

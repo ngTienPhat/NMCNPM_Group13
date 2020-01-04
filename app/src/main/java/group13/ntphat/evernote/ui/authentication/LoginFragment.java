@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,8 +32,6 @@ public class LoginFragment extends Fragment {
             state = success;
             if (name.equals("login")) {
                 if (success == 1) {
-                    //DATA.getAllInfo(context, USER.getInstance().getUserID());
-                    // Intent intentSuccess = new Intent(LoginFragment.this, MainActivity.class);
                     Intent intentSuccess = new Intent(LoginFragment.this.getContext(), MainActivity.class);
                     context.startActivity(intentSuccess);
                 }else {
