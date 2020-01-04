@@ -76,7 +76,7 @@ public class NotesFragment extends Fragment {
 
     static public void updateListNotes(){
         listNoteAdapter.notifyDataSetChanged();
-        MainActivity.navController.navigate(MainActivity.lastFragment);
+        MainActivity.loadLastFragment();
     }
 
     private void getListNoteIfExist(){

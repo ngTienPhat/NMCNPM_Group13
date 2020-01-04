@@ -5,10 +5,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -27,19 +28,12 @@ import com.google.android.material.navigation.NavigationView;
 
 import org.json.JSONException;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-
 import group13.ntphat.evernote.Model.DATA;
 import group13.ntphat.evernote.Model.USER;
 import group13.ntphat.evernote.ui.notebook.NewNotebookDialog;
-import group13.ntphat.evernote.ui.notebook.NotebookFragment;
 import group13.ntphat.evernote.ui.notes.ViewNoteActivity;
+import group13.ntphat.evernote.ui.setting.AccountInfoActivity;
 import group13.ntphat.evernote.ui.setting.SettingActivity;
-import xute.markdeditor.EditorControlBar;
-import xute.markdeditor.MarkDEditor;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
 , NewNotebookDialog.NewNotebookDialogListener{
@@ -69,10 +63,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-        DATA.getAllInfo(this.getBaseContext(), USER.getInstance().getUserID());
         this.drawer = findViewById(R.id.drawer_layout);
         this.navigationView = findViewById(R.id.nav_view);
         this.navigationView.setNavigationItemSelectedListener(this);
+        this.navigationView.getMenu().getItem(0).setChecked(true);
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_allnotes, R.id.nav_notebook, R.id.nav_tags, R.id.nav_photos,
                 R.id.nav_workchat, R.id.nav_setting, R.id.nav_share, R.id.nav_send)
@@ -81,6 +75,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         this.lastFragment = R.id.nav_allnotes;
         this.navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
+
+        this.setUpHeader();
+        DATA.getAllInfo(this.getBaseContext(), USER.getInstance().getUserID());
+    }
+
+    private void setUpHeader() {
+        View headerLayout = this.navigationView.getHeaderView(0);
+        TextView fullname = (TextView) headerLayout.findViewById(R.id.txt_fullname);
+        TextView email = (TextView) headerLayout.findViewById(R.id.txt_email);
+        ImageView avt = (ImageView) headerLayout.findViewById(R.id.img_profile);
+
+        fullname.setText(USER.getInstance().getFullName());
+        email.setText(USER.getInstance().getUserEmail());
+        avt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, AccountInfoActivity.class);
+                MainActivity.this.startActivity(intent);
+            }
+        });
     }
 
     @Override

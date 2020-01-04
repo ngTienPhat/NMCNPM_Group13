@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -13,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import org.json.JSONException;
 
+import group13.ntphat.evernote.MainActivity;
 import group13.ntphat.evernote.Model.USER;
 import group13.ntphat.evernote.R;
 
@@ -38,10 +40,19 @@ public class SettingActivity extends AppCompatActivity {
         setTitle("Cài đặt");
         addKillReceiver();
 
-        TextView fullname = (TextView) findViewById(R.id.fullname);
-        TextView email = (TextView) findViewById(R.id.email);
+        TextView fullname = (TextView) findViewById(R.id.txt_fullname);
+        TextView email = (TextView) findViewById(R.id.txt_email);
+        ImageView avt = (ImageView) findViewById(R.id.img_profile);
+
         fullname.setText(USER.getInstance().getFullName());
         email.setText(USER.getInstance().getUserEmail());
+        avt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SettingActivity.this, AccountInfoActivity.class);
+                SettingActivity.this.startActivity(intent);
+            }
+        });
 
         View btn = findViewById(R.id.btn_account_info);
         btn.setOnClickListener(new View.OnClickListener() {
