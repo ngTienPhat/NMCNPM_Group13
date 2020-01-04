@@ -3,6 +3,7 @@ package group13.ntphat.evernote;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -54,15 +55,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        /////////////////////////////////////////////////////////////////
-        //setContentView(R.layout.main_login);
-
-
-
-        /////////////////////////////////////////////////////////////////
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        setKillReceiver();
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -72,16 +68,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-//        IntentFilter intentFilter = new IntentFilter();
-//        intentFilter.addAction("DATA");
-//        registerReceiver(new MyReceiver(), intentFilter);
-//        DATA.login(this.getBaseContext(), "user003", "123456");
         DATA.getAllInfo(this.getBaseContext(), USER.getInstance().getUserID());
         this.drawer = findViewById(R.id.drawer_layout);
         this.navigationView = findViewById(R.id.nav_view);
         this.navigationView.setNavigationItemSelectedListener(this);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_allnotes, R.id.nav_notebook, R.id.nav_tags, R.id.nav_photos,
                 R.id.nav_workchat, R.id.nav_setting, R.id.nav_share, R.id.nav_send)
@@ -94,7 +84,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        // Handle navigation view item clicks here.
         if (item.getItemId() == R.id.nav_setting) {
             Intent intent;
             intent = new Intent(this, SettingActivity.class);
@@ -163,5 +152,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public static void loadLastFragment() {
         navController.navigate(lastFragment);
+    }
+
+    private void setKillReceiver() {
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("CLOSE_ALL");
+        BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                MainActivity.this.finish();
+            }
+        };
+        registerReceiver(broadcastReceiver, intentFilter);
     }
 }

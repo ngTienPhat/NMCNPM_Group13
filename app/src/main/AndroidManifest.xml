@@ -25,6 +25,9 @@
             android:name=".ui.setting.SettingActivity"
             android:parentActivityName=".MainActivity" />
         <activity
+            android:name=".ui.setting.AccountInfoActivity"
+            android:parentActivityName=".ui.setting.SettingActivity" />
+        <activity
             android:name=".ui.notebook.ViewListnoteActivity"
             android:launchMode="singleTop"
             android:parentActivityName=".MainActivity"/>

@@ -34,6 +34,7 @@ public class LoginFragment extends Fragment {
                 if (success == 1) {
                     Intent intentSuccess = new Intent(LoginFragment.this.getContext(), MainActivity.class);
                     context.startActivity(intentSuccess);
+                    LoginFragment.this.getActivity().finish();
                 }else {
                     Toast.makeText(LoginFragment.this.getContext(), "Wrong password!",
                             Toast.LENGTH_LONG).show();
