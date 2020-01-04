@@ -178,17 +178,31 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
     }
 
     public void save_content(MenuItem item) throws JSONException {
+//        clickedNote.setContent(new Gson().toJson(markDEditor.getDraft()));
+//        clickedNote.setTitle(title.getText().toString());
+//        clickedNote.setCreateDate(getCurrentDateAsFormat("dd-MM-yyyy"));
+//
+//        String newNotebookId = notebookId;
+//        if (clickedNote.getNoteID() != null)
+//            USER.getInstance().updateNote(this.getBaseContext(), newNotebookId, clickedNote);
+//        else{
+//            clickedNote.setNoteID(USER.getInstance().getNewNoteID());
+//            clickedNote.setNotebookID(newNotebookId);
+//            USER.getInstance().updateNote(this.getBaseContext(), newNotebookId, clickedNote);
+//        }
+        setFinalInfo();
+        String newNotebookId = notebookId;
+        USER.getInstance().updateNote(this.getBaseContext(), newNotebookId, clickedNote);
+    }
+
+    private void setFinalInfo(){
+        String newNotebookId = notebookId;
         clickedNote.setContent(new Gson().toJson(markDEditor.getDraft()));
         clickedNote.setTitle(title.getText().toString());
         clickedNote.setCreateDate(getCurrentDateAsFormat("dd-MM-yyyy"));
-
-        String newNotebookId = notebookId;
-        if (clickedNote.getNoteID() != null)
-            USER.getInstance().updateNote(this.getBaseContext(), newNotebookId, clickedNote);
-        else{
+        if (clickedNote.getNoteID() == null){
             clickedNote.setNoteID(USER.getInstance().getNewNoteID());
-            clickedNote.setNotebookID(newNotebookId);
-            USER.getInstance().updateNote(this.getBaseContext(), newNotebookId, clickedNote);
+            clickedNote.setNotebookID(notebookId);
         }
     }
 
@@ -271,6 +285,12 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
             @Override
             public void onClick(View view) {
                 USER.getInstance().addTag(notebookId, clickedNote.getNoteID(), tagEditText.getText().toString());
+                setFinalInfo();
+                try {
+                    USER.getInstance().updateNote(ViewNoteActivity.this, clickedNote.getNotebookID(), clickedNote);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 d.cancel();
             }
         });

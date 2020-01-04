@@ -1,6 +1,5 @@
 package group13.ntphat.evernote.ui.authentication;
 
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,9 +9,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 
-import group13.ntphat.evernote.Model.DATA;
 import group13.ntphat.evernote.R;
 
 public class SignUpFragment extends Fragment {

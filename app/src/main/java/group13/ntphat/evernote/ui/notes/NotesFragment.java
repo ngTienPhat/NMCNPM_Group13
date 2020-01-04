@@ -2,7 +2,11 @@ package group13.ntphat.evernote.ui.notes;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -28,6 +32,7 @@ public class NotesFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
         isHasListnote=false;
         root = inflater.inflate(R.layout.fragment_notes, container, false);
         loadListNotes();
@@ -43,7 +48,30 @@ public class NotesFragment extends Fragment {
             }
         });
 
+        registerForContextMenu(listView);
+
         return root;
+    }
+
+
+    @Override
+    public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View v, @Nullable ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater menuInflater = getActivity().getMenuInflater();
+        menuInflater.inflate(R.menu.delete_item_menu, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        switch(item.getItemId()){
+            case R.id.item_delete:
+                NOTE removedNote = listNote.get(info.position);
+                listNote.remove(info.position);
+                USER.getInstance().removeNote(getContext(), removedNote.getNotebookID(), removedNote.getNoteID());
+                updateListNotes();
+        }
+        return super.onContextItemSelected(item);
     }
 
     static public void updateListNotes(){

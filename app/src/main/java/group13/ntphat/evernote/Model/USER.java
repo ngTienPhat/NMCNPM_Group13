@@ -13,36 +13,6 @@ import static java.lang.System.gc;
 public class USER {
     private String userID;
     private String fullName;
-
-    public int getIsLoad() {
-        return isLoad;
-    }
-
-    public void setIsLoad(int isLoad) {
-        this.isLoad = isLoad;
-    }
-
-    private int isLoad;
-
-    public String getUserID() {
-        return userID;
-    }
-    public String getFullName() {
-        return fullName;
-    }
-    public String getUserEmail() {
-        return userEmail;
-    }
-    public int getAccountLevel() {
-        return accountLevel;
-    }
-    public String getMemberSince() {
-        return memberSince;
-    }
-    public String getUserName() {
-        return userName;
-    }
-
     private String userEmail;
     private int accountLevel;
     private String memberSince;
@@ -96,6 +66,25 @@ public class USER {
         gc();
     }
 
+    public String getUserID() {
+        return userID;
+    }
+    public String getFullName() {
+        return fullName;
+    }
+    public String getUserEmail() {
+        return userEmail;
+    }
+    public int getAccountLevel() {
+        return accountLevel;
+    }
+    public String getMemberSince() {
+        return memberSince;
+    }
+    public String getUserName() {
+        return userName;
+    }
+
     public String getNewNoteID() {
         return newNoteID;
     }
@@ -121,7 +110,7 @@ public class USER {
         return null;
     }
     public void heper_addNoteBook(NOTEBOOK notebook) {
-        notebooks.add(notebook);
+        notebooks.add(0, notebook);
     }
     public void addNoteBook(Context context, String nameNotebook) throws JSONException {
         DATA.createNotebook(context, nameNotebook);
@@ -175,7 +164,7 @@ public class USER {
     public void heper_addNote(String notebookID, NOTE note) {
         for (NOTEBOOK notebook:notebooks) {
             if (!notebook.getNotebookID().equals(notebookID)) continue;
-            notebook.notes.add(note);
+            notebook.notes.add(0, note);
             break;
         }
     }
@@ -227,7 +216,7 @@ public class USER {
             if (!notebook.getNotebookID().equals(notebookID)) continue;
             for (NOTE note:notebook.notes) {
                 if (!note.getNoteID().equals(noteID)) continue;
-                note.tags.add(tag);
+                note.tags.add(0, tag);
                 break;
             }
             break;

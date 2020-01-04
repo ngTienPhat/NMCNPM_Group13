@@ -3,6 +3,7 @@ package group13.ntphat.evernote.ui.notebook;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -14,12 +15,14 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
 
 import group13.ntphat.evernote.MainActivity;
+import group13.ntphat.evernote.Model.NOTE;
 import group13.ntphat.evernote.Model.NOTEBOOK;
 import group13.ntphat.evernote.Model.USER;
 import group13.ntphat.evernote.R;
@@ -47,7 +50,28 @@ public class NotebookFragment extends Fragment {
             textView.setText("Không có sổ tay nào");
         }
         setListviewItemClicked();
+        registerForContextMenu(listView);
         return root;
+    }
+
+    @Override
+    public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View v, @Nullable ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater menuInflater = getActivity().getMenuInflater();
+        menuInflater.inflate(R.menu.delete_item_menu, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        switch(item.getItemId()){
+            case R.id.item_delete:
+                NOTEBOOK removedNotebook = notebooks.get(info.position);
+                notebooks.remove(info.position);
+                USER.getInstance().removeNoteBook(getContext(), removedNotebook.getNotebookID());
+                updateListNotebooks();
+        }
+        return super.onContextItemSelected(item);
     }
 
     private void setListviewItemClicked(){

@@ -144,7 +144,6 @@ public class DATA {
         queue.add(stringRequest);
     }
 
-
     static public void getAllInfo(final Context context, String userID) {
         RequestQueue queue = Volley.newRequestQueue(context);
         String url = link + "users/" + userID + "/getAllInfo";
@@ -154,6 +153,7 @@ public class DATA {
                     @Override
                     public void onResponse(String response) {
                         try {
+                            USER.getInstance().remove();
                             JSONArray notebooks = new JSONArray(response);
 
                             for (int i = 0; i < notebooks.length(); i++) {
@@ -161,7 +161,7 @@ public class DATA {
                                 USER.getInstance().heper_addNoteBook(notebook);
                             }
                             NotesFragment.updateListNotes();
-                            sendIntendBroadcast(context,"getAllInfo", 1);
+                            //sendIntendBroadcast(context,"getAllInfo", 1);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -179,7 +179,6 @@ public class DATA {
 
         queue.add(stringRequest);
     }
-
 
     static public void createNotebook(final Context context, final String nameNotebook) throws JSONException {
         RequestQueue queue = Volley.newRequestQueue(context);
