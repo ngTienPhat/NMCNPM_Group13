@@ -233,6 +233,13 @@ public class USER {
             break;
         }
     }
+    public void removeTag(String tag) {
+        for (NOTEBOOK notebook:notebooks) {
+            for (NOTE note:notebook.notes) {
+                note.tags.remove(tag);
+            }
+        }
+    }
 
     public void changeNotebook(String noteID, String oldNotebookID, String newNotebookID) {
         NOTE noteChanged = new NOTE();

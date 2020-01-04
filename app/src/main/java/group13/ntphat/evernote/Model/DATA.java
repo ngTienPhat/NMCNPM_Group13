@@ -153,7 +153,6 @@ public class DATA {
                     @Override
                     public void onResponse(String response) {
                         try {
-                            USER.getInstance().remove();
                             JSONArray notebooks = new JSONArray(response);
 
                             for (int i = 0; i < notebooks.length(); i++) {
@@ -345,7 +344,6 @@ public class DATA {
                             USER.getInstance().heper_addNote(notebookID, note);
                             USER.getInstance().setNewNoteID(note.getNoteID());
                             NotesFragment.updateListNotes();
-                            //DATA.sendIntendBroadcast(context, "signup", status);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

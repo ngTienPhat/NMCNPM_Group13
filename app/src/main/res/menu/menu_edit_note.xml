@@ -5,31 +5,31 @@
         android:title="save"
         app:showAsAction="always"
         android:onClick="save_content"
-        android:icon="@drawable/ic_check"/>
+        android:icon="@drawable/ic_done_24px"/>
 
     <item android:id="@+id/undo"
         android:title="undo"
         app:showAsAction="always"
-        android:icon="@drawable/ic_undo"/>
+        android:icon="@drawable/ic_undo_24px"/>
 
     <item android:id="@+id/redo"
         android:title="redo"
         app:showAsAction="always"
-        android:icon="@drawable/ic_redo"/>
+        android:icon="@drawable/ic_redo_24px"/>
 
     <item android:id="@+id/text"
         android:title="edit"
         app:showAsAction="always"
-        android:icon="@drawable/ic_tags"/>
+        android:icon="@drawable/ic_font_download_24px"/>
 
     <item android:id="@+id/attachment"
         android:title="attach"
         app:showAsAction="always"
-        android:icon="@drawable/ic_tags"/>
+        android:icon="@drawable/ic_attachment_24px"/>
 
     <item android:id="@+id/capture"
         android:title="camera"
         app:showAsAction="always"
-        android:icon="@drawable/ic_tags"/>
+        android:icon= "@drawable/ic_delete_24px"/>
 
 </menu>

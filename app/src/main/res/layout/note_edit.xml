@@ -58,7 +58,7 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:id="@+id/btn_reminder"
-                    android:src="@drawable/ic_notification"
+                    android:src="@drawable/ic_alarm_24px"
                     android:tint="#444444"
                     android:scaleType="centerCrop"
                     android:backgroundTint="#FFFFFF"/>
@@ -67,7 +67,7 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:id="@+id/btn_addtag"
-                    android:src="@drawable/ic_tags"
+                    android:src="@drawable/ic_label_24px"
                     android:tint="#444444"
                     android:scaleType="centerCrop"
                     android:onClick="add_tag"
@@ -77,7 +77,7 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:id="@+id/btn_detail"
-                    android:src="@android:drawable/ic_dialog_info"
+                    android:src="@drawable/ic_info_24px"
                     android:tint="#444444"
                     android:scaleType="centerCrop"
                     android:backgroundTint="#FFFFFF"/>
