@@ -1,10 +1,11 @@
+import datetime
+import hashlib
+import uuid
+
+import psycopg2
 from flask import Blueprint, request, jsonify, render_template
 
 import API
-import psycopg2
-import uuid
-import hashlib
-import datetime
 
 account_api = Blueprint('account_api', __name__)
 
@@ -60,8 +61,9 @@ def sign_in_user():
         f"SELECT * FROM userinfo \
           WHERE username = '{user_name}' AND userpassword = '{hashlib.md5(password.encode()).hexdigest()}'"
     )
-    record = list(API.cursor.fetchone())
+    record = API.cursor.fetchone()
     if record:
+        record = list(record)
         record.append(1)
         return jsonify(makeDictWithInfo(columnNameUserinfo, list(record)))
     return jsonify({"logIn": 0})
@@ -172,7 +174,7 @@ def handle_note(userid, note=None):
 
     if request.method == "PUT":
         noteid = note
-        notename = contentJSON['notename']
+        notename = contentJSON['title']
         notecontent = contentJSON['contentfile']
         notebook = contentJSON['notebookid'] or None
         notetags = contentJSON['tags']
@@ -208,3 +210,4 @@ def handle_note(userid, note=None):
             return jsonify({"status": 0})
         API.connection.commit()
         return jsonify({"status": 1})
+

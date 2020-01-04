@@ -1,9 +1,10 @@
 import os
-from flask import Blueprint, request, jsonify, render_template, send_from_directory, current_app, g
+
+from flask import Blueprint, request, jsonify, render_template, send_from_directory, current_app
 from werkzeug.utils import secure_filename
 
 uploadDownloadAPI = Blueprint("uploadDownloadAPI", __name__)
-WEB_URL = "https://e62fd3d2.ngrok.io"
+WEB_URL =  "https://941506ae.ngrok.io"
 
 
 @uploadDownloadAPI.route('/upload', methods=['GET'])

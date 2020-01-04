@@ -1,10 +1,9 @@
-import os
-
-from flask import render_template, jsonify
+from flask import jsonify
 from flask import request
-from werkzeug.utils import secure_filename
+from flask_mail import Message
 
 from program import app
+from program import mail
 
 
 @app.route('/')
@@ -27,3 +26,14 @@ def test_json():
     print(request.json)
     print(type(request.json))
     return jsonify({'status': 1})
+
+
+@app.route('/test/gmail', methods=["GET"])
+def sendMail():
+    with app.app_context():
+        msg = Message(subject="Hello",
+                      sender=app.config.get("MAIL_USERNAME"),
+                      recipients=["lamducanhndgv@gmail.com"],  # replace with your email for testing
+                      body="This is a test email I sent with Gmail and Python!")
+        mail.send(msg)
+        return "Successfully"
