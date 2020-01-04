@@ -1,26 +1,77 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fancy="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
-    <EditText
-        android:id="@+id/username"
-        android:inputType="textEmailAddress"
+    android:layout_height="wrap_content"
+    android:background="#EEEEEE">
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"
-        android:layout_marginBottom="4dp"
-        android:hint="username" />
-    <EditText
-        android:id="@+id/password"
-        android:inputType="textPassword"
-        android:layout_width="match_parent"
+        android:background="#00AA11"
+        android:paddingVertical="5dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="ĐỔI TÊN"
+            android:textSize="24dp"
+            android:textStyle="bold"
+            android:textColor="#FFF"/>
+    </RelativeLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"
-        android:layout_marginBottom="16dp"
-        android:fontFamily="sans-serif"
-        android:hint="password"/>
+        android:padding="20dp"
+        android:background="#EEEEEE">
+        <EditText
+            android:id="@+id/editTxt_fullname"
+            android:inputType="textEmailAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:textColor="#000"
+            android:backgroundTint="#00AA11"
+            android:layout_margin="10dp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
+            <mehdi.sakout.fancybuttons.FancyButton
+                android:id="@+id/btn_confirm"
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="5dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="5dp"
+                fancy:fb_borderColor="#00AA11"
+                fancy:fb_borderWidth="2dp"
+                fancy:fb_defaultColor="#00AA11"
+                fancy:fb_focusColor="#424243"
+                fancy:fb_radius="5dp"
+                fancy:fb_text="Xác nhận"
+                fancy:fb_textColor="#FFF"
+                fancy:fb_textSize="12dp"/>
+            <mehdi.sakout.fancybuttons.FancyButton
+                android:id="@+id/btn_cancel"
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="5dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="5dp"
+                fancy:fb_borderColor="#00AA11"
+                fancy:fb_borderWidth="2dp"
+                fancy:fb_defaultColor="#00AA11"
+                fancy:fb_focusColor="#424243"
+                fancy:fb_radius="5dp"
+                fancy:fb_text="Thoát"
+                fancy:fb_textColor="#FFF"
+                fancy:fb_textSize="12dp"
+                android:layout_alignParentEnd="true" />
+        </RelativeLayout>
+    </LinearLayout>
 </LinearLayout>

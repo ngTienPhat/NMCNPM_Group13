@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fancy="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <EditText
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:hint="thêm tên thẻ"
+        android:id="@+id/note_add_tag"
+        android:textSize="18dp"
+        android:textStyle="bold"/>
+
+    <RelativeLayout
+        android:layout_width="150dp"
+        android:layout_height="wrap_content">
+
+        <mehdi.sakout.fancybuttons.FancyButton
+            android:id="@+id/btn_addtag_close"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="true"
+            android:paddingLeft="10dp"
+            android:paddingTop="5dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="5dp"
+            fancy:fb_borderColor="#00AA11"
+            fancy:fb_borderWidth="2dp"
+            fancy:fb_defaultColor="#00AA11"
+            fancy:fb_focusColor="#424243"
+            fancy:fb_radius="5dp"
+            fancy:fb_text="Đóng"
+            fancy:fb_textColor="#FFF"
+            fancy:fb_textSize="15dp"
+            android:layout_margin="5dp"/>
+
+        <mehdi.sakout.fancybuttons.FancyButton
+            android:id="@+id/btn_addtag_confirm"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:paddingLeft="10dp"
+            android:paddingTop="5dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="5dp"
+            fancy:fb_borderColor="#00AA11"
+            fancy:fb_borderWidth="2dp"
+            fancy:fb_defaultColor="#00AA11"
+            fancy:fb_focusColor="#424243"
+            fancy:fb_radius="5dp"
+            fancy:fb_text="Thêm"
+            fancy:fb_textColor="#FFF"
+            fancy:fb_textSize="15dp"
+            android:layout_margin="5dp"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,4 +1,4 @@
-package group13.ntphat.evernote.ui.notebook;
+package group13.ntphat.evernote.ui.notes;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -17,29 +17,29 @@ import org.json.JSONException;
 
 import group13.ntphat.evernote.R;
 
-public class NewNotebookDialog extends AppCompatDialogFragment {
+public class AddTagDialog extends AppCompatDialogFragment {
 
     private EditText editText;
-    private NewNotebookDialogListener listener;
+    private AddTagDialog.TagDialogListener listener;
 
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.dialog_new_notebook, null);
+        View view = inflater.inflate(R.layout.dialog_note_add_tag, null);
 
-        editText = view.findViewById(R.id.new_nb_name);
+        editText = view.findViewById(R.id.note_add_tag);
 
         builder.setView(view)
-                .setTitle("Tạo notebook ")
-                .setNegativeButton("đóng", new DialogInterface.OnClickListener() {
+                .setTitle("Thêm thẻ ")
+                .setNegativeButton("Đóng", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
                     }
                 })
-                .setPositiveButton("xác nhận", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Thêm", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         try {
@@ -58,15 +58,15 @@ public class NewNotebookDialog extends AppCompatDialogFragment {
         super.onAttach(context);
 
         try {
-            listener = (NewNotebookDialogListener) context;
+            listener = (TagDialogListener) context;
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString() +
                     "must implement NewNotebookDialogListener");
         }
     }
 
-    public interface NewNotebookDialogListener {
-        void applyTexts(String notebookName) throws JSONException;
+    public interface TagDialogListener {
+        void applyTexts(String tagName) throws JSONException;
     }
 
 }
