@@ -255,9 +255,9 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
     }
 
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId() == android.R.id.home){
-            MainActivity.navController.navigate(MainActivity.lastFragment);
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            NotesFragment.updateListNotes();
         }
         return super.onOptionsItemSelected(item);
     }

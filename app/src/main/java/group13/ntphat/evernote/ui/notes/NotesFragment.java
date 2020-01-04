@@ -22,13 +22,12 @@ import group13.ntphat.evernote.R;
 public class NotesFragment extends Fragment {
     private ListView listView;
     private ArrayList<NOTE> listNote;
-    public NoteAdapter listNoteAdapter;
+    static public NoteAdapter listNoteAdapter;
     private View root;
     private boolean isHasListnote;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        MainActivity.lastFragment = getId();
         isHasListnote=false;
         root = inflater.inflate(R.layout.fragment_notes, container, false);
         loadListNotes();
@@ -43,19 +42,13 @@ public class NotesFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                listNote.remove(i);
-                return true;
-            }
-        });
 
         return root;
     }
 
     static public void updateListNotes(){
-        //listNoteAdapter.notifyDataSetChanged();
+        listNoteAdapter.notifyDataSetChanged();
+        MainActivity.navController.navigate(MainActivity.lastFragment);
     }
 
     private void getListNoteIfExist(){

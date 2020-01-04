@@ -20,6 +20,7 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 
+import group13.ntphat.evernote.ui.notebook.NotebookFragment;
 import group13.ntphat.evernote.ui.notes.NotesFragment;
 
 public class DATA {
@@ -153,16 +154,14 @@ public class DATA {
                     @Override
                     public void onResponse(String response) {
                         try {
-                            if (USER.getInstance().getIsLoad() == 1) return;
                             JSONArray notebooks = new JSONArray(response);
 
                             for (int i = 0; i < notebooks.length(); i++) {
                                 NOTEBOOK notebook = new NOTEBOOK(notebooks.getJSONObject(i));
                                 USER.getInstance().heper_addNoteBook(notebook);
                             }
-                            USER.getInstance().setIsLoad(1);
-                            //NotesFragment.updateListNotes();
-                            sendIntendBroadcast(context,"update", 1);
+                            NotesFragment.updateListNotes();
+                            sendIntendBroadcast(context,"getAllInfo", 1);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -199,6 +198,7 @@ public class DATA {
 
                             USER.getInstance().heper_addNoteBook(notebook);
                             USER.getInstance().setNewNotebookID(notebook.getNotebookID());
+                            NotebookFragment.updateListNotebooks();
                             //DATA.sendIntendBroadcast(context, "signup", status);
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -254,7 +254,7 @@ public class DATA {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        //TODO
+                        NotebookFragment.updateListNotebooks();
                     }
                 },
                 new Response.ErrorListener() {
@@ -301,7 +301,7 @@ public class DATA {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-
+                        NotebookFragment.updateListNotebooks();
                     }
                 },
                 new Response.ErrorListener() {
@@ -345,6 +345,7 @@ public class DATA {
 
                             USER.getInstance().heper_addNote(notebookID, note);
                             USER.getInstance().setNewNoteID(note.getNoteID());
+                            NotesFragment.updateListNotes();
                             //DATA.sendIntendBroadcast(context, "signup", status);
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -398,7 +399,7 @@ public class DATA {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        //TODO
+                        NotesFragment.updateListNotes();
                     }
                 },
                 new Response.ErrorListener() {
@@ -445,7 +446,7 @@ public class DATA {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-
+                        NotesFragment.updateListNotes();
                     }
                 },
                 new Response.ErrorListener() {

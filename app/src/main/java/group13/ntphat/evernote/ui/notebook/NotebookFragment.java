@@ -28,14 +28,10 @@ public class NotebookFragment extends Fragment {
     private ListView listView;
     private ArrayList<NOTEBOOK> notebooks;
 
-    public ListNotebookAdapter listNotebookAdapter;
+    static public ListNotebookAdapter listNotebookAdapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-
-
-        //MainActivity.lastFragment = getId();
-
         View root = inflater.inflate(R.layout.fragment_notebook, container, false);
         setHasOptionsMenu(true);
 
@@ -63,6 +59,11 @@ public class NotebookFragment extends Fragment {
                 startActivity(intent);
             }
         });
+    }
+
+    public static void updateListNotebooks() {
+        NotebookFragment.listNotebookAdapter.notifyDataSetChanged();
+        MainActivity.loadLastFragment();
     }
 
     @Override

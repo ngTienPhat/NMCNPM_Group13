@@ -16,8 +16,6 @@ import androidx.appcompat.widget.PopupMenu;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -36,6 +34,7 @@ import java.io.InputStream;
 import group13.ntphat.evernote.Model.DATA;
 import group13.ntphat.evernote.Model.USER;
 import group13.ntphat.evernote.ui.notebook.NewNotebookDialog;
+import group13.ntphat.evernote.ui.notebook.NotebookFragment;
 import group13.ntphat.evernote.ui.notes.ViewNoteActivity;
 import group13.ntphat.evernote.ui.setting.SettingActivity;
 import xute.markdeditor.EditorControlBar;
@@ -50,7 +49,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public static int lastFragment;
     public static NavController navController;
-    static public int nb_fragment_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -160,14 +159,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void applyTexts(String notebookName) throws JSONException {
         USER.getInstance().addNoteBook(this.getBaseContext(), notebookName);
-        Fragment notebookFrg = null;
-        notebookFrg = getSupportFragmentManager().findFragmentById(nb_fragment_id);
-        //NotebookFragment.listNotebookAdapter.notifyDataSetChanged();
-        FragmentTransaction tr = getSupportFragmentManager().beginTransaction();
-        tr.detach(notebookFrg);
-        tr.attach(notebookFrg);
-        tr.commit();
-//        tr.replace(R.id.nav_host_fragment, yourFragmentInstance);
-//        tr.commit()
+    }
+
+    public static void loadLastFragment() {
+        navController.navigate(lastFragment);
     }
 }
