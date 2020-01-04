@@ -75,7 +75,7 @@ public class AuthenticationActivity extends FragmentActivity {
                         context.startActivity(intentSuccess);
                         AuthenticationActivity.this.finish();
                     }else {
-                        Toast.makeText(AuthenticationActivity.this, "Wrong password!",
+                        Toast.makeText(AuthenticationActivity.this, "Sai tên đăng nhập hoặc mật khẩu!",
                                 Toast.LENGTH_LONG).show();
                     }
                 }

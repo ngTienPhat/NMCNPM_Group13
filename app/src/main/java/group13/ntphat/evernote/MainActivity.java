@@ -150,7 +150,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                     case R.id.action_add_note:
                         Intent intent;
-                        intent = new Intent(getApplicationContext(), ViewNoteActivity.class);
+                        intent = new Intent(MainActivity.this, ViewNoteActivity.class);
                         intent.putExtra("noteid", "-1");
                         startActivity(intent);
                         return true;

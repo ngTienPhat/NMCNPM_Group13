@@ -28,18 +28,20 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_centerVertical="true">
                 <ImageView
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:tint="#444444"
                     android:id="@+id/notebook_icon"
                     android:src="@drawable/ic_notebook"
-                    android:gravity="center"/>
+                    android:layout_margin="10dp"/>
                 <Spinner
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:id="@+id/notebook_chooser" />
+                    android:layout_height="wrap_content"
+                    android:id="@+id/notebook_chooser"
+                    android:layout_gravity="center"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -54,33 +56,39 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_alignParentEnd="true">
-                <ImageButton
+                <ImageView
+                    android:background="?android:attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
+                    android:padding="10dp"
                     android:id="@+id/btn_reminder"
                     android:src="@drawable/ic_alarm_24px"
-                    android:tint="#444444"
-                    android:scaleType="centerCrop"
-                    android:backgroundTint="#FFFFFF"/>
+                    android:tint="#444444"/>
 
-                <ImageButton
+                <ImageView
+                    android:background="?android:attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
+                    android:padding="10dp"
                     android:id="@+id/btn_addtag"
                     android:src="@drawable/ic_label_24px"
                     android:tint="#444444"
-                    android:scaleType="centerCrop"
-                    android:onClick="add_tag"
-                    android:backgroundTint="#FFFFFF"/>
+                    android:onClick="add_tag"/>
 
-                <ImageButton
+                <ImageView
+                    android:background="?android:attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
+                    android:padding="10dp"
                     android:id="@+id/btn_detail"
                     android:src="@drawable/ic_info_24px"
-                    android:tint="#444444"
-                    android:scaleType="centerCrop"
-                    android:backgroundTint="#FFFFFF"/>
+                    android:tint="#444444"/>
             </LinearLayout>
         </RelativeLayout>
 
