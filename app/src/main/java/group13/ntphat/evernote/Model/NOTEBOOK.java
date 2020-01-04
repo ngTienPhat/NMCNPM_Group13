@@ -23,13 +23,17 @@ public class NOTEBOOK {
         notebookID = notebookJSON.getString("notebookid");
         nameNotebook = notebookJSON.getString("name");
         createDate = notebookJSON.getString("createdate");
-
-        JSONArray notesJSON = notebookJSON.getJSONArray("notes");
         notes = new ArrayList<>();
-        for (int j = 0; j < notesJSON.length(); j++) {
-            NOTE note = new NOTE(notesJSON.getJSONObject(j));
-            note.setNotebookID(notebookID);
-            notes.add(note);
+
+        try {
+            JSONArray notesJSON = notebookJSON.getJSONArray("notes");
+            for (int j = 0; j < notesJSON.length(); j++) {
+                NOTE note = new NOTE(notesJSON.getJSONObject(j));
+                note.setNotebookID(notebookID);
+                notes.add(note);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 

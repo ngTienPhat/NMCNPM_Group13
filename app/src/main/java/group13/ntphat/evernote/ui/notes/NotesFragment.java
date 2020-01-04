@@ -20,7 +20,6 @@ import group13.ntphat.evernote.Model.USER;
 import group13.ntphat.evernote.R;
 
 public class NotesFragment extends Fragment {
-
     private ListView listView;
     private ArrayList<NOTE> listNote;
     static public NoteAdapter listNoteAdapter;

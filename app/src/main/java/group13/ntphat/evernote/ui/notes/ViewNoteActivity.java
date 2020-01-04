@@ -191,6 +191,7 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
             USER.getInstance().updateNote(this.getBaseContext(), newNotebookId, clickedNote);
         else{
             clickedNote.setNoteID(USER.getInstance().getNewNoteID());
+            clickedNote.setNotebookID(newNotebookId);
             USER.getInstance().updateNote(this.getBaseContext(), newNotebookId, clickedNote);
         }
     }
