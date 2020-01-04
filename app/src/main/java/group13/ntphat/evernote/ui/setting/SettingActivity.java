@@ -17,17 +17,18 @@ import group13.ntphat.evernote.Model.USER;
 import group13.ntphat.evernote.R;
 
 public class SettingActivity extends AppCompatActivity {
+    private BroadcastReceiver killReceiver;
 
-    private void setKillReceiver() {
+    private void addKillReceiver() {
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("CLOSE_ALL");
-        BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        killReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 SettingActivity.this.finish();
             }
         };
-        registerReceiver(broadcastReceiver, intentFilter);
+        registerReceiver(killReceiver, intentFilter);
     }
 
     @Override
@@ -35,7 +36,7 @@ public class SettingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
         setTitle("Cài đặt");
-        setKillReceiver();
+        addKillReceiver();
 
         TextView fullname = (TextView) findViewById(R.id.fullname);
         TextView email = (TextView) findViewById(R.id.email);
@@ -50,5 +51,11 @@ public class SettingActivity extends AppCompatActivity {
                 SettingActivity.this.startActivity(intent);
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        this.unregisterReceiver(this.killReceiver);
+        super.onDestroy();
     }
 }

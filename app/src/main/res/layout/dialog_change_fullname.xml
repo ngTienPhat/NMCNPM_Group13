@@ -8,7 +8,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#00AA11"
+        android:background="@color/colorPrimary"
         android:paddingVertical="5dp">
         <TextView
             android:layout_width="wrap_content"
@@ -32,7 +32,8 @@
             android:layout_height="wrap_content"
             android:textSize="20dp"
             android:textColor="#000"
-            android:backgroundTint="#00AA11"
+            android:backgroundTint="@color/colorPrimary"
+            android:textCursorDrawable="@drawable/custom_edittext_cursor"
             android:layout_margin="10dp" />
 
         <RelativeLayout
@@ -47,9 +48,9 @@
                 android:paddingTop="5dp"
                 android:paddingRight="10dp"
                 android:paddingBottom="5dp"
-                fancy:fb_borderColor="#00AA11"
+                fancy:fb_borderColor="@color/colorPrimary"
                 fancy:fb_borderWidth="2dp"
-                fancy:fb_defaultColor="#00AA11"
+                fancy:fb_defaultColor="@color/colorPrimary"
                 fancy:fb_focusColor="#424243"
                 fancy:fb_radius="5dp"
                 fancy:fb_text="Xác nhận"
@@ -63,9 +64,9 @@
                 android:paddingTop="5dp"
                 android:paddingRight="10dp"
                 android:paddingBottom="5dp"
-                fancy:fb_borderColor="#00AA11"
+                fancy:fb_borderColor="@color/colorPrimary"
                 fancy:fb_borderWidth="2dp"
-                fancy:fb_defaultColor="#00AA11"
+                fancy:fb_defaultColor="@color/colorPrimary"
                 fancy:fb_focusColor="#424243"
                 fancy:fb_radius="5dp"
                 fancy:fb_text="Thoát"

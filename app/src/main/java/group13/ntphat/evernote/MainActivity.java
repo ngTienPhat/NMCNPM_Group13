@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private AppBarConfiguration mAppBarConfiguration;
     private DrawerLayout drawer;
     private NavigationView navigationView;
+    private BroadcastReceiver killReceiver;
 
     public static int lastFragment;
     public static NavController navController;
@@ -58,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        setKillReceiver();
+        this.addKillReceiver();
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -88,6 +89,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Intent intent;
             intent = new Intent(this, SettingActivity.class);
             startActivity(intent);
+            this.drawer.closeDrawer(GravityCompat.START);
+            return false;
         } else {
             lastFragment = item.getItemId();
             NavigationUI.onNavDestinationSelected(item, this.navController);
@@ -154,15 +157,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navController.navigate(lastFragment);
     }
 
-    private void setKillReceiver() {
+    private void addKillReceiver() {
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("CLOSE_ALL");
-        BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        this.killReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 MainActivity.this.finish();
             }
         };
-        registerReceiver(broadcastReceiver, intentFilter);
+        registerReceiver(this.killReceiver, intentFilter);
+    }
+
+    @Override
+    protected void onDestroy() {
+        this.unregisterReceiver(this.killReceiver);
+        super.onDestroy();
     }
 }
