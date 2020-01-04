@@ -93,6 +93,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, AccountInfoActivity.class);
                 MainActivity.this.startActivity(intent);
+                drawer.closeDrawer(GravityCompat.START);
             }
         });
     }

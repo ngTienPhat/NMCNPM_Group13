@@ -4,75 +4,60 @@
     android:orientation="vertical"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="#EEEEEE">
-    <RelativeLayout
-        android:layout_width="match_parent"
+    android:background="#FFF"
+    android:padding="20dp">
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:paddingVertical="5dp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="ĐỔI TÊN"
-            android:textSize="24dp"
-            android:textStyle="bold"
-            android:textColor="#FFF"/>
-    </RelativeLayout>
+        android:text="Đổi tên người dùng"
+        android:textSize="22dp"
+        android:textColor="#000"/>
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:padding="20dp"
-        android:background="#EEEEEE">
+        android:layout_height="wrap_content">
         <EditText
             android:id="@+id/editTxt_fullname"
             android:inputType="textEmailAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp"
+            android:textSize="18dp"
             android:textColor="#000"
-            android:backgroundTint="@color/colorPrimary"
-            android:textCursorDrawable="@drawable/custom_edittext_cursor"
-            android:layout_margin="10dp" />
+            android:backgroundTint="@color/colorBlack"
+            android:textCursorDrawable="@drawable/custom_edittext_cursor"/>
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp">
-            <mehdi.sakout.fancybuttons.FancyButton
-                android:id="@+id/btn_confirm"
-                android:layout_width="100dp"
-                android:layout_height="30dp"
-                android:paddingLeft="10dp"
-                android:paddingTop="5dp"
-                android:paddingRight="10dp"
-                android:paddingBottom="5dp"
-                fancy:fb_borderColor="@color/colorPrimary"
-                fancy:fb_borderWidth="2dp"
-                fancy:fb_defaultColor="@color/colorPrimary"
-                fancy:fb_focusColor="#424243"
-                fancy:fb_radius="5dp"
-                fancy:fb_text="Xác nhận"
-                fancy:fb_textColor="#FFF"
-                fancy:fb_textSize="12dp"/>
-            <mehdi.sakout.fancybuttons.FancyButton
+            android:gravity="right">
+            <TextView
                 android:id="@+id/btn_cancel"
-                android:layout_width="100dp"
+                android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:paddingLeft="10dp"
                 android:paddingTop="5dp"
                 android:paddingRight="10dp"
                 android:paddingBottom="5dp"
-                fancy:fb_borderColor="@color/colorPrimary"
-                fancy:fb_borderWidth="2dp"
-                fancy:fb_defaultColor="@color/colorPrimary"
-                fancy:fb_focusColor="#424243"
-                fancy:fb_radius="5dp"
-                fancy:fb_text="Thoát"
-                fancy:fb_textColor="#FFF"
-                fancy:fb_textSize="12dp"
-                android:layout_alignParentEnd="true" />
-        </RelativeLayout>
+                android:text="Đóng"
+                android:textStyle="normal"
+                android:textColor="@color/colorAccent"
+                android:textSize="16dp"
+                android:textAlignment="center"/>
+            <TextView
+                android:id="@+id/btn_confirm"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="5dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="5dp"
+                android:text="Xác nhận"
+                android:textStyle="normal"
+                android:textColor="@color/colorAccent"
+                android:textSize="16dp"
+                android:textAlignment="center"/>
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

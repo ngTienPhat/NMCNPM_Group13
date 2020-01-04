@@ -3,19 +3,16 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-<!--    <TextView-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Sách ghi chú mới"-->
-<!--        android:textStyle="bold"-->
-<!--        android:textSize="20dp"-->
-<!--        android:layout_margin="10dp"/>-->
-
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/new_nb_name"
-        android:hint="nhập tên sách ghi chú mới"
-        android:layout_margin="10dp"/>
+        android:hint="nhập tên sổ tay mới"
+        android:layout_marginVertical="10dp"
+        android:layout_marginHorizontal="20dp"
+        android:textSize="18dp"
+        android:textColor="#000"
+        android:backgroundTint="@color/colorBlack"
+        android:textCursorDrawable="@drawable/custom_edittext_cursor"/>
 
 </LinearLayout>
