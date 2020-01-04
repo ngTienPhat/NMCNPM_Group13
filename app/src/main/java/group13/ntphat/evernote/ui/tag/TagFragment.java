@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import group13.ntphat.evernote.MainActivity;
 import group13.ntphat.evernote.Model.NOTEBOOK;
 import group13.ntphat.evernote.Model.USER;
 import group13.ntphat.evernote.R;
@@ -29,15 +30,16 @@ import group13.ntphat.evernote.ui.notebook.ViewListnoteActivity;
 public class TagFragment extends Fragment {
     private ListView listView;
     private ArrayList<ListTagItem> tags;
-
+    private ListTagAdapter listTagAdapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_tag, container, false);
         listView = root.findViewById(R.id.list_tags);
         tags = getTags();
+        listTagAdapter = new ListTagAdapter(inflater, tags);
         if (tags.size() != 0){
-            listView.setAdapter(new ListTagAdapter(inflater, tags));
+            listView.setAdapter(listTagAdapter);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
@@ -52,30 +54,30 @@ public class TagFragment extends Fragment {
             textView.setText("Không có thẻ nào");
         }
 
-        //registerForContextMenu(listView);
+        registerForContextMenu(listView);
         return root;
     }
 
-//    @Override
-//    public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View v, @Nullable ContextMenu.ContextMenuInfo menuInfo) {
-//        super.onCreateContextMenu(menu, v, menuInfo);
-//        MenuInflater menuInflater = getActivity().getMenuInflater();
-//        menuInflater.inflate(R.menu.delete_item_menu, menu);
-//    }
-//
-//    @Override
-//    public boolean onContextItemSelected(@NonNull MenuItem item) {
-//        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-//        switch(item.getItemId()){
-//            case R.id.item_delete:
-//                ListTagItem removedTag = tags.get(info.position);
-//                tags.remove(info.position);
-//
-//                USER.getInstance().removeTag(,,removedTag.getName());
-//                updateListNotebooks();
-//        }
-//        return super.onContextItemSelected(item);
-//    }
+    @Override
+    public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View v, @Nullable ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater menuInflater = getActivity().getMenuInflater();
+        menuInflater.inflate(R.menu.delete_item_menu, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        switch(item.getItemId()){
+            case R.id.item_delete:
+                ListTagItem removedTag = tags.get(info.position);
+                tags.remove(info.position);
+                USER.getInstance().removeTag(removedTag.getName());
+                listTagAdapter.notifyDataSetChanged();
+                MainActivity.loadLastFragment();
+        }
+        return super.onContextItemSelected(item);
+    }
 
     private ArrayList<ListTagItem> getTags() {
         ArrayList<ListTagItem> tags = new ArrayList<ListTagItem>();
