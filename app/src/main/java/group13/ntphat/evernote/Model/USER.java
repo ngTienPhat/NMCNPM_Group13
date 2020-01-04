@@ -14,6 +14,16 @@ public class USER {
     private String userID;
     private String fullName;
 
+    public int getIsLoad() {
+        return isLoad;
+    }
+
+    public void setIsLoad(int isLoad) {
+        this.isLoad = isLoad;
+    }
+
+    private int isLoad;
+
     public String getUserID() {
         return userID;
     }

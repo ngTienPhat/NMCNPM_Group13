@@ -23,7 +23,7 @@ import java.io.UnsupportedEncodingException;
 import group13.ntphat.evernote.ui.notes.NotesFragment;
 
 public class DATA {
-    static public String link = "https://e62fd3d2.ngrok.io/";
+    static public String link = "https://941506ae.ngrok.io/";
 
     static private void sendIntendBroadcast(Context context, String name, int success) {
         Intent intent = new Intent();
@@ -153,14 +153,15 @@ public class DATA {
                     @Override
                     public void onResponse(String response) {
                         try {
+                            if (USER.getInstance().getIsLoad() == 1) return;
                             JSONArray notebooks = new JSONArray(response);
 
                             for (int i = 0; i < notebooks.length(); i++) {
                                 NOTEBOOK notebook = new NOTEBOOK(notebooks.getJSONObject(i));
                                 USER.getInstance().heper_addNoteBook(notebook);
                             }
-
-                            NotesFragment.updateListNotes();
+                            USER.getInstance().setIsLoad(1);
+                            //NotesFragment.updateListNotes();
                             sendIntendBroadcast(context,"update", 1);
                         } catch (JSONException e) {
                             e.printStackTrace();

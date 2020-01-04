@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import group13.ntphat.evernote.MainActivity;
 import group13.ntphat.evernote.Model.DATA;
 import group13.ntphat.evernote.Model.NOTE;
 import group13.ntphat.evernote.Model.NOTEBOOK;
@@ -253,4 +254,11 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
         return notebookId;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == android.R.id.home){
+            MainActivity.navController.navigate(MainActivity.lastFragment);
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

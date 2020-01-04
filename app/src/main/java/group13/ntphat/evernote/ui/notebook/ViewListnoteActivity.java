@@ -16,6 +16,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import java.util.ArrayList;
 
+import group13.ntphat.evernote.MainActivity;
 import group13.ntphat.evernote.Model.NOTE;
 import group13.ntphat.evernote.Model.USER;
 import group13.ntphat.evernote.R;
@@ -99,4 +100,12 @@ public class ViewListnoteActivity extends AppCompatActivity {
         intent.putExtra("noteid", note.getNoteID());
         intent.putExtra("notebookid", note.getNotebookID());
     }
+
+//    @Override
+//    public void onBackPressed() {
+//        MainActivity.navController.navigate(MainActivity.lastFragment);
+//        super.onBackPressed();
+//    }
+
+
 }

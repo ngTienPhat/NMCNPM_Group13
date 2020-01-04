@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //        intentFilter.addAction("DATA");
 //        registerReceiver(new MyReceiver(), intentFilter);
 //        DATA.login(this.getBaseContext(), "user003", "123456");
-        DATA.getAllInfo(this.getBaseContext(), "c3acc55a2d1411eab30000d86105dafc");
+        DATA.getAllInfo(this.getBaseContext(), USER.getInstance().getUserID());
         this.drawer = findViewById(R.id.drawer_layout);
         this.navigationView = findViewById(R.id.nav_view);
         this.navigationView.setNavigationItemSelectedListener(this);

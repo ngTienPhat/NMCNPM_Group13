@@ -28,11 +28,13 @@ public class NotebookFragment extends Fragment {
     private ListView listView;
     private ArrayList<NOTEBOOK> notebooks;
 
-    static public ListNotebookAdapter listNotebookAdapter;
+    public ListNotebookAdapter listNotebookAdapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        MainActivity.nb_fragment_id = getId();
+
+
+        //MainActivity.lastFragment = getId();
 
         View root = inflater.inflate(R.layout.fragment_notebook, container, false);
         setHasOptionsMenu(true);
