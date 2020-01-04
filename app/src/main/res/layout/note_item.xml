@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="10dp">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -16,30 +20,26 @@
             android:text="Default title"
             android:textSize="25dp"
             android:textStyle="bold"
-            android:layout_margin="5dp"
-            />
+            android:paddingTop="5dp"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/note_date"
             android:text="30/12/2019"
-            android:textStyle="italic"
-            android:layout_margin="5dp"/>
+            android:textStyle="italic" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/note_content"
             android:text="This is your note content"
             android:textStyle="normal"
-            android:textSize="15dp"
-            android:layout_margin="5dp"/>
+            android:textSize="15dp"/>
 
     </LinearLayout>
 
     <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:id="@+id/note_img"
-        android:src="@drawable/example" />
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:id="@+id/note_img" />
 
 </LinearLayout>
