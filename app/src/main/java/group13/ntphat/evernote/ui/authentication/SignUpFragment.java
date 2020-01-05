@@ -38,7 +38,6 @@ public class SignUpFragment extends Fragment {
                     Toast.makeText(inflater.getContext(), "Mật khẩu không khớp, mời nhập lại!",
                             Toast.LENGTH_LONG).show();
                 } else {
-                    // do sign up
                     try {
                         DATA.signup(getContext(), username, email, fullname, password);
                     } catch (JSONException e) {

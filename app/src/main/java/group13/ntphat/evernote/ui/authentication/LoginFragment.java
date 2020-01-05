@@ -15,16 +15,22 @@ import group13.ntphat.evernote.Model.DATA;
 import group13.ntphat.evernote.R;
 
 public class LoginFragment extends Fragment {
-    View root;
+    boolean preset = false;
+    String presetUsername = null;
+    String presetPassword = null;
     private EditText editTxtUsername;
     private EditText editTxtPassword;
 
-
     public View onCreateView(@NonNull final LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        this.root = inflater.inflate(R.layout.fragment_login, container, false);
+        View root = inflater.inflate(R.layout.fragment_login, container, false);
         this.editTxtUsername = root.findViewById(R.id.editTxt_username);
         this.editTxtPassword = root.findViewById(R.id.editTxt_password);
+        if (this.preset) {
+            this.editTxtUsername.setText(this.presetUsername);
+            this.editTxtPassword.setText(this.presetPassword);
+            this.preset = false;
+        }
 
         this.editTxtPassword.setOnKeyListener(new View.OnKeyListener() {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -85,9 +91,8 @@ public class LoginFragment extends Fragment {
     }
 
     public void preset(String username, String password) {
-        this.editTxtUsername = root.findViewById(R.id.editTxt_username);
-        this.editTxtPassword = root.findViewById(R.id.editTxt_password);
-        this.editTxtUsername.setText(username);
-        this.editTxtPassword.setText(password);
+        this.preset = true;
+        this.presetUsername = username;
+        this.presetPassword = password;
     }
 }

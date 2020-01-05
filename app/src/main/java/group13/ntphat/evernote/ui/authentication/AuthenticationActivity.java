@@ -61,8 +61,6 @@ public class AuthenticationActivity extends FragmentActivity {
                 break;
             default: return;
         }
-        fragmentTransaction.detach(fragment);
-        fragmentTransaction.attach(fragment);
         fragmentTransaction.replace(R.id.container, fragment);
         fragmentTransaction.commit();
     }
@@ -88,8 +86,12 @@ public class AuthenticationActivity extends FragmentActivity {
                                 Toast.LENGTH_LONG).show();
                         String username = intent.getStringExtra("username");
                         String password = intent.getStringExtra("password");
+
+                        FragmentTransaction fragmentTransaction = myFragmentManager.beginTransaction();
+                        loginFragment = new LoginFragment();
                         loginFragment.preset(username, password);
-                        SwapFragment(FRAGMENT_LOGIN);
+                        fragmentTransaction.replace(R.id.container, loginFragment);
+                        fragmentTransaction.commit();
                     }else {
                         Toast.makeText(AuthenticationActivity.this, "Tên đăng nhập đã tồn tại!",
                                 Toast.LENGTH_LONG).show();
