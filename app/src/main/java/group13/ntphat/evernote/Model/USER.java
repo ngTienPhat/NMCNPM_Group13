@@ -41,6 +41,7 @@ public class USER {
         this.memberSince = memberSince;
         this.userName = userName;
         this.avatar = avatar;
+        this.imgAvatar = null;
         this.notebooks = new ArrayList<>();
     }
 
