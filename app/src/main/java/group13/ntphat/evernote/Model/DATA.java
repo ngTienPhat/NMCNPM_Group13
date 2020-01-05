@@ -52,9 +52,10 @@ public class DATA {
                                 int accountLevel = userJSON.getInt("accountlevel");
                                 String memberSince = userJSON.getString("membersince");
                                 String userName = userJSON.getString("username");
+                                String avatar = userJSON.getString("avatar");
 
                                 USER.getInstance().init(userID, fullName, userEmail, accountLevel,
-                                        memberSince, userName);
+                                        memberSince, userName, avatar);
                             }
 
                             DATA.sendIntendBroadcast(context, "login", logIn);
@@ -93,11 +94,6 @@ public class DATA {
                         try {
                             JSONObject userJSON = new JSONObject(response);
                             int status = userJSON.getInt("status");
-                            if (status == 1) {
-                                String userID = userJSON.getString("userid");
-                                USER.getInstance().init(userID, fullName, userEmail, 0,
-                                        "", userName);
-                            }
 
                             DATA.sendIntendBroadcast(context, "signup", status);
                         } catch (JSONException e) {
@@ -143,7 +139,70 @@ public class DATA {
         };
         queue.add(stringRequest);
     }
+    static public void forgotPassword(final Context context, String userName, String userEmail) {
+        RequestQueue queue = Volley.newRequestQueue(context);
+        String url = link + "/users/forgotPassword";
 
+        final JSONObject body = new JSONObject();
+        try {
+            body.put("username", userName);
+            body.put("useremail", userEmail);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject userJSON = new JSONObject(response);
+                            int status = userJSON.getInt("status");
+
+                            DATA.sendIntendBroadcast(context, "forgotPassword", status);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        String msg;
+                        try {
+                            if (error.networkResponse.statusCode == 500) {
+                                msg = "Lỗi hệ thống";
+                            } else {
+                                JSONObject json = new JSONObject(new String(error.networkResponse.data, "utf-8"));
+                                msg = json.getString("message");
+                            }
+                            Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        } catch (UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+        ) {
+            @Override
+            public String getBodyContentType() {
+                return "application/json; charset=utf-8";
+            }
+
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+                try {
+                    return body.toString().getBytes("utf-8");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                    return null;
+                }
+            }
+        };
+        queue.add(stringRequest);
+    }
     static public void updateInfo(final Context context, final String fullName, String userEmail, String userPassword) {
         RequestQueue queue = Volley.newRequestQueue(context);
         String url = link + "users/" + USER.getInstance().getUserID() + "/change";

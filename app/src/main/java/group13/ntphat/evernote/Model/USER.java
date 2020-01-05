@@ -17,6 +17,7 @@ public class USER {
     private int accountLevel;
     private String memberSince;
     private String userName;
+    private String avatar;
     private ArrayList<NOTEBOOK> notebooks;
 
     private String newNoteID;
@@ -26,13 +27,14 @@ public class USER {
         notebooks = new ArrayList<>();
     }
     private USER(String userID, String fullName, String userEmail, int accountLevel,
-                 String memberSince, String userName) {
+                 String memberSince, String userName, String avatar) {
         this.userID = userID;
         this.fullName = fullName;
         this.userEmail = userEmail;
         this.accountLevel = accountLevel;
         this.memberSince = memberSince;
         this.userName = userName;
+        this.avatar = avatar;
         this.notebooks = new ArrayList<>();
     }
 
@@ -45,13 +47,14 @@ public class USER {
     }
 
     public void init(String userID, String fullName, String userEmail, int accountLevel,
-                     String memberSince, String userName) {
+                     String memberSince, String userName, String avatar) {
         this.userID = userID;
         this.fullName = fullName;
         this.userEmail = userEmail;
         this.accountLevel = accountLevel;
         this.memberSince = memberSince;
         this.userName = userName;
+        this.avatar = avatar;
         this.notebooks = new ArrayList<>();
     }
 
@@ -102,7 +105,12 @@ public class USER {
     public void setUserName(String userName) {
         this.userName = userName;
     }
-
+    public String getAvatar() {
+        return avatar;
+    }
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
     public String getNewNoteID() {
         return newNoteID;
     }
