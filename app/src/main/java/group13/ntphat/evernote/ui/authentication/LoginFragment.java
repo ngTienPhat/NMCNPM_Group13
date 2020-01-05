@@ -56,6 +56,14 @@ public class LoginFragment extends Fragment {
                 AuthenticationActivity.SwapFragment(AuthenticationActivity.FRAGMENT_SIGN_UP);
             }
         });
+
+        View txtForgetPassword = root.findViewById(R.id.txt_forgetPassword);
+        txtForgetPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AuthenticationActivity.SwapFragment(AuthenticationActivity.FRAGMENT_FORGET_PASSWORD);
+            }
+        });
         return root;
     }
 

@@ -19,10 +19,12 @@ public class AuthenticationActivity extends FragmentActivity {
 
     final public static int FRAGMENT_LOGIN = 1;
     final public static int FRAGMENT_SIGN_UP = 2;
+    final public static int FRAGMENT_FORGET_PASSWORD = 3;
 
     private static FragmentManager myFragmentManager;
     private static LoginFragment loginFragment;
     private static SignUpFragment signUpFragment;
+    private static ForgetPasswordFragment forgetPasswordFragment;
 
     private BroadcastReceiver authenticationReceiver;
 
@@ -35,6 +37,7 @@ public class AuthenticationActivity extends FragmentActivity {
         myFragmentManager = getSupportFragmentManager();
         loginFragment = new LoginFragment();
         signUpFragment = new SignUpFragment();
+        forgetPasswordFragment = new ForgetPasswordFragment();
 
         if(savedInstanceState == null){
             FragmentTransaction fragmentTransaction = myFragmentManager.beginTransaction();
@@ -52,6 +55,9 @@ public class AuthenticationActivity extends FragmentActivity {
                 break;
             case FRAGMENT_SIGN_UP:
                 fragment = signUpFragment;
+                break;
+            case FRAGMENT_FORGET_PASSWORD:
+                fragment = forgetPasswordFragment;
                 break;
             default: return;
         }

@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,6 +29,9 @@ import com.google.android.material.navigation.NavigationView;
 
 import org.json.JSONException;
 
+import java.io.InputStream;
+import java.net.URL;
+
 import group13.ntphat.evernote.Model.DATA;
 import group13.ntphat.evernote.Model.USER;
 import group13.ntphat.evernote.ui.notebook.NewNotebookDialog;
@@ -42,6 +46,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout drawer;
     private NavigationView navigationView;
     private BroadcastReceiver killReceiver;
+    private BroadcastReceiver changeInfoReceiver;
+
+    private TextView txtFullname;
+    private TextView txtEmail;
+    private ImageView imgAvatar;
 
     public static int lastFragment;
     public static NavController navController;
@@ -54,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         this.addKillReceiver();
+        this.addChangeInfoReceiver();
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -82,13 +92,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void setUpHeader() {
         View headerLayout = this.navigationView.getHeaderView(0);
-        TextView fullname = (TextView) headerLayout.findViewById(R.id.txt_fullname);
-        TextView email = (TextView) headerLayout.findViewById(R.id.txt_email);
-        ImageView avt = (ImageView) headerLayout.findViewById(R.id.img_profile);
+        this.txtFullname = (TextView) headerLayout.findViewById(R.id.txt_fullname);
+        this.txtEmail = (TextView) headerLayout.findViewById(R.id.txt_email);
+        this.imgAvatar = (ImageView) headerLayout.findViewById(R.id.img_profile);
 
-        fullname.setText(USER.getInstance().getFullName());
-        email.setText(USER.getInstance().getUserEmail());
-        avt.setOnClickListener(new View.OnClickListener() {
+        this.txtFullname.setText(USER.getInstance().getFullName());
+        this.txtEmail.setText(USER.getInstance().getUserEmail());
+        this.imgAvatar.setImageDrawable(LoadImageFromWebOperations(USER.getInstance().getAvatar()));
+
+        this.imgAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, AccountInfoActivity.class);
@@ -96,6 +108,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 drawer.closeDrawer(GravityCompat.START);
             }
         });
+    }
+
+    public Drawable LoadImageFromWebOperations(String url) {
+        try {
+            InputStream is = (InputStream) new URL(url).getContent();
+            Drawable d = Drawable.createFromStream(is, "avatar");
+            return d;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
@@ -184,9 +207,36 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         registerReceiver(this.killReceiver, intentFilter);
     }
 
+    private void addChangeInfoReceiver() {
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("DATA");
+        this.changeInfoReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                String name = intent.getStringExtra("name");
+                int success = intent.getIntExtra("success", 0);
+                if (name.equals("updateInfo")) {
+                    if (success == 1) {
+                        String fullname = USER.getInstance().getFullName();
+                        if (fullname.compareTo(txtFullname.getText().toString()) != 0) {
+                            txtFullname.setText(fullname);
+                        }
+
+                        String email = USER.getInstance().getUserEmail();
+                        if (email.compareTo(txtEmail.getText().toString()) != 0) {
+                            txtEmail.setText(email);
+                        }
+                    }
+                }
+            }
+        };
+        registerReceiver(this.changeInfoReceiver, intentFilter);
+    }
+
     @Override
     protected void onDestroy() {
         this.unregisterReceiver(this.killReceiver);
+        unregisterReceiver(this.changeInfoReceiver);
         super.onDestroy();
     }
 }

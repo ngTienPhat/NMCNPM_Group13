@@ -1,7 +1,10 @@
 package group13.ntphat.evernote.ui.setting;
 
 import android.app.Dialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -11,21 +14,54 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import group13.ntphat.evernote.Model.DATA;
 import group13.ntphat.evernote.Model.USER;
 import group13.ntphat.evernote.R;
 import group13.ntphat.evernote.ui.authentication.AuthenticationActivity;
 
 public class AccountInfoActivity extends AppCompatActivity {
+    private BroadcastReceiver changeInfoReceiver;
+    private TextView txtFullname;
+    private TextView txtEmail;
+
+    private void addChangeInfoReceiver() {
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("DATA");
+        this.changeInfoReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                String name = intent.getStringExtra("name");
+                int success = intent.getIntExtra("success", 0);
+                if (name.equals("updateInfo")) {
+                    if (success == 1) {
+                        String fullname = USER.getInstance().getFullName();
+                        if (fullname.compareTo(txtFullname.getText().toString()) != 0) {
+                            txtFullname.setText(fullname);
+                        }
+                        String email = USER.getInstance().getUserEmail();
+                        if (email.compareTo(txtEmail.getText().toString()) != 0) {
+                            txtEmail.setText(email);
+                        }
+                        Toast.makeText(AccountInfoActivity.this, "Thao tác thành công!",
+                                Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+        };
+        registerReceiver(this.changeInfoReceiver, intentFilter);
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_info);
         setTitle("Thông tin tài khoản");
+        this.addChangeInfoReceiver();
 
-        TextView fullname = (TextView) findViewById(R.id.txt_fullname);
-        TextView email = (TextView) findViewById(R.id.txt_email);
-        fullname.setText(USER.getInstance().getFullName());
-        email.setText(USER.getInstance().getUserEmail());
+        this.txtFullname = (TextView) findViewById(R.id.txt_fullname);
+        this.txtEmail = (TextView) findViewById(R.id.txt_email);
+        this.txtFullname.setText(USER.getInstance().getFullName());
+        this.txtEmail.setText(USER.getInstance().getUserEmail());
 
         View btn = findViewById(R.id.btn_change_name);
         btn.setOnClickListener(new View.OnClickListener() {
@@ -56,6 +92,7 @@ public class AccountInfoActivity extends AppCompatActivity {
                             email = null;
 
                         // do change info here
+                        DATA.updateInfo(AccountInfoActivity.this, fullname, email, null);
                         dialog.cancel();
                     }
                 });
@@ -93,6 +130,7 @@ public class AccountInfoActivity extends AppCompatActivity {
                                     Toast.LENGTH_LONG).show();
                         } else {
                             // do change password here
+                            DATA.updateInfo(AccountInfoActivity.this, null, null, newPass);
                             dialog.cancel();
                         }
                     }
@@ -117,5 +155,11 @@ public class AccountInfoActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        unregisterReceiver(this.changeInfoReceiver);
+        super.onDestroy();
     }
 }
