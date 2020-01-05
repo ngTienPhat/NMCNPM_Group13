@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -98,8 +99,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         this.txtFullname.setText(USER.getInstance().getFullName());
         this.txtEmail.setText(USER.getInstance().getUserEmail());
-        this.imgAvatar.setImageDrawable(LoadImageFromWebOperations(USER.getInstance().getAvatar()));
-
+        if (USER.getInstance().getImgAvatar() != null)
+            this.imgAvatar.setImageDrawable(USER.getInstance().getImgAvatar());
         this.imgAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -108,17 +109,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 drawer.closeDrawer(GravityCompat.START);
             }
         });
-    }
-
-    public Drawable LoadImageFromWebOperations(String url) {
-        try {
-            InputStream is = (InputStream) new URL(url).getContent();
-            Drawable d = Drawable.createFromStream(is, "avatar");
-            return d;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
     }
 
     @Override

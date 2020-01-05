@@ -43,6 +43,7 @@ public class SettingActivity extends AppCompatActivity {
 
         fullname.setText(USER.getInstance().getFullName());
         email.setText(USER.getInstance().getUserEmail());
+        avt.setImageDrawable(USER.getInstance().getImgAvatar());
         avt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

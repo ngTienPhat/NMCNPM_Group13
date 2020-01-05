@@ -1,9 +1,14 @@
 package group13.ntphat.evernote.Model;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 
 import org.json.JSONException;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,6 +23,7 @@ public class USER {
     private String memberSince;
     private String userName;
     private String avatar;
+    private Drawable imgAvatar;
     private ArrayList<NOTEBOOK> notebooks;
 
     private String newNoteID;
@@ -56,6 +62,20 @@ public class USER {
         this.userName = userName;
         this.avatar = avatar;
         this.notebooks = new ArrayList<>();
+
+        AsyncTask<String, Void, Void> downloadAvatar = new AsyncTask<String, Void, Void>() {
+            @Override
+            protected Void doInBackground(String... urls) {
+                try {
+                    InputStream is = (InputStream) new URL(urls[0]).getContent();
+                    imgAvatar = Drawable.createFromStream(is, "avatar");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+        };
+        downloadAvatar.execute(USER.getInstance().getAvatar());
     }
 
     public void remove() {
@@ -65,6 +85,8 @@ public class USER {
         this.accountLevel = 0;
         this.memberSince = "";
         this.userName = "";
+        this.avatar = "";
+        this.imgAvatar = null;
         this.notebooks = new ArrayList<>();
         gc();
     }
@@ -110,6 +132,12 @@ public class USER {
     }
     public void setAvatar(String avatar) {
         this.avatar = avatar;
+    }
+    public Drawable getImgAvatar() {
+        return imgAvatar;
+    }
+    public void setImgAvatar(Drawable imgAvatar) {
+        this.imgAvatar = imgAvatar;
     }
     public String getNewNoteID() {
         return newNoteID;
