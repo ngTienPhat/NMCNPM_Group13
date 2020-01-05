@@ -61,6 +61,8 @@ public class AuthenticationActivity extends FragmentActivity {
                 break;
             default: return;
         }
+        fragmentTransaction.detach(fragment);
+        fragmentTransaction.attach(fragment);
         fragmentTransaction.replace(R.id.container, fragment);
         fragmentTransaction.commit();
     }
@@ -82,7 +84,12 @@ public class AuthenticationActivity extends FragmentActivity {
                     }
                 } else if (name.equals("signup")) {
                     if (success == 1) {
-                        showMainActivity();
+                        Toast.makeText(AuthenticationActivity.this, "Đăng ký thành công!",
+                                Toast.LENGTH_LONG).show();
+                        String username = intent.getStringExtra("username");
+                        String password = intent.getStringExtra("password");
+                        loginFragment.preset(username, password);
+                        SwapFragment(FRAGMENT_LOGIN);
                     }else {
                         Toast.makeText(AuthenticationActivity.this, "Tên đăng nhập đã tồn tại!",
                                 Toast.LENGTH_LONG).show();

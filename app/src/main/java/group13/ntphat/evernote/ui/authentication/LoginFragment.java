@@ -15,13 +15,14 @@ import group13.ntphat.evernote.Model.DATA;
 import group13.ntphat.evernote.R;
 
 public class LoginFragment extends Fragment {
-
+    View root;
     private EditText editTxtUsername;
     private EditText editTxtPassword;
 
+
     public View onCreateView(@NonNull final LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_login, container, false);
+        this.root = inflater.inflate(R.layout.fragment_login, container, false);
         this.editTxtUsername = root.findViewById(R.id.editTxt_username);
         this.editTxtPassword = root.findViewById(R.id.editTxt_password);
 
@@ -81,5 +82,12 @@ public class LoginFragment extends Fragment {
             return;
         }
         DATA.login(getContext(), username, password);
+    }
+
+    public void preset(String username, String password) {
+        this.editTxtUsername = root.findViewById(R.id.editTxt_username);
+        this.editTxtPassword = root.findViewById(R.id.editTxt_password);
+        this.editTxtUsername.setText(username);
+        this.editTxtPassword.setText(password);
     }
 }

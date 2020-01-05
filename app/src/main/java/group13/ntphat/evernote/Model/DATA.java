@@ -87,6 +87,8 @@ public class DATA {
         body.put("useremail", userEmail);
         body.put("password", password);
 
+        final String username = userName;
+        final String pass = password;
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
@@ -95,7 +97,12 @@ public class DATA {
                             JSONObject userJSON = new JSONObject(response);
                             int status = userJSON.getInt("status");
 
-                            DATA.sendIntendBroadcast(context, "signup", status);
+                            Intent intent = new Intent("DATA");
+                            intent.putExtra("name", "signup");
+                            intent.putExtra("success", status);
+                            intent.putExtra("username", username);
+                            intent.putExtra("password", pass);
+                            context.sendBroadcast(intent);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
