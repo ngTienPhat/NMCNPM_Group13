@@ -1,5 +1,6 @@
 package group13.ntphat.evernote.Model;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
@@ -305,7 +306,7 @@ public class USER {
     public void updateAvatar(Context context, String avatarUrl) {
         setAvatar(avatarUrl);
         final Context c = context;
-        AsyncTask<String, Void, Drawable> downloadAvatar = new AsyncTask<String, Void, Drawable>() {
+        @SuppressLint("StaticFieldLeak") AsyncTask<String, Void, Drawable> downloadAvatar = new AsyncTask<String, Void, Drawable>() {
             @Override
             protected Drawable doInBackground(String... urls) {
                 try {

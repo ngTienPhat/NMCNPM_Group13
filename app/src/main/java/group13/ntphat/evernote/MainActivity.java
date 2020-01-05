@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private NavigationView navigationView;
     private BroadcastReceiver killReceiver;
     private BroadcastReceiver changeInfoReceiver;
+    private BroadcastReceiver uploadAvatarReceiver;
 
     private TextView txtFullname;
     private TextView txtEmail;
@@ -65,6 +66,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
         this.addKillReceiver();
         this.addChangeInfoReceiver();
+        this.addUploadAvatarReceiver();
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -222,10 +224,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         registerReceiver(this.changeInfoReceiver, intentFilter);
     }
 
+    private void addUploadAvatarReceiver() {
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("AVATAR_UPLOADED");
+        this.uploadAvatarReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                String url = intent.getStringExtra("url");
+                USER.getInstance().updateAvatar(context, url);
+            }
+        };
+        registerReceiver(this.uploadAvatarReceiver, intentFilter);
+    }
+
     @Override
     protected void onDestroy() {
         this.unregisterReceiver(this.killReceiver);
-        unregisterReceiver(this.changeInfoReceiver);
+        this.unregisterReceiver(this.changeInfoReceiver);
+        this.unregisterReceiver(this.uploadAvatarReceiver);
         super.onDestroy();
     }
 }

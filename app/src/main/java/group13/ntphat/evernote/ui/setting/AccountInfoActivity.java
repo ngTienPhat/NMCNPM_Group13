@@ -1,6 +1,7 @@
 package group13.ntphat.evernote.ui.setting;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
@@ -35,7 +36,6 @@ import xute.markdeditor.utilities.FilePathUtils;
 
 public class AccountInfoActivity extends AppCompatActivity {
     private BroadcastReceiver changeInfoReceiver;
-    private BroadcastReceiver uploadAvatarReceiver;
     private TextView txtFullname;
     private TextView txtEmail;
     private final int REQUEST_IMAGE_SELECTOR = 8;
@@ -67,26 +67,12 @@ public class AccountInfoActivity extends AppCompatActivity {
         registerReceiver(this.changeInfoReceiver, intentFilter);
     }
 
-    private void addUploadAvatarReceiver() {
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction("AVATAR_UPLOADED");
-        this.uploadAvatarReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                String url = intent.getStringExtra("url");
-                USER.getInstance().updateAvatar(context, url);
-            }
-        };
-        registerReceiver(this.uploadAvatarReceiver, intentFilter);
-    }
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_info);
         setTitle("Thông tin tài khoản");
         this.addChangeInfoReceiver();
-        this.addUploadAvatarReceiver();
 
         this.txtFullname = (TextView) findViewById(R.id.txt_fullname);
         this.txtEmail = (TextView) findViewById(R.id.txt_email);
@@ -198,7 +184,6 @@ public class AccountInfoActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         unregisterReceiver(this.changeInfoReceiver);
-        unregisterReceiver(this.uploadAvatarReceiver);
         super.onDestroy();
     }
 
@@ -208,9 +193,18 @@ public class AccountInfoActivity extends AppCompatActivity {
         if (requestCode == REQUEST_IMAGE_SELECTOR) {
             if (resultCode == Activity.RESULT_OK && data != null && data.getData() != null) {
                 Uri uri = data.getData();
-                String filePath = FilePathUtils.getPath(this, uri);
-                ImageUploader imageUploader = new ImageUploader();
-                imageUploader.uploadImage(this, filePath, USER.getInstance().getUserID());
+                final String filePath = FilePathUtils.getPath(this, uri);
+
+                @SuppressLint("StaticFieldLeak") AsyncTask<Void, Void, Void> uploadAvatar = new AsyncTask<Void, Void, Void>() {
+                    @Override
+                    protected Void doInBackground(Void... voids) {
+                        ImageUploader imageUploader = new ImageUploader();
+                        imageUploader.uploadImage(AccountInfoActivity.this, filePath, USER.getInstance().getUserID());
+                        return null;
+                    }
+                };
+                uploadAvatar.execute();
+
             }
         }
     }
