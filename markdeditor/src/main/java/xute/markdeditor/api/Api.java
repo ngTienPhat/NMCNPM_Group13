@@ -12,5 +12,9 @@ import retrofit2.http.Query;
 public interface Api {
   @Multipart
   @POST("upload")
-  Call<FileUploadReponse> uploadFile(@Query("userId") String userId, @Part MultipartBody.Part file);
+  Call<FileUploadReponse> uploadFile(@Query("userid") String userId, @Part MultipartBody.Part file);
+
+  @Multipart
+  @POST("upload")
+  Call<FileUploadReponse> uploadFile(@Part MultipartBody.Part file);
 }

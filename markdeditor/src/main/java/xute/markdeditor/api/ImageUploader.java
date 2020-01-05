@@ -23,7 +23,7 @@ public class ImageUploader {
         MultipartBody.Part body = MultipartBody.Part.createFormData("file", file.getName(), requestFile);
         RetrofitApiClient.getClient(serverToken)
                 .create(Api.class)
-                .uploadFile("", body)
+                .uploadFile(body)
                 .enqueue(new Callback<FileUploadReponse>() {
                     @Override
                     public void onResponse(Call<FileUploadReponse> call, Response<FileUploadReponse> response) {
