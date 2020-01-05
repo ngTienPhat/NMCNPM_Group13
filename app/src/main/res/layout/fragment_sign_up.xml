@@ -7,11 +7,33 @@
     android:orientation="vertical">
 
     <EditText
+        android:id="@+id/editTxt_fullname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#00AA11"
+        android:hint="Họ và tên"
+        android:inputType="text"
+        android:textColor="#000"
+        android:textSize="16dp"
+        android:textStyle="normal" />
+
+    <EditText
         android:id="@+id/editTxt_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="#00AA11"
         android:hint="Tên đăng nhập"
+        android:inputType="text"
+        android:textColor="#000"
+        android:textSize="16dp"
+        android:textStyle="normal" />
+
+    <EditText
+        android:id="@+id/editTxt_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#00AA11"
+        android:hint="Email"
         android:inputType="text"
         android:textColor="#000"
         android:textSize="16dp"
