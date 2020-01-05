@@ -48,16 +48,20 @@
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:orientation="vertical"
-            android:onClick="choose_avatar"
             android:paddingVertical="15dp">
 
             <TextView
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:text="Chọn avatar"
+                android:text="Thay ảnh đại diện"
                 android:textColor="#000"
                 android:textSize="20dp" />
         </LinearLayout>
+
+        <View
+            android:background="@android:color/darker_gray"
+            android:layout_height="1dp"
+            android:layout_width="match_parent"/>
 
         <LinearLayout
             android:id="@+id/btn_change_password"

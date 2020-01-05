@@ -3,6 +3,7 @@ package group13.ntphat.evernote.Model;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
+import android.widget.Toast;
 
 import org.json.JSONException;
 
@@ -12,6 +13,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import group13.ntphat.evernote.ui.setting.AccountInfoActivity;
 
 import static java.lang.System.gc;
 
@@ -41,7 +44,6 @@ public class USER {
         this.memberSince = memberSince;
         this.userName = userName;
         this.avatar = avatar;
-        this.imgAvatar = null;
         this.notebooks = new ArrayList<>();
     }
 
@@ -62,21 +64,8 @@ public class USER {
         this.memberSince = memberSince;
         this.userName = userName;
         this.avatar = avatar;
+        this.imgAvatar = null;
         this.notebooks = new ArrayList<>();
-
-        AsyncTask<String, Void, Void> downloadAvatar = new AsyncTask<String, Void, Void>() {
-            @Override
-            protected Void doInBackground(String... urls) {
-                try {
-                    InputStream is = (InputStream) new URL(urls[0]).getContent();
-                    imgAvatar = Drawable.createFromStream(is, "avatar");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                return null;
-            }
-        };
-        downloadAvatar.execute(USER.getInstance().getAvatar());
     }
 
     public void remove() {
@@ -311,5 +300,30 @@ public class USER {
 
         noteChanged.setNotebookID(newNotebookID);
         this.heper_addNote(newNotebookID, noteChanged);
+    }
+
+    public void updateAvatar(Context context, String avatarUrl) {
+        setAvatar(avatarUrl);
+        final Context c = context;
+        AsyncTask<String, Void, Drawable> downloadAvatar = new AsyncTask<String, Void, Drawable>() {
+            @Override
+            protected Drawable doInBackground(String... urls) {
+                try {
+                    InputStream is = (InputStream) new URL(urls[0]).getContent();
+                    Drawable d = Drawable.createFromStream(is, "avatar");
+                    return d;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+            @Override
+            protected void onPostExecute(Drawable drawable) {
+                setImgAvatar(drawable);
+                DATA.sendIntendBroadcast(c, "updateInfo", 1);
+                super.onPostExecute(drawable);
+            }
+        };
+        downloadAvatar.execute(avatarUrl);
     }
 }

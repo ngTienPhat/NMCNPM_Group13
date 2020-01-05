@@ -29,6 +29,7 @@ public class ForgetPasswordFragment extends Fragment {
                 String username = editTxtUsername.getText().toString();
                 String email = editTxtEmail.getText().toString();
                 // do reset password
+                DATA.forgotPassword(getContext(), username, email);
                 Toast.makeText(getActivity(), "Đã gửi email đặt lại mật khẩu!",
                         Toast.LENGTH_LONG).show();
             }

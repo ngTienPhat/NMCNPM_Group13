@@ -99,8 +99,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         this.txtFullname.setText(USER.getInstance().getFullName());
         this.txtEmail.setText(USER.getInstance().getUserEmail());
-        if (USER.getInstance().getImgAvatar() != null)
-            this.imgAvatar.setImageDrawable(USER.getInstance().getImgAvatar());
         this.imgAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,6 +107,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 drawer.closeDrawer(GravityCompat.START);
             }
         });
+        USER.getInstance().updateAvatar(this, USER.getInstance().getAvatar());
     }
 
     @Override
@@ -211,11 +210,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         if (fullname.compareTo(txtFullname.getText().toString()) != 0) {
                             txtFullname.setText(fullname);
                         }
-
                         String email = USER.getInstance().getUserEmail();
                         if (email.compareTo(txtEmail.getText().toString()) != 0) {
                             txtEmail.setText(email);
                         }
+                        imgAvatar.setImageDrawable(USER.getInstance().getImgAvatar());
                     }
                 }
             }
