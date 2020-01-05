@@ -69,20 +69,38 @@ public class USER {
     public String getUserID() {
         return userID;
     }
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
     public String getFullName() {
         return fullName;
+    }
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
     public String getUserEmail() {
         return userEmail;
     }
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
     public int getAccountLevel() {
         return accountLevel;
+    }
+    public void setAccountLevel(int accountLevel) {
+        this.accountLevel = accountLevel;
     }
     public String getMemberSince() {
         return memberSince;
     }
+    public void setMemberSince(String memberSince) {
+        this.memberSince = memberSince;
+    }
     public String getUserName() {
         return userName;
+    }
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getNewNoteID() {
