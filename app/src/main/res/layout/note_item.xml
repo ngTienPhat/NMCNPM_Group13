@@ -19,8 +19,9 @@
             android:layout_height="wrap_content"
             android:id="@+id/note_title"
             android:text="Default title"
-            android:textSize="25dp"
+            android:textSize="20dp"
             android:textStyle="bold"
+            android:textColor="@color/colorBlack"
             android:paddingTop="5dp"/>
         <TextView
             android:layout_width="match_parent"

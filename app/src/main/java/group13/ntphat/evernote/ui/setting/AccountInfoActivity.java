@@ -1,28 +1,39 @@
 package group13.ntphat.evernote.ui.setting;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import group13.ntphat.evernote.Model.DATA;
 import group13.ntphat.evernote.Model.USER;
 import group13.ntphat.evernote.R;
 import group13.ntphat.evernote.ui.authentication.AuthenticationActivity;
+import xute.markdeditor.api.ImageUploader;
+import xute.markdeditor.utilities.FilePathUtils;
 
 public class AccountInfoActivity extends AppCompatActivity {
     private BroadcastReceiver changeInfoReceiver;
     private TextView txtFullname;
     private TextView txtEmail;
+    private final int REQUEST_IMAGE_SELECTOR = 8;
+    private String downloadUrl = "";
 
     private void addChangeInfoReceiver() {
         IntentFilter intentFilter = new IntentFilter();
@@ -161,5 +172,54 @@ public class AccountInfoActivity extends AppCompatActivity {
     protected void onDestroy() {
         unregisterReceiver(this.changeInfoReceiver);
         super.onDestroy();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_IMAGE_SELECTOR) {
+            if (resultCode == Activity.RESULT_OK && data != null && data.getData() != null) {
+                Uri uri = data.getData();
+                String filePath = FilePathUtils.getPath(this, uri);
+                ImageUploader imageUploader = new ImageUploader();
+                downloadUrl = imageUploader.uploadImage(filePath, "");
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_IMAGE_SELECTOR:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    openGallery();
+                } else {
+                    //do something like displaying a message that he didn`t allow the app to access gallery and you wont be able to let him select from gallery
+                    //Toast.makeText()"Permission not granted to access images.");
+                }
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + requestCode);
+        }
+    }
+
+    private void openGallery() {
+        try {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_IMAGE_SELECTOR);
+            } else {
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(intent, REQUEST_IMAGE_SELECTOR);
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public void choose_avatar(View view) {
+        openGallery();
     }
 }

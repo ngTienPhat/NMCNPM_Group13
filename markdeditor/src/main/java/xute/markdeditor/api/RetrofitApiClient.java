@@ -13,8 +13,9 @@ import xute.markdeditor.MarkDEditor;
 
 public class RetrofitApiClient {
   private static Retrofit retrofit = null;
+  private static String serverUrl=  "https://project-nmcnpm.herokuapp.com/";
 
-  public static Retrofit getClient(final String token) {
+    public static Retrofit getClient(final String token) {
     HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
     logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
@@ -33,7 +34,8 @@ public class RetrofitApiClient {
      .build();
 
     retrofit = new Retrofit.Builder()
-     .baseUrl(MarkDEditor.getServerUrl())
+     .baseUrl(serverUrl + "uploader/")
+     //.baseUrl(MarkDEditor.getServerUrl())
      .addConverterFactory(GsonConverterFactory.create())
      .client(client)
      .build();

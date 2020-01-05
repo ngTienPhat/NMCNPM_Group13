@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -161,7 +162,7 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
         ArrayList<DraftDataItemModel> contentTypes = new ArrayList<>();
         DraftDataItemModel heading = new DraftDataItemModel();
         heading.setItemType(DraftModel.ITEM_TYPE_TEXT);
-        heading.setContent("take note here");
+        //heading.setContent("take note here");
         heading.setMode(MODE_PLAIN);
         heading.setStyle(NORMAL);
 
@@ -178,21 +179,10 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
     }
 
     public void save_content(MenuItem item) throws JSONException {
-//        clickedNote.setContent(new Gson().toJson(markDEditor.getDraft()));
-//        clickedNote.setTitle(title.getText().toString());
-//        clickedNote.setCreateDate(getCurrentDateAsFormat("dd-MM-yyyy"));
-//
-//        String newNotebookId = notebookId;
-//        if (clickedNote.getNoteID() != null)
-//            USER.getInstance().updateNote(this.getBaseContext(), newNotebookId, clickedNote);
-//        else{
-//            clickedNote.setNoteID(USER.getInstance().getNewNoteID());
-//            clickedNote.setNotebookID(newNotebookId);
-//            USER.getInstance().updateNote(this.getBaseContext(), newNotebookId, clickedNote);
-//        }
         setFinalInfo();
         String newNotebookId = notebookId;
         USER.getInstance().updateNote(this.getBaseContext(), newNotebookId, clickedNote);
+        Toast.makeText(ViewNoteActivity.this, "Saved!", Toast.LENGTH_SHORT).show();
     }
 
     private void setFinalInfo(){
