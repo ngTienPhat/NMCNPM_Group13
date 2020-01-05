@@ -5,7 +5,12 @@
     <title>Upload file to API</title>
 </head>
 <body>
-  <form action = "https://b24dbbcb.ngrok.io/uploader/upload" method = "POST"
+  <form action = "https://project-nmcnpm.herokuapp.com/uploader/upload" method = "POST"
+     enctype = "multipart/form-data">
+     <input type = "file" name = "file" />
+     <input type = "submit"/>
+  </form>
+  <form action = "https://project-nmcnpm.herokuapp.com/uploader/upload/c3acc55a2d1411eab30000d86105dafc" method = "POST"
      enctype = "multipart/form-data">
      <input type = "file" name = "file" />
      <input type = "submit"/>

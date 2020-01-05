@@ -145,6 +145,25 @@
                 <br> + Delete: del note with noteid
             </div>
         </div>
+        <button class="btn btn-primary mt-2" type="button" data-toggle="collapse" data-target="#changeInfo" aria-expanded="false" aria-controls="collapseExample">
+            <strong>https://localhost:5000/users/userid/change -- change info user</strong>
+        </button>
+        <div class="collapse mt-2" id="changeInfo">
+            <div class="card card-body">
+                <br> Method: POST
+                <br> JSON Key: fullname, userpassword, useremail
+                <br> Return: {"status" : 0} or {"status" : 1}
+            </div>
+        </div>
+        <button class="btn btn-primary mt-2" type="button" data-toggle="collapse" data-target="#uploadAvatar" aria-expanded="false" aria-controls="collapseExample">
+            <strong>https://localhost:5000/uploader/upload/userid -- upload avater to server</strong>
+        </button>
+        <div class="collapse mt-2" id="uploadAvatar">
+            <div class="card card-body">
+                <br> Method: POST
+                <br> Return: {"url": ... }
+            </div>
+        </div>
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>

@@ -1,7 +1,12 @@
+import hashlib
+import uuid
+
+import psycopg2
 from flask import jsonify
 from flask import request
 from flask_mail import Message
 
+import API
 from program import app
 from program import mail
 
@@ -30,12 +35,34 @@ def test_json():
     return jsonify({'status': 1})
 
 
-@app.route('/test/gmail', methods=["GET"])
-def sendMail():
-    with app.app_context():
-        msg = Message(subject="[EVERNOTE] RESET PASSWORD",
-                      sender=app.config.get("MAIL_USERNAME"),
-                      recipients=["lamducanhndgv@gmail.com"],  # replace with your email for testing
-                      body="This is a test email I sent with Gmail and Python!")
-        mail.send(msg)
-        return "Successfully"
+@app.route('/users/forgotPassword', methods=["POST"])
+def forgotPass():
+    contentJSON = request.json
+    username = contentJSON.get('username', None)
+    useremail = contentJSON.get('useremail', None)
+    if useremail and username:
+        API.cursor.execute(f"SELECT * FROM userinfo WHERE useremail = '{useremail}' AND username = '{username}'")
+        if len(API.cursor.fetchone()) < 1:
+            return jsonify({"status": 0})
+
+        useremail = useremail.strip()
+        newpassword = uuid.uuid1().hex[:12]
+        hashpassword = hashlib.md5(newpassword.encode()).hexdigest()
+        try:
+            API.cursor.execute(f"UPDATE userinfo \
+                                 SET userpassword = '{hashpassword}' \
+                                 WHERE useremail = '{useremail}' AND username = '{username}'")
+        except (Exception, psycopg2.Error) as error:
+            print('Error while executing to PostgreSQL', error)
+            API.connection.rollback()
+            return jsonify({"status": 0})
+        with app.app_context():
+            msg = Message(subject="[EVERNOTE] RESET PASSWORD",
+                          sender=app.config.get("MAIL_USERNAME"),
+                          recipients=[useremail],  # replace with your email for testing
+                          body=("This is a new password for your account: " + newpassword))
+            mail.send(msg)
+        API.connection.commit()
+        return jsonify({"status": 1})
+
+    return jsonify({"status": 0})

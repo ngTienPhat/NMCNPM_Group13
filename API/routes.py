@@ -10,7 +10,7 @@ import API
 account_api = Blueprint('account_api', __name__)
 
 columnNameUserinfo = (
-    "userid", "fullname", "useremail", "accountlevel", "membersince", "username", "userpassword", "logIn")
+    "userid", "fullname", "useremail", "accountlevel", "membersince", "username", "userpassword", "avatar", "logIn")
 columnNotebook = ("notebookid", "name", "createdate", "owner", "workspaceid", "notes")
 columnNote = ("noteid", "title", "createddate", "contentfile", "tags")
 columnTag = ("tagid", "tagname", "datecreatetag")
@@ -34,22 +34,22 @@ def main_api():
 @account_api.route('/users/create', methods=['POST'])
 def create_user():
     uId = uuid.uuid1().hex
-    username = request.form['username']
-    password = request.form['password']
-    fullname = request.form['fullname']
-    useremail = request.form['useremail']
+    username = request.json['username']
+    password = request.json['password']
+    fullname = request.json['fullname']
+    useremail = request.json['useremail']
     try:
-        API.cursor.execute(f"INSERT INTO userinfo(userid, fullname, useremail, accountlevel, membersince, username, userpassword) \
+        API.cursor.execute(f"INSERT INTO userinfo(userid, fullname, useremail, accountlevel, membersince, username, userpassword, avatar) \
                              VALUES ('{uId}',  '{fullname}', '{useremail}', 0, '{getPresenTime()}' , \
-                                     '{username}', '{hashlib.md5(password.encode()).hexdigest()}')")
+                                     '{username}', '{hashlib.md5(password.encode()).hexdigest()}', '')")
         API.cursor.execute(f"INSERT INTO notebook(notebookid, name, createddate, owner, workspaceid) \
                            VALUES ('{uuid.uuid1().hex}', 'First Notebook', '{getPresenTime()}', '{uId}', NULL) ")
     except (Exception, psycopg2.Error) as error:
         print('Error while executing to PostgreSQL', error)
-        API.cursor.rollback()
+        API.connection.rollback()
         return jsonify({"status": 0})
     API.connection.commit()
-    return jsonify({"userid": uId, "status": 1})
+    return jsonify({"status": 1})
 
 
 @account_api.route('/users/signIn')
@@ -67,11 +67,6 @@ def sign_in_user():
         record.append(1)
         return jsonify(makeDictWithInfo(columnNameUserinfo, list(record)))
     return jsonify({"logIn": 0})
-
-
-@account_api.route('/users/forgotPassword/<useremail>')
-def forgotPass(useremail):
-    useremail = useremail.strip()
 
 
 @account_api.route('/users/<userid>/change', methods=["POST"])
