@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,6 +29,9 @@ import com.google.android.material.navigation.NavigationView;
 
 import org.json.JSONException;
 
+import java.io.InputStream;
+import java.net.URL;
+
 import group13.ntphat.evernote.Model.DATA;
 import group13.ntphat.evernote.Model.USER;
 import group13.ntphat.evernote.ui.notebook.NewNotebookDialog;
@@ -46,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private TextView txtFullname;
     private TextView txtEmail;
+    private ImageView imgAvatar;
 
     public static int lastFragment;
     public static NavController navController;
@@ -89,11 +94,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         View headerLayout = this.navigationView.getHeaderView(0);
         this.txtFullname = (TextView) headerLayout.findViewById(R.id.txt_fullname);
         this.txtEmail = (TextView) headerLayout.findViewById(R.id.txt_email);
-        ImageView avt = (ImageView) headerLayout.findViewById(R.id.img_profile);
+        this.imgAvatar = (ImageView) headerLayout.findViewById(R.id.img_profile);
 
         this.txtFullname.setText(USER.getInstance().getFullName());
         this.txtEmail.setText(USER.getInstance().getUserEmail());
-        avt.setOnClickListener(new View.OnClickListener() {
+        this.imgAvatar.setImageDrawable(LoadImageFromWebOperations(USER.getInstance().getAvatar()));
+
+        this.imgAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, AccountInfoActivity.class);
@@ -101,6 +108,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 drawer.closeDrawer(GravityCompat.START);
             }
         });
+    }
+
+    public Drawable LoadImageFromWebOperations(String url) {
+        try {
+            InputStream is = (InputStream) new URL(url).getContent();
+            Drawable d = Drawable.createFromStream(is, "avatar");
+            return d;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
