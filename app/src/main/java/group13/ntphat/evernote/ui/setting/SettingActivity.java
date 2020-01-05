@@ -12,9 +12,6 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import org.json.JSONException;
-
-import group13.ntphat.evernote.MainActivity;
 import group13.ntphat.evernote.Model.USER;
 import group13.ntphat.evernote.R;
 
