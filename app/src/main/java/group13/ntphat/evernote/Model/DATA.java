@@ -144,6 +144,90 @@ public class DATA {
         queue.add(stringRequest);
     }
 
+    static public void updateInfo(final Context context, final String fullName, String userEmail, String userPassword) {
+        RequestQueue queue = Volley.newRequestQueue(context);
+        String url = link + "users/" + USER.getInstance().getUserID() + "/change";
+
+        final JSONObject body = new JSONObject();
+        try {
+            if (fullName != null) {
+                USER.getInstance().setFullName(fullName);
+                body.put("fullname", fullName);
+            }
+            else {
+                body.put("fullname", "");
+            }
+
+            if (userEmail != null) {
+                USER.getInstance().setUserEmail(userEmail);
+                body.put("useremail", userEmail);
+            }
+            else {
+                body.put("useremail", "");
+            }
+            if (userPassword != null) {
+                body.put("userpassword", userPassword);
+            }
+            else {
+                body.put("userpassword", "");
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject userJSON = new JSONObject(response);
+                            int status = userJSON.getInt("status");
+
+                            DATA.sendIntendBroadcast(context, "updateInfo", status);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        String msg;
+                        try {
+                            if (error.networkResponse.statusCode == 500) {
+                                msg = "Lỗi hệ thống";
+                            } else {
+                                JSONObject json = new JSONObject(new String(error.networkResponse.data, "utf-8"));
+                                msg = json.getString("message");
+                            }
+                            Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        } catch (UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+        ) {
+            @Override
+            public String getBodyContentType() {
+                return "application/json; charset=utf-8";
+            }
+
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+                try {
+                    return body.toString().getBytes("utf-8");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                    return null;
+                }
+            }
+        };
+        queue.add(stringRequest);
+    }
+
     static public void getAllInfo(final Context context, String userID) {
         RequestQueue queue = Volley.newRequestQueue(context);
         String url = link + "users/" + userID + "/getAllInfo";
