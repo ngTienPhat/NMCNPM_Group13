@@ -34,8 +34,8 @@ public class RetrofitApiClient {
      .build();
 
     retrofit = new Retrofit.Builder()
-     //.baseUrl(serverUrl + "uploader/")
-     .baseUrl(MarkDEditor.getServerUrl())
+     .baseUrl(serverUrl + "uploader/")
+     //.baseUrl(MarkDEditor.getServerUrl())
      .addConverterFactory(GsonConverterFactory.create())
      .client(client)
      .build();

@@ -13,7 +13,8 @@ public class ImageUploader {
 
   private ImageUploadCallback imageUploadCallback;
 
-  public void uploadImage(String filePath , String serverToken) {
+  public String uploadImage(String filePath , String serverToken) {
+      final String[] downloadUrl = {""};
     File file = new File(filePath);
     final RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
     MultipartBody.Part body = MultipartBody.Part.createFormData("file", file.getName(), requestFile);
@@ -24,6 +25,7 @@ public class ImageUploader {
        @Override
        public void onResponse(Call<FileUploadReponse> call, Response<FileUploadReponse> response) {
          if (response.isSuccessful()) {
+             downloadUrl[0] = response.body().getUrl().toString();
            if (imageUploadCallback != null) {
              imageUploadCallback.onImageUploaded(response.body().getUrl());
            }
@@ -41,6 +43,7 @@ public class ImageUploader {
          }
        }
      });
+    return downloadUrl[0];
   }
 
   public void setImageUploadCallback(ImageUploadCallback imageUploadCallback) {
