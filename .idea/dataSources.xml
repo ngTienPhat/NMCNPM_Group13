@@ -7,5 +7,11 @@
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://localhost:1211/Evernote</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="dfp4kkfphmko7a@ec2-174-129-27-158.compute-1.amazonaws.com" uuid="bef7131b-775d-493a-b4f0-fd631fd6650a">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://ec2-174-129-27-158.compute-1.amazonaws.com:5432/dfp4kkfphmko7a</jdbc-url>
+    </data-source>
   </component>
 </project>

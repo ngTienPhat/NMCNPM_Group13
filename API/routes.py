@@ -69,6 +69,33 @@ def sign_in_user():
     return jsonify({"logIn": 0})
 
 
+@account_api.route('/users/forgotPassword/<useremail>')
+def forgotPass(useremail):
+    useremail = useremail.strip()
+
+
+@account_api.route('/users/<userid>/change', methods=["POST"])
+def changeInfo(userid):
+    if userid:
+        if request.method == "POST":
+            contentJSON = request.json
+            for key, value in contentJSON.items():
+                if value:
+                    if key == "userpassword":
+                        value = hashlib.md5(value.encode()).hexdigest()
+                    try:
+                        API.cursor.execute(f"UPDATE userinfo \
+                                             SET {key} = '{value}' \
+                                             WHERE userid = '{userid}'")
+                    except (Exception, psycopg2.Error) as error:
+                        print('Error while executing to PostgreSQL', error)
+                        API.connection.rollback()
+                        return jsonify({"status": 0})
+            API.connection.commit()
+            return jsonify({"status": 1})
+    return jsonify({"status": 0})
+
+
 @account_api.route('/users/<userid>/getAllInfo')
 def getAllInfo(userid):
     API.cursor.execute(
@@ -210,4 +237,3 @@ def handle_note(userid, note=None):
             return jsonify({"status": 0})
         API.connection.commit()
         return jsonify({"status": 1})
-
