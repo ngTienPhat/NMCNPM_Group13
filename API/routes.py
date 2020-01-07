@@ -41,7 +41,7 @@ def create_user():
     try:
         API.cursor.execute(f"INSERT INTO userinfo(userid, fullname, useremail, accountlevel, membersince, username, userpassword, avatar) \
                              VALUES ('{uId}',  '{fullname}', '{useremail}', 0, '{getPresenTime()}' , \
-                                     '{username}', '{hashlib.md5(password.encode()).hexdigest()}', '')")
+                                     '{username}', '{hashlib.md5(password.encode()).hexdigest()}', 'https://project-nmcnpm.herokuapp.com/download/image/defaultavatar.png')")
         API.cursor.execute(f"INSERT INTO notebook(notebookid, name, createddate, owner, workspaceid) \
                            VALUES ('{uuid.uuid1().hex}', 'First Notebook', '{getPresenTime()}', '{uId}', NULL) ")
     except (Exception, psycopg2.Error) as error:

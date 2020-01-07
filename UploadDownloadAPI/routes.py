@@ -16,8 +16,7 @@ def upload_file_template():
 
 
 @uploadDownloadAPI.route('/uploader/upload', methods=['GET', 'POST'])
-@uploadDownloadAPI.route('/uploader/upload/<userid>', methods=['GET', 'POST'])
-def upload_file(userid=None):
+def upload_file():
     if request.method in ["POST", "GET"]:
         f = request.files['file']
         s = f.filename.lower()
@@ -34,6 +33,7 @@ def upload_file(userid=None):
             return jsonify({"status": 0})
         f.save(pathreturn)
         result_URL = WEB_URL + f'/download/{option}/' + f.filename
+        userid = request.args.get('userid', None)
         if userid:
             try:
                 API.cursor.execute(f"UPDATE userinfo SET avatar = '{result_URL}' \
