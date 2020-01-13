@@ -1,6 +1,6 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorWhite</item>
         <item name="colorPrimaryDark">@color/colorLightGreen</item>
@@ -8,6 +8,8 @@
         <item name="colorControlNormal">@color/colorLightGray</item>
         <item name="colorButtonNormal">@color/colorGreen</item>
     </style>
+
+    <style name="NoteEditTheme" parent="Theme.MaterialComponents.Light.DarkActionBar"></style>
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>

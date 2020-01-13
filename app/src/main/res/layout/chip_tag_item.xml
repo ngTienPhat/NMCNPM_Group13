@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.chip.Chip xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/tag_chip_item"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    style="@style/Widget.MaterialComponents.Chip.Entry"
+    android:text="tag mane"
+    android:textSize="12dp"
+    app:chipIcon="@drawable/ic_tags"
+    app:chipIconSize="10dp"
+    app:closeIcon="@drawable/ic_close"
+    app:closeIconSize="8dp">
+
+</com.google.android.material.chip.Chip>

@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,10 +26,13 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
 import com.google.gson.Gson;
 
 import org.json.JSONException;
 
+import java.io.StringBufferInputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -64,6 +68,9 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
     private Spinner spinner;
     ArrayList<String> nb_names = new ArrayList<>();
     ArrayList<String> nb_ids = new ArrayList<>();
+
+    private ChipGroup chipGroup;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -118,6 +125,7 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
         title = findViewById(R.id.noteview_title);
         notebook = findViewById(R.id.noteview_notebook);
         spinner = findViewById(R.id.notebook_chooser);
+        chipGroup = findViewById(R.id.tag_chip_group);
         if (!isNewNote){
             content = new Gson().fromJson(clickedNote.getContent(), DraftModel.class);
             title.setText(clickedNote.getTitle());
@@ -158,6 +166,10 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
         }
         String notebookName = USER.getInstance().getNoteBook(notebookId).getNameNoteBook();
         notebook.setText(notebookName);
+
+        //init chip group of tags
+        if (!isNewNote)
+            initChipGroup();
 
         // create MarkDEditor object
         markDEditor = findViewById(R.id.mdEditor);
@@ -287,6 +299,8 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
         return super.onOptionsItemSelected(item);
     }
 
+    // ------------------------------------------------------------------------
+    // add tag for a note
     public void add_tag(View view) {
         final Dialog d = new Dialog(ViewNoteActivity.this);
         d.setContentView(R.layout.dialog_note_add_tag);
@@ -299,7 +313,9 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                USER.getInstance().addTag(notebookId, clickedNote.getNoteID(), tagEditText.getText().toString());
+                String tagName = tagEditText.getText().toString();
+                USER.getInstance().addTag(notebookId, clickedNote.getNoteID(), tagName);
+                addNewTagNameToChipGroup(tagName);
                 setFinalInfo();
                 try {
                     USER.getInstance().updateNote(ViewNoteActivity.this, clickedNote.getNotebookID(), clickedNote);
@@ -318,6 +334,8 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
         });
     }
 
+    //------------------------------------------------------------------------------------
+    // SPEECH2TEXT
     private final int REQ_CODE = 2101;
     public void speechtotext(View view) {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
@@ -333,4 +351,33 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
                     .show();
         }
     }
+
+    //------------------------------------------------------------------------------------
+    // USE CHIP TO SHOW TAG OF NOTE
+
+    private void initChipGroup(){
+        for (int i = 0; i < clickedNote.tags.size(); i++){
+            String tagName = clickedNote.tags.get(i);
+            addNewTagNameToChipGroup(tagName);
+        }
+    }
+
+    private void addNewTagNameToChipGroup(String tagName){
+        LayoutInflater layoutInflater = LayoutInflater.from(getBaseContext());
+        final Chip chip =  (Chip)layoutInflater.inflate(R.layout.chip_tag_item, null, false);
+        chip.setText(tagName);
+        chip.setOnCloseIconClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                chipGroup.removeView(view);
+                removeTag(chip.getText().toString());
+            }
+        });
+        chipGroup.addView(chip);
+    }
+
+    private void removeTag(String tagName){
+        USER.getInstance().removeTag(notebookId, clickedNote.getNoteID(), tagName);
+    }
+
 }
