@@ -66,7 +66,6 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.note_edit);
-
         isNewNote=false;
         Intent intentCatcher = getIntent();
         getClickedNote(intentCatcher);

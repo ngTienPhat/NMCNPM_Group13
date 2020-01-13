@@ -112,24 +112,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         this.imgAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, AccountInfoActivity.class);
-                MainActivity.this.startActivity(intent);
-                drawer.closeDrawer(GravityCompat.START);
+                goToSettingAccount();
             }
         });
 
         this.editAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, AccountInfoActivity.class);
-                MainActivity.this.startActivity(intent);
-                drawer.closeDrawer(GravityCompat.START);
+                goToSettingAccount();
             }
         });
 
         USER.getInstance().updateAvatar(this, USER.getInstance().getAvatar());
     }
 
+    // -----------------------------------------------------------------
+    // open setting activity
+    private void goToSettingAccount(){
+        Intent intent = new Intent(MainActivity.this, AccountInfoActivity.class);
+        MainActivity.this.startActivity(intent);
+        drawer.closeDrawer(GravityCompat.START);
+    }
 
     // -----------------------------------------------------------------
     // navigation item clicked
@@ -279,5 +282,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         this.unregisterReceiver(this.changeInfoReceiver);
         this.unregisterReceiver(this.uploadAvatarReceiver);
         super.onDestroy();
+    }
+
+    public void setting(MenuItem item) {
+        goToSettingAccount();
     }
 }
