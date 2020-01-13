@@ -129,7 +129,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:layout_width="wrap_content"
-                        android:text="BASIC"
+                        android:text="PREMIUM"
                         android:textColor="#00AA11"
                         android:textSize="18dp"
                         android:textStyle="bold" />

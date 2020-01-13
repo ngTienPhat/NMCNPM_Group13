@@ -182,6 +182,7 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
 
         contentTypes.add(heading);
         DraftModel contentModel = new DraftModel(contentTypes);
+
         return contentModel;
     }
 
@@ -205,7 +206,6 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
     }
 
     private void setFinalInfo(){
-        String newNotebookId = notebookId;
         clickedNote.setContent(new Gson().toJson(markDEditor.getDraft()));
         clickedNote.setTitle(title.getText().toString());
         clickedNote.setCreateDate(getCurrentDateAsFormat("dd-MM-yyyy"));
@@ -309,11 +309,5 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
                 d.cancel();
             }
         });
-    }
-
-    @Override
-    public void finish() {
-        setResult(RESULT_OK);
-        super.finish();
     }
 }

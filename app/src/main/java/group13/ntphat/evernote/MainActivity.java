@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private TextView txtFullname;
     private TextView txtEmail;
     private ImageView imgAvatar;
+    private ImageView editAccount;
 
     private int NOTE_CREATE_ACTIVITY_RESULT = 2;
 
@@ -105,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         this.txtFullname = (TextView) headerLayout.findViewById(R.id.txt_fullname);
         this.txtEmail = (TextView) headerLayout.findViewById(R.id.txt_email);
         this.imgAvatar = (ImageView) headerLayout.findViewById(R.id.img_profile);
-
+        this.editAccount = headerLayout.findViewById(R.id.icon_account_setting);
         this.txtFullname.setText(USER.getInstance().getFullName());
         this.txtEmail.setText(USER.getInstance().getUserEmail());
         this.imgAvatar.setOnClickListener(new View.OnClickListener() {
@@ -116,6 +117,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 drawer.closeDrawer(GravityCompat.START);
             }
         });
+
+        this.editAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, AccountInfoActivity.class);
+                MainActivity.this.startActivity(intent);
+                drawer.closeDrawer(GravityCompat.START);
+            }
+        });
+
         USER.getInstance().updateAvatar(this, USER.getInstance().getAvatar());
     }
 
