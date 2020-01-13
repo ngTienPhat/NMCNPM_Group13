@@ -18,10 +18,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Tiêu đề"
-            android:textSize="20dp"
+            android:textSize="18dp"
             android:id="@+id/noteview_title"
             android:textStyle="bold"
-            android:layout_marginVertical="10dp"/>
+            android:layout_marginVertical="5dp"/>
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -32,12 +32,12 @@
                 android:orientation="horizontal"
                 android:layout_centerVertical="true">
                 <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:tint="#444444"
                     android:id="@+id/notebook_icon"
                     android:src="@drawable/ic_notebook"
-                    android:layout_margin="10dp"/>
+                    android:layout_margin="5dp"/>
                 <Spinner
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -61,9 +61,10 @@
                     android:background="?android:attr/selectableItemBackground"
                     android:clickable="true"
                     android:focusable="true"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:padding="10dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:padding="5dp"
+                    android:layout_gravity="center"
                     android:id="@+id/btn_reminder"
                     android:src="@drawable/ic_alarm_24px"
                     android:tint="#444444"/>
@@ -72,8 +73,8 @@
                     android:background="?android:attr/selectableItemBackground"
                     android:clickable="true"
                     android:focusable="true"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:padding="10dp"
                     android:id="@+id/btn_addtag"
                     android:src="@drawable/ic_label_24px"
@@ -84,8 +85,8 @@
                     android:background="?android:attr/selectableItemBackground"
                     android:clickable="true"
                     android:focusable="true"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:padding="10dp"
                     android:id="@+id/btn_detail"
                     android:src="@drawable/ic_info_24px"
@@ -114,7 +115,7 @@
         android:id="@+id/controlBar"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:layout_height="48dp" />
+        android:layout_height="40dp" />
 
 
 </RelativeLayout>

@@ -33,6 +33,7 @@
             android:layout_alignParentRight="true"
             android:orientation="vertical"
             android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
             android:gravity="center">
 
             <ImageView
@@ -80,10 +81,10 @@
         </LinearLayout>
 
         <ImageView
-            android:layout_width="15dp"
-            android:layout_height="15dp"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
+            android:layout_gravity="center"
             android:src="@drawable/ic_pencil_edit_button"
             android:layout_alignParentRight="true"
             android:id="@+id/icon_account_setting"
@@ -95,7 +96,6 @@
     <View
         android:background="@android:color/darker_gray"
         android:layout_height="1dp"
-        android:layout_marginHorizontal="5dp"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent" />
 
