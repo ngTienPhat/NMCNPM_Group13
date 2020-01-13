@@ -1,5 +1,6 @@
 package group13.ntphat.evernote.ui.notes;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -29,6 +30,7 @@ public class NotesFragment extends Fragment {
     static public NoteAdapter listNoteAdapter;
     private View root;
     private boolean isHasListnote;
+    private int NOTE_ACTIVITY_RESULT = 1;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -44,22 +46,35 @@ public class NotesFragment extends Fragment {
                 NOTE chosenNote = listNote.get(position);
 
                 putNoteToViewNoteActivity(intent, chosenNote);
-                startActivity(intent);
+                //startActivity(intent);
+                startActivityForResult(intent, NOTE_ACTIVITY_RESULT);
             }
         });
 
         registerForContextMenu(listView);
-
         return root;
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        //super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == NOTE_ACTIVITY_RESULT){
+            updateListNotes();
+//            if(resultCode == Activity.RESULT_OK){
+//                updateListNotes();
+//            }
+        }
+    }
 
+    // ------------------------------------------------------------------------
+    // Context menu: [delete note]
     @Override
     public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View v, @Nullable ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         MenuInflater menuInflater = getActivity().getMenuInflater();
         menuInflater.inflate(R.menu.delete_item_menu, menu);
     }
+
 
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {

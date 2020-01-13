@@ -1,5 +1,6 @@
 package group13.ntphat.evernote;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.appcompat.widget.Toolbar;
@@ -36,6 +38,7 @@ import java.net.URL;
 import group13.ntphat.evernote.Model.DATA;
 import group13.ntphat.evernote.Model.USER;
 import group13.ntphat.evernote.ui.notebook.NewNotebookDialog;
+import group13.ntphat.evernote.ui.notes.NotesFragment;
 import group13.ntphat.evernote.ui.notes.ViewNoteActivity;
 import group13.ntphat.evernote.ui.setting.AccountInfoActivity;
 import group13.ntphat.evernote.ui.setting.SettingActivity;
@@ -53,6 +56,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private TextView txtFullname;
     private TextView txtEmail;
     private ImageView imgAvatar;
+
+    private int NOTE_CREATE_ACTIVITY_RESULT = 2;
 
     public static int lastFragment;
     public static NavController navController;
@@ -93,6 +98,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         DATA.getAllInfo(this.getBaseContext(), USER.getInstance().getUserID());
     }
 
+    // -----------------------------------------------------------------
+    // set up navigation header
     private void setUpHeader() {
         View headerLayout = this.navigationView.getHeaderView(0);
         this.txtFullname = (TextView) headerLayout.findViewById(R.id.txt_fullname);
@@ -112,6 +119,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         USER.getInstance().updateAvatar(this, USER.getInstance().getAvatar());
     }
 
+
+    // -----------------------------------------------------------------
+    // navigation item clicked
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.nav_setting) {
@@ -141,6 +151,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 || super.onSupportNavigateUp();
     }
 
+    // --------------------------------------------------
+    // handle floating menu clicked
     private void createPopupMenu(View v) {
         PopupMenu popup = new PopupMenu(this, v);
         popup.inflate(R.menu.floating_menu);
@@ -167,7 +179,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         Intent intent;
                         intent = new Intent(MainActivity.this, ViewNoteActivity.class);
                         intent.putExtra("noteid", "-1");
-                        startActivity(intent);
+                        startActivityForResult(intent, NOTE_CREATE_ACTIVITY_RESULT);
                         return true;
                     default:
                         return false;
@@ -177,6 +189,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         popup.show();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == NOTE_CREATE_ACTIVITY_RESULT) {
+            //if (resultCode == Activity.RESULT_OK) {
+                //NotesFragment.updateListNotes();
+                MainActivity.loadLastFragment();
+            //}
+        }
+    }
+
+    // --------------------------------------------------
+    // add Notebook dialog
     @Override
     public void applyTexts(String notebookName) throws JSONException {
         USER.getInstance().addNoteBook(this.getBaseContext(), notebookName);

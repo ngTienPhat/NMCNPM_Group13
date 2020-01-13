@@ -77,22 +77,30 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
         }
     }
 
+    //--------------------------------------------------
+    // insert image
     @Override
     public void onInsertImageClicked() {
         openGallery();
     }
 
+
+    //--------------------------------------------------
+    // insert link
     @Override
     public void onInserLinkClicked() {
         //markDEditor.addLink("Click Here", "http://www.hapramp.com");
     }
 
+    //--------------------------------------------------
+    // catch clicked Note info from listView
     private void getClickedNote(Intent catcher){
         String noteId = catcher.getStringExtra("noteid");
+        // user click create new note
         if (noteId.equals("-1")){
             clickedNote = new NOTE();
             notebookId = USER.getInstance().getAllNoteBook().get(0).getNotebookID();
-            isNewNote=true;
+            isNewNote=true; // turn on new_note flag
         }
         else{
             notebookId = catcher.getStringExtra("notebookid");
@@ -101,6 +109,8 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
         }
     }
 
+    //--------------------------------------------------
+    // init component of this activity
     private void initComponent() throws JSONException {
         title = findViewById(R.id.noteview_title);
         notebook = findViewById(R.id.noteview_notebook);
@@ -114,6 +124,7 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
             spinner.setBackground(null);
         }
         else{
+            // let spinner contain list of current notebooks.
             ArrayList<NOTEBOOK> list_nb = USER.getInstance().getAllNoteBook();
 
             for (int i = 0; i <  list_nb.size(); i++){
@@ -131,18 +142,21 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
                 public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
                     notebookId = nb_ids.get(position);
                 }
-
                 @Override
                 public void onNothingSelected(AdapterView<?> adapterView) {
                     notebookId = nb_ids.get(0);
                 }
             });
+            // hide notebook's textView
             notebook.setVisibility(View.INVISIBLE);
+
             USER.getInstance().addNote(this.getBaseContext(), notebookId, "");
             content = initDraftContent();
         }
         String notebookName = USER.getInstance().getNoteBook(notebookId).getNameNoteBook();
         notebook.setText(notebookName);
+
+        // create MarkDEditor object
         markDEditor = findViewById(R.id.mdEditor);
         markDEditor.configureEditor(
                 DATA.link + "uploader/",
@@ -170,6 +184,9 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
         DraftModel contentModel = new DraftModel(contentTypes);
         return contentModel;
     }
+
+    // get date that user is editing note
+    // input: format as string, e.g: "dd/mm/yyyy"
     private String getCurrentDateAsFormat(String format){
         Date c = Calendar.getInstance().getTime();
 
@@ -178,6 +195,8 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
         return formattedDate;
     }
 
+// ------------------------------------------------------------------------
+// SAVE FINAL CONTENT OF NOTE BEFORE END THIS ACTIVITY
     public void save_content(MenuItem item) throws JSONException {
         setFinalInfo();
         String newNotebookId = notebookId;
@@ -195,7 +214,8 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
             clickedNote.setNotebookID(notebookId);
         }
     }
-
+// ------------------------------------------------------------------------
+// Add images to note
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -240,9 +260,7 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
             e.printStackTrace();
         }
     }
-
-    public void choose_notebook(View view) {
-    }
+// ------------------------------------------------------------------------
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -292,9 +310,10 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
             }
         });
     }
-//
-//    @Override
-//    public void applyTexts(String tagName) throws JSONException {
-//        USER.getInstance().addTag(notebookId, clickedNote.getNoteID(), tagName);
-//    }
+
+    @Override
+    public void finish() {
+        setResult(RESULT_OK);
+        super.finish();
+    }
 }
