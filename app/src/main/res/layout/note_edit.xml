@@ -89,7 +89,8 @@
                     android:layout_height="40dp"
                     android:padding="10dp"
                     android:id="@+id/btn_detail"
-                    android:src="@drawable/ic_info_24px"
+                    android:src="@drawable/speechtext"
+                    android:onClick="speechtotext"
                     android:tint="#444444"/>
             </LinearLayout>
         </RelativeLayout>
