@@ -2,9 +2,9 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorWhite</item>
-        <item name="colorPrimaryDark">@color/colorLightGreen</item>
-        <item name="colorAccent">@color/colorDarkGreen</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorPrimaryLight</item>
         <item name="colorControlNormal">@color/colorLightGray</item>
         <item name="colorButtonNormal">@color/colorGreen</item>
     </style>
@@ -12,13 +12,13 @@
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="colorControlNormal">@color/colorBlack</item>
+        <item name="colorControlNormal">@color/colorLightGray</item>
     </style>
 
     <style name="ThemeOverlay.AppCompat.navTheme">
-        <item name="android:textSize">15dp</item>@android:color/darker_gray
+        <item name="android:textSize">14sp</item>@color/colorPrimaryLight
         <!-- Color of text and icon when SELECTED -->
-        <item name="colorPrimary">@color/colorGreen</item>
+        <item name="colorPrimary">@color/colorPrimaryDark</item>
         <!-- Background color when SELECTED -->
         <item name="colorControlHighlight">@color/colorLightGray</item>
     </style>
@@ -29,7 +29,7 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="TextAppearance.AppCompat.Widget.ActionBar.Title" parent="@android:style/TextAppearance">
-        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textColor">@color/colorLightGray</item>
         <item name="android:textStyle">bold</item>
         <item name="android:fontFamily">monospace</item>
     </style>

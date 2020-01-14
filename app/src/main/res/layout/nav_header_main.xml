@@ -67,8 +67,9 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="@dimen/nav_header_vertical_spacing"
                 android:text="@string/nav_header_title"
-                android:textSize="14dp"
-                android:textColor="@color/colorBlack"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@color/colorPrimaryDark"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
             <TextView
@@ -76,7 +77,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/nav_header_subtitle"
-                android:textColor="@color/colorDarkGray" />
+                android:textColor="@color/colorPrimaryLight" />
 
         </LinearLayout>
 

@@ -10,25 +10,26 @@
         android:id="@+id/editTxt_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="#00AA11"
+        android:backgroundTint="@color/colorPrimaryLight"
         android:textCursorDrawable="@drawable/custom_edittext_cursor"
         android:hint="Tên đăng nhập"
         android:inputType="text"
         android:textColor="#000"
-        android:textSize="16dp"
+        android:textSize="16sp"
         android:textStyle="normal" />
 
     <EditText
         android:id="@+id/editTxt_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="#00AA11"
+        android:backgroundTint="@color/colorPrimaryLight"
         android:textCursorDrawable="@drawable/custom_edittext_cursor"
         android:hint="Mật khẩu"
         android:inputType="textPassword"
         android:textColor="#000"
-        android:textSize="16dp"
-        android:textStyle="normal" />
+        android:textSize="16sp"
+        android:textStyle="normal"
+        android:layout_marginBottom="25dp"/>
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -44,9 +45,9 @@
             android:paddingTop="5dp"
             android:paddingRight="10dp"
             android:paddingBottom="5dp"
-            fancy:fb_borderColor="#00AA11"
+            fancy:fb_borderColor="@color/colorPrimary"
             fancy:fb_borderWidth="2dp"
-            fancy:fb_defaultColor="#00AA11"
+            fancy:fb_defaultColor="@color/colorPrimary"
             fancy:fb_focusColor="#424243"
             fancy:fb_radius="5dp"
             fancy:fb_text=""
@@ -59,7 +60,7 @@
             android:layout_centerInParent="true"
             android:text="ĐĂNG NHẬP"
             android:textColor="#FFF"
-            android:textSize="12dp"
+            android:textSize="12sp"
             android:textStyle="bold" />
     </RelativeLayout>
 
@@ -73,7 +74,7 @@
         android:clickable="true"
         android:focusable="true"
         android:text="Quên mật khẩu"
-        android:textColor="#00AA11"
+        android:textColor="@color/colorPrimary"
         android:textSize="12dp"
         android:textStyle="bold" />
 
@@ -88,15 +89,15 @@
             android:layout_height="1dp"
             android:layout_margin="10dp"
             android:layout_weight="1"
-            android:background="@android:color/darker_gray" />
+            android:background="@color/colorPrimaryLight" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="hoặc"
-            android:textColor="#888"
-            android:textSize="10dp"
+            android:textColor="@color/colorPrimary"
+            android:textSize="10sp"
             android:textStyle="normal" />
 
         <View
@@ -104,7 +105,7 @@
             android:layout_height="1dp"
             android:layout_margin="10dp"
             android:layout_weight="1"
-            android:background="@android:color/darker_gray" />
+            android:background="@color/colorPrimaryLight" />
     </LinearLayout>
 
     <TextView
@@ -117,8 +118,8 @@
         android:clickable="true"
         android:focusable="true"
         android:text="Đăng ký"
-        android:textColor="#00AA11"
-        android:textSize="12dp"
+        android:textColor="@color/colorPrimary"
+        android:textSize="12sp"
         android:textStyle="bold" />
 </LinearLayout>
 
