@@ -14,7 +14,8 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_margin="10dp"
-            android:src="@drawable/ic_search"/>
+            android:src="@drawable/ic_search"
+            android:tint="@color/colorPrimaryDark"/>
         <EditText
             android:id="@+id/tag_search"
             android:layout_width="match_parent"
@@ -33,5 +34,7 @@
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/list_tags" />
+        android:id="@+id/list_tags"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"/>
 </LinearLayout>
