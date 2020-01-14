@@ -20,8 +20,7 @@
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:layout_gravity="center"
-            android:src="@drawable/whale_logo"
-            android:layout_marginVertical="8dp"/>
+            android:src="@drawable/whale_logo"/>
 
         <TextView
             android:layout_width="wrap_content"
