@@ -12,6 +12,7 @@
         android:layout_alignParentTop="true"
         android:orientation="vertical"
         android:layout_marginHorizontal="10dp"
+        android:background="@color/colorWhite"
         android:id="@+id/note_header">
         <EditText
             android:layout_width="match_parent"

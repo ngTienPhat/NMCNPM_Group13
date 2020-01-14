@@ -2,11 +2,11 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.Light">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorPrimaryLight</item>
-        <item name="colorControlNormal">@color/colorLightGray</item>
-        <item name="colorButtonNormal">@color/colorGreen</item>
+        <item name="colorPrimary">@color/colorLightGray</item>
+        <item name="colorPrimaryDark">@color/colorLightBlue</item>
+        <item name="colorAccent">@color/colorLightBlue</item>
+        <item name="colorControlNormal">@color/colorDarkGray</item>
+        <item name="colorButtonNormal">@color/colorBlue</item>
     </style>
 
     <style name="NoteEditTheme" parent="Theme.MaterialComponents.Light.DarkActionBar"></style>
