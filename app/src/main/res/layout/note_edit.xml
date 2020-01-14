@@ -4,7 +4,6 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:theme="@style/AppTheme"
     tools:menu="@menu/menu_edit_note">
 
     <LinearLayout
@@ -13,6 +12,7 @@
         android:layout_alignParentTop="true"
         android:orientation="vertical"
         android:layout_marginHorizontal="10dp"
+        android:background="@color/colorWhite"
         android:id="@+id/note_header">
         <EditText
             android:layout_width="match_parent"
@@ -95,6 +95,10 @@
             </LinearLayout>
         </RelativeLayout>
 
+        <com.google.android.material.chip.ChipGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tag_chip_group"/>
 
     </LinearLayout>
 
