@@ -1,6 +1,7 @@
 package group13.ntphat.evernote.ui.notes;
 
 import android.Manifest;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.ActivityNotFoundException;
@@ -76,6 +77,9 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.note_edit);
+
+        // Hide app name on action bar
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         isNewNote=false;
         Intent intentCatcher = getIntent();
