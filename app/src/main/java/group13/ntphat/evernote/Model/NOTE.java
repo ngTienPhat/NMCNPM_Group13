@@ -106,4 +106,9 @@ public class NOTE {
     public void addTag(String tag) {
         tags.add(tag);
     }
+
+    public void removeTag(String tag) {
+        tags.remove(tag);
+    }
+
 }
