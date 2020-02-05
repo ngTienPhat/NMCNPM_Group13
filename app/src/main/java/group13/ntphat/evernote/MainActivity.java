@@ -1,5 +1,6 @@
 package group13.ntphat.evernote;
 
+import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -21,6 +22,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.appcompat.widget.Toolbar;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
@@ -58,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private TextView txtEmail;
     private ImageView imgAvatar;
     private ImageView editAccount;
-
+    private FloatingActionButton fab;
     private int NOTE_CREATE_ACTIVITY_RESULT = 2;
 
     public static int lastFragment;
@@ -68,16 +70,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         this.addKillReceiver();
         this.addChangeInfoReceiver();
         this.addUploadAvatarReceiver();
 
-        FloatingActionButton fab = findViewById(R.id.fab);
+        fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -139,6 +140,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     // -----------------------------------------------------------------
     // navigation item clicked
+    @SuppressLint("RestrictedApi")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.nav_setting) {
@@ -148,6 +150,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             this.drawer.closeDrawer(GravityCompat.START);
             return false;
         } else {
+            if (item.getItemId() == R.id.nav_share){
+                // hide floating button
+                CoordinatorLayout.LayoutParams p = (CoordinatorLayout.LayoutParams) fab.getLayoutParams();
+                p.setAnchorId(View.NO_ID);
+                fab.setLayoutParams(p);
+                fab.setVisibility(View.GONE);
+            }
+
             lastFragment = item.getItemId();
             NavigationUI.onNavDestinationSelected(item, this.navController);
         }
@@ -191,7 +201,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     case R.id.action_add_picture:
                         Toast.makeText(MainActivity.this, "Picture!", Toast.LENGTH_SHORT).show();
                         return true;
-
                     case R.id.action_add_note:
                         Intent intent;
                         intent = new Intent(MainActivity.this, ViewNoteActivity.class);
@@ -205,6 +214,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
         popup.show();
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

@@ -1,11 +1,9 @@
 package group13.ntphat.evernote.ui.notes;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -110,7 +108,7 @@ public class NotesFragment extends Fragment {
         getListNoteIfExist();
         if (!isHasListnote)
             initListNote();
-        listNoteAdapter = new NoteAdapter(getContext(), R.layout.note_item, listNote);
+        listNoteAdapter = new NoteAdapter(getContext(), R.layout.list_note_item, listNote);
         listView = root.findViewById(R.id.list_notes);
         listView.setAdapter(listNoteAdapter);
     }

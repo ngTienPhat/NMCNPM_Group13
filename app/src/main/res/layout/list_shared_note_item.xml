@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="88dp"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="8">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="12dp"
+            android:id="@+id/note_date"
+            android:text="30/12/2019"
+            android:textSize="10dp"
+            android:textStyle="italic" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:id="@+id/note_title"
+            android:text="Default title"
+            android:gravity="bottom"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            android:textColor="@color/colorBlack"/>
+
+        <TextView
+            android:id="@+id/note_content"
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            android:gravity="bottom"
+            android:text="This is your note content"
+            android:textSize="14dp"
+            android:textStyle="normal" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="2">
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:id="@+id/user_avatar"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_user_avt"
+            android:background="@drawable/shape_shared_user_avatar"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:id="@+id/name_shared_user"
+            android:text="anonymous"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            android:textSize="10dp"/>
+
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

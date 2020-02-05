@@ -1,11 +1,8 @@
 package group13.ntphat.evernote.ui.notebook;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -16,13 +13,11 @@ import androidx.fragment.app.FragmentTransaction;
 
 import java.util.ArrayList;
 
-import group13.ntphat.evernote.MainActivity;
 import group13.ntphat.evernote.Model.NOTE;
 import group13.ntphat.evernote.Model.USER;
 import group13.ntphat.evernote.R;
 import group13.ntphat.evernote.ui.notes.NoteAdapter;
 import group13.ntphat.evernote.ui.notes.NotesFragment;
-import group13.ntphat.evernote.ui.notes.ViewNoteActivity;
 
 public class ViewListnoteActivity extends AppCompatActivity {
     private ListView listView;
@@ -42,7 +37,7 @@ public class ViewListnoteActivity extends AppCompatActivity {
 
 
         listView = findViewById(R.id.list_notes);
-        listNoteAdapter = new NoteAdapter(getApplicationContext(), R.layout.note_item, listNote);
+        listNoteAdapter = new NoteAdapter(getApplicationContext(), R.layout.list_note_item, listNote);
         listView.setAdapter(listNoteAdapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -67,7 +62,7 @@ public class ViewListnoteActivity extends AppCompatActivity {
                 notebookId = data.getStringExtra("notebookid");
             }
             if (resultCode == Activity.RESULT_CANCELED) {
-                //Write your code if there's no result
+                //if there's no result
             }
         }
     }
