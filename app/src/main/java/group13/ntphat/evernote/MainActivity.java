@@ -1,5 +1,6 @@
 package group13.ntphat.evernote;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
@@ -7,7 +8,13 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
@@ -23,6 +30,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.appcompat.widget.Toolbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
@@ -35,8 +43,11 @@ import com.google.android.material.navigation.NavigationView;
 
 import org.json.JSONException;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.List;
+import java.util.Locale;
 
 import group13.ntphat.evernote.Model.DATA;
 import group13.ntphat.evernote.Model.USER;
@@ -63,6 +74,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private FloatingActionButton fab;
     private int NOTE_CREATE_ACTIVITY_RESULT = 2;
 
+    public static LocationManager locationManager;
     public static int lastFragment;
     public static NavController navController;
 
@@ -101,7 +113,47 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         this.setUpHeader();
         DATA.getAllInfo(this.getBaseContext(), USER.getInstance().getUserID());
+
+        //get device GPS setup
+        checkGPSpermission();
     }
+    // -----------------------------------------------------------------
+    // Request permission to access device's GPS
+    private void checkGPSpermission(){
+        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    Activity#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for Activity#requestPermissions for more details.
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 101);
+            return;
+        }
+    }
+
+
+    // -----------------------------------------------------------------
+    // Request location update
+//    private void requestLocationUpdate(){
+//        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+//        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+//                && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//            // TODO: Consider calling
+//            //    Activity#requestPermissions
+//            // here to request the missing permissions, and then overriding
+//            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+//            //                                          int[] grantResults)
+//            // to handle the case where the user grants the permission. See the documentation
+//            // for Activity#requestPermissions for more details.
+//            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 101);
+//            return;
+//        }
+//        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, locationListener);
+//    }
+
 
     // -----------------------------------------------------------------
     // set up navigation header
@@ -299,5 +351,62 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public void setting(MenuItem item) {
         goToSettingAccount();
+    }
+
+    // ------------------------------------------------------------------------
+    // Listener class for Get Location
+    private class MyListener implements LocationListener {
+        // ------------------------------------------------
+        // ATTRIBUTES
+        private Double longitude, latitude;
+        private String address;
+
+        // ------------------------------------------------
+        // METHODS
+        @Override
+        public void onLocationChanged(Location location) {
+            longitude = location.getLongitude();
+            latitude = location.getLatitude();
+            Toast.makeText(getBaseContext(), "Location changed: Loc: " + longitude.toString() +
+                    " Long: " + latitude.toString(), Toast.LENGTH_SHORT).show();
+            // get address from coordinates above
+            Geocoder geocoder = new Geocoder(getBaseContext(), Locale.getDefault());
+            List<Address> addressList;
+            try{
+                addressList = geocoder.getFromLocation(latitude, longitude, 1);
+                if (addressList.size() > 0){
+                    address = addressList.get(0).getAddressLine(0);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        private String getAddress(){
+            return address;
+        }
+
+        private Double getLongitude(){
+            return longitude;
+        }
+
+        private Double getLatitude(){
+            return latitude;
+        }
+
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+
+        }
+
+        @Override
+        public void onProviderEnabled(String provider) {
+
+        }
+
+        @Override
+        public void onProviderDisabled(String provider) {
+
+        }
     }
 }

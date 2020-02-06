@@ -9,34 +9,44 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="5dp">
+        android:layout_height="12dp"
+        android:layout_margin="10dp"
+        android:layout_weight="2"
+        android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="2dp"
-
-            android:layout_gravity="center"
-            android:text="address"
-            android:textSize="18dp"
-            android:textStyle="normal"
-            android:textColor="#666666"
-            android:layout_weight="8"
-            android:id="@+id/share_address_tv"/>
-
-        <ImageButton
+        <ImageView
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:id="@+id/btn_sync_shared_notes"
-            android:background="@drawable/ic_sync" />
+            android:layout_marginRight="5dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_map_pin" />
+
+        <TextView
+            android:id="@+id/share_address_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_gravity="center"
+            android:layout_marginLeft="2dp"
+            android:text="Loading your location..."
+            android:textColor="#666666"
+            android:textSize="13dp"
+            android:textStyle="normal" />
 
     </LinearLayout>
 
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
+        android:layout_height="500dp"
+        android:layout_marginTop="5dp"
+        android:layout_weight="6"
         android:id="@+id/list_shared_notes" />
+
+    <ImageButton
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:id="@+id/btn_sync_shared_notes"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:background="@drawable/ic_sync" />
 </LinearLayout>

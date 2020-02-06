@@ -25,7 +25,7 @@ import group13.ntphat.evernote.R;
 public class NotesFragment extends Fragment {
     private ListView listView;
     private ArrayList<NOTE> listNote;
-    static public NoteAdapter listNoteAdapter;
+    static public NoteAdapter noteAdapter;
     private View root;
     private boolean isHasListnote;
     private int NOTE_ACTIVITY_RESULT = 1;
@@ -88,7 +88,7 @@ public class NotesFragment extends Fragment {
     }
 
     static public void updateListNotes(){
-        listNoteAdapter.notifyDataSetChanged();
+        noteAdapter.notifyDataSetChanged();
         MainActivity.loadLastFragment();
     }
 
@@ -108,9 +108,9 @@ public class NotesFragment extends Fragment {
         getListNoteIfExist();
         if (!isHasListnote)
             initListNote();
-        listNoteAdapter = new NoteAdapter(getContext(), R.layout.list_note_item, listNote);
+        noteAdapter = new NoteAdapter(getContext(), R.layout.list_note_item, listNote);
         listView = root.findViewById(R.id.list_notes);
-        listView.setAdapter(listNoteAdapter);
+        listView.setAdapter(noteAdapter);
     }
 
     private void initListNote(){
