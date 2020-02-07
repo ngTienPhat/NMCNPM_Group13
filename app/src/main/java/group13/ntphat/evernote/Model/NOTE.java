@@ -40,6 +40,8 @@ public class NOTE {
         this.title = title;
         this.createDate = createDate;
         this.content = content;
+        this.gpsLong = 0.0;
+        this.gpsLat = 0.0;
         this.tags = new ArrayList<>();
     }
     public NOTE(JSONObject noteJSON) throws JSONException {
