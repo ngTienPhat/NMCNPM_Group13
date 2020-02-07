@@ -130,6 +130,7 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
         notebook = findViewById(R.id.noteview_notebook);
         spinner = findViewById(R.id.notebook_chooser);
         chipGroup = findViewById(R.id.tag_chip_group);
+
         if (!isNewNote){
             content = new Gson().fromJson(clickedNote.getContent(), DraftModel.class);
             title.setText(clickedNote.getTitle());
@@ -351,7 +352,7 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
             startActivityForResult(intent, REQ_CODE);
         }
         catch(ActivityNotFoundException a){
-            Toast.makeText(getApplicationContext(), "Sorry your device not supported", Toast.LENGTH_SHORT)
+            Toast.makeText(getApplicationContext(), "Sorry your device is not supported", Toast.LENGTH_SHORT)
                     .show();
         }
     }

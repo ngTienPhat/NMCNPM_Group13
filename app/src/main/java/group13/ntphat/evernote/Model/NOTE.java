@@ -47,9 +47,9 @@ public class NOTE {
         title = noteJSON.getString("title");
         createDate = noteJSON.getString("createddate");
         content = noteJSON.getString("contentfile");
-        author = noteJSON.getString("author");
-        gpsLong = noteJSON.getDouble("long");
-        gpsLat = noteJSON.getDouble("lat");
+        author = noteJSON.getString("fullname");
+        gpsLong = noteJSON.getDouble("longtitude");
+        gpsLat = noteJSON.getDouble("latitude");
 
         JSONArray tagsJSON = noteJSON.getJSONArray("tags");
         tags = new ArrayList<>();

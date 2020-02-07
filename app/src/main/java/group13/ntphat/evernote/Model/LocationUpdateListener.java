@@ -47,6 +47,10 @@ public class LocationUpdateListener implements LocationListener{
                 " Long: " + latitude.toString(), Toast.LENGTH_SHORT).show();
         // get address from coordinates above
         Geocoder geocoder = new Geocoder(mContext, Locale.getDefault());
+
+        //update lat, long in shareFragment
+        ShareFragment.updateLocation(latitude, longitude);
+
         List<Address> addressList;
         try{
             addressList = geocoder.getFromLocation(latitude, longitude, 1);
