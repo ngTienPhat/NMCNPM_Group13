@@ -18,6 +18,8 @@ public class NOTE {
     public ArrayList<String> tags;
 
     public NOTE() {
+        gpsLat = 0.0;
+        gpsLong = 0.0;
         tags = new ArrayList<>();
     }
     public NOTE(String noteID, String notebookID, String fullName, String title, String createDate,
