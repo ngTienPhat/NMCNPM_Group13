@@ -68,8 +68,8 @@ public class NOTE {
         body.put("title", title);
         body.put("notebookid", notebookID);
         body.put("fullname", fullName);
-        body.put("long", gpsLong);
-        body.put("lat", gpsLat);
+        body.put("longtitude", gpsLong);
+        body.put("latitude", gpsLat);
 
         JSONArray tagsJSON = new JSONArray();
         for (int i = 0; i < tags.size(); i++) {
