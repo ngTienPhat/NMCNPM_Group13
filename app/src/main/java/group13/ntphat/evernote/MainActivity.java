@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         this.navigationView.getMenu().getItem(0).setChecked(true);
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_allnotes, R.id.nav_notebook, R.id.nav_tags, R.id.nav_photos,
-                R.id.nav_workchat, R.id.nav_setting, R.id.nav_share, R.id.nav_send)
+                R.id.nav_share, R.id.nav_setting, R.id.nav_share, R.id.nav_send)
                 .setDrawerLayout(drawer)
                 .build();
         this.lastFragment = R.id.nav_allnotes;
@@ -191,6 +191,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     // -----------------------------------------------------------------
+    // Enable floating menu
+    @SuppressLint("RestrictedApi")
+    private void enableFloatingMenu(){
+        CoordinatorLayout.LayoutParams p = (CoordinatorLayout.LayoutParams) fab.getLayoutParams();
+        p.setAnchorId(View.NO_ID);
+        fab.setLayoutParams(p);
+        fab.setVisibility(View.VISIBLE);
+    }
+
+    // -----------------------------------------------------------------
+    // Disable floating menu
+    @SuppressLint("RestrictedApi")
+    private void disableFloatingMenu(){
+        CoordinatorLayout.LayoutParams p = (CoordinatorLayout.LayoutParams) fab.getLayoutParams();
+        p.setAnchorId(View.NO_ID);
+        fab.setLayoutParams(p);
+        fab.setVisibility(View.GONE);
+    }
+
+    // -----------------------------------------------------------------
     // navigation item clicked
     @SuppressLint("RestrictedApi")
     @Override
@@ -209,6 +229,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 fab.setLayoutParams(p);
                 fab.setVisibility(View.GONE);
             }
+            else
+                enableFloatingMenu();
 
             lastFragment = item.getItemId();
             NavigationUI.onNavDestinationSelected(item, this.navController);

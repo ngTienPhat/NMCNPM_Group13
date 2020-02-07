@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import group13.ntphat.evernote.MainActivity;
@@ -90,8 +91,10 @@ public class ShareFragment extends Fragment {
             public void onClick(View v) {
                 if (isNewAddress){
                     //loadListNotes();
+
                     USER.getInstance().updateNoteByGPS(getContext(), currentLat, currentLng);
                     updateListSharedNotes();
+                    ArrayList<NOTE> listNotes = USER.getInstance().getNotesByGPS();
                     isNewAddress = false;
                 }
             }
