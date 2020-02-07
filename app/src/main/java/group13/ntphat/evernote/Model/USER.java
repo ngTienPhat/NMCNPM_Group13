@@ -30,6 +30,9 @@ public class USER {
     private String newNotebookID;
     private ArrayList<NOTE> notesByGPS;
 
+    private Double currentLong;
+    private Double currentLat;
+
     private USER() {
         notebooks = new ArrayList<>();
         notesByGPS = new ArrayList<>();
@@ -141,6 +144,19 @@ public class USER {
     }
     public void setNewNotebookID(String newNotebookID) {
         this.newNotebookID = newNotebookID;
+    }
+
+    public Double getCurrentLong() {
+        return currentLong;
+    }
+    public void setCurrentLong(Double currentLong) {
+        this.currentLong = currentLong;
+    }
+    public Double getCurrentLat() {
+        return currentLat;
+    }
+    public void setCurrentLat(Double currentLat) {
+        this.currentLat = currentLat;
     }
 
     public ArrayList<NOTEBOOK> getAllNoteBook() {

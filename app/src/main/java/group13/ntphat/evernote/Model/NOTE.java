@@ -18,6 +18,8 @@ public class NOTE {
     public ArrayList<String> tags;
 
     public NOTE() {
+        gpsLat = 0.0;
+        gpsLong = 0.0;
         tags = new ArrayList<>();
     }
     public NOTE(String noteID, String notebookID, String fullName, String title, String createDate,
@@ -40,6 +42,8 @@ public class NOTE {
         this.title = title;
         this.createDate = createDate;
         this.content = content;
+        this.gpsLong = 0.0;
+        this.gpsLat = 0.0;
         this.tags = new ArrayList<>();
     }
     public NOTE(JSONObject noteJSON) throws JSONException {
@@ -64,8 +68,8 @@ public class NOTE {
         body.put("title", title);
         body.put("notebookid", notebookID);
         body.put("fullname", fullName);
-        body.put("long", gpsLong);
-        body.put("lat", gpsLat);
+        body.put("longtitude", gpsLong);
+        body.put("latitude", gpsLat);
 
         JSONArray tagsJSON = new JSONArray();
         for (int i = 0; i < tags.size(); i++) {
