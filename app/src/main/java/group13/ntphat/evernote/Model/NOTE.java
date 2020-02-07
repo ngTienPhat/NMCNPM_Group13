@@ -9,17 +9,34 @@ import java.util.ArrayList;
 public class NOTE {
     private String noteID;
     private String notebookID;
+    private String author;
     private String title;
     private String createDate;
     private String content;
+    private Double gpsLong;
+    private Double gpsLat;
     public ArrayList<String> tags;
 
     public NOTE() {
         tags = new ArrayList<>();
     }
-    public NOTE(String noteID, String notebookID, String title, String createDate, String content) {
+    public NOTE(String noteID, String notebookID, String author, String title, String createDate,
+                String content, Double gpsLong, Double gpsLat) {
         this.noteID = noteID;
         this.notebookID = notebookID;
+        this.author = author;
+        this.title = title;
+        this.createDate = createDate;
+        this.gpsLong = gpsLong;
+        this.gpsLat = gpsLat;
+        this.content = content;
+        this.tags = new ArrayList<>();
+    }
+    public NOTE(String noteID, String notebookID, String author, String title, String createDate,
+                String content) {
+        this.noteID = noteID;
+        this.notebookID = notebookID;
+        this.author = author;
         this.title = title;
         this.createDate = createDate;
         this.content = content;
@@ -30,6 +47,9 @@ public class NOTE {
         title = noteJSON.getString("title");
         createDate = noteJSON.getString("createddate");
         content = noteJSON.getString("contentfile");
+        author = noteJSON.getString("author");
+        gpsLong = noteJSON.getDouble("long");
+        gpsLat = noteJSON.getDouble("lat");
 
         JSONArray tagsJSON = noteJSON.getJSONArray("tags");
         tags = new ArrayList<>();
@@ -43,6 +63,9 @@ public class NOTE {
         body.put("contentfile", content);
         body.put("title", title);
         body.put("notebookid", notebookID);
+        body.put("author", author);
+        body.put("long", gpsLong);
+        body.put("lat", gpsLat);
 
         JSONArray tagsJSON = new JSONArray();
         for (int i = 0; i < tags.size(); i++) {
@@ -103,8 +126,32 @@ public class NOTE {
         return false;
     }
 
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public Double getGpsLong() {
+        return gpsLong;
+    }
+
+    public void setGpsLong(Double gpsLong) {
+        this.gpsLong = gpsLong;
+    }
+
+    public Double getGpsLat() {
+        return gpsLat;
+    }
+
+    public void setGpsLat(Double gpsLat) {
+        this.gpsLat = gpsLat;
+    }
+
     public void addTag(String tag) {
-        tags.add(tag);
+        tags.add(0, tag);
     }
 
     public void removeTag(String tag) {
