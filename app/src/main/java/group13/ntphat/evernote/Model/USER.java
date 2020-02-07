@@ -4,18 +4,14 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
-import android.widget.Toast;
 
 import org.json.JSONException;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
-import group13.ntphat.evernote.ui.setting.AccountInfoActivity;
 
 import static java.lang.System.gc;
 
@@ -32,9 +28,11 @@ public class USER {
 
     private String newNoteID;
     private String newNotebookID;
+    private ArrayList<NOTE> notesByGPS;
 
     private USER() {
         notebooks = new ArrayList<>();
+        notesByGPS = new ArrayList<>();
     }
     private USER(String userID, String fullName, String userEmail, int accountLevel,
                  String memberSince, String userName, String avatar) {
@@ -46,6 +44,7 @@ public class USER {
         this.userName = userName;
         this.avatar = avatar;
         this.notebooks = new ArrayList<>();
+        this.notesByGPS = new ArrayList<>();
     }
 
     private static USER INSTANCE = null;
@@ -206,7 +205,7 @@ public class USER {
         }
         return ans;
     }
-    public void heper_addNote(String notebookID, NOTE note) {
+    public void helper_addNote(String notebookID, NOTE note) {
         for (NOTEBOOK notebook:notebooks) {
             if (!notebook.getNotebookID().equals(notebookID)) continue;
             notebook.notes.add(0, note);
@@ -216,7 +215,7 @@ public class USER {
     public void addNote(Context context, String notebookID, String nameNote) throws JSONException {
         DATA.createNote(context, notebookID, nameNote);
     }
-    public void heper_removeNote(String notebookID, String noteID) {
+    public void helper_removeNote(String notebookID, String noteID) {
         for (NOTEBOOK notebook:notebooks) {
             if (!notebook.getNotebookID().equals(notebookID)) continue;
             for (int i = 0; i < notebook.notes.size(); i++) {
@@ -229,12 +228,12 @@ public class USER {
         }
     }
     public void removeNote(Context context, String notebookID, String noteID) {
-        heper_removeNote(notebookID, noteID);
+        helper_removeNote(notebookID, noteID);
         DATA.removeNote(context, notebookID, noteID);
     }
     public void updateNote(Context context, String notebookID, NOTE note) throws JSONException {
-        heper_removeNote(notebookID, note.getNoteID());
-        heper_addNote(notebookID, note);
+        helper_removeNote(notebookID, note.getNoteID());
+        helper_addNote(notebookID, note);
         DATA.updateNote(context, note);
     }
 
@@ -261,7 +260,7 @@ public class USER {
             if (!notebook.getNotebookID().equals(notebookID)) continue;
             for (NOTE note:notebook.notes) {
                 if (!note.getNoteID().equals(noteID)) continue;
-                note.tags.add(0, tag);
+                note.addTag(tag);
                 break;
             }
             break;
@@ -272,7 +271,7 @@ public class USER {
             if (!notebook.getNotebookID().equals(notebookID)) continue;
             for (NOTE note:notebook.notes) {
                 if (!note.getNoteID().equals(noteID)) continue;
-                note.tags.remove(tag);
+                note.removeTag(tag);
                 break;
             }
             break;
@@ -281,9 +280,21 @@ public class USER {
     public void removeTag(String tag) {
         for (NOTEBOOK notebook:notebooks) {
             for (NOTE note:notebook.notes) {
-                note.tags.remove(tag);
+                note.removeTag(tag);
             }
         }
+    }
+
+    public ArrayList<NOTE> getNotesByGPS() {
+        return notesByGPS;
+    }
+
+    public void helper_updateNoteByGPS(ArrayList<NOTE> notes) {
+        notesByGPS.clear();
+        notesByGPS.addAll(notes);
+    }
+    public void updateNoteByGPS(Context context, Double gpsLong, Double gpsLat) {
+        DATA.getNoteByGPS(context, gpsLong, gpsLat);
     }
 
     public void changeNotebook(String noteID, String oldNotebookID, String newNotebookID) {
@@ -300,7 +311,7 @@ public class USER {
         }
 
         noteChanged.setNotebookID(newNotebookID);
-        this.heper_addNote(newNotebookID, noteChanged);
+        this.helper_addNote(newNotebookID, noteChanged);
     }
 
     public void updateAvatar(Context context, String avatarUrl) {

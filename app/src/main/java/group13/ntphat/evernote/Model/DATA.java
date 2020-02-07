@@ -19,6 +19,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 
 import group13.ntphat.evernote.ui.notebook.NotebookFragment;
 import group13.ntphat.evernote.ui.notes.NotesFragment;
@@ -328,6 +329,42 @@ public class DATA {
 
         queue.add(stringRequest);
     }
+    static public void getNoteByGPS(final Context context, Double gpsLong, Double gpsLat) {
+        RequestQueue queue = Volley.newRequestQueue(context);
+        String url = link + "users/" + "/getNoteByGPS/" + gpsLong + "+" + gpsLat;
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONArray notesJSON = new JSONArray(response);
+                            ArrayList<NOTE> notes = new ArrayList<>();
+                            for (int i = 0; i < notesJSON.length(); i++) {
+                                NOTE note = new NOTE(notesJSON.getJSONObject(i));
+                                notes.add(note);
+                            }
+                            USER.getInstance().helper_updateNoteByGPS(notes);
+
+                            //NotesFragment.updateListNotes();
+                            //sendIntendBroadcast(context,"getAllInfo", 1);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        //textView.setText("That didn't work!");
+                        Log.e("ERRR", String.valueOf(error.networkResponse.statusCode));
+                    }
+                }
+        );
+
+        queue.add(stringRequest);
+    }
 
     static public void createNotebook(final Context context, final String nameNotebook) throws JSONException {
         RequestQueue queue = Volley.newRequestQueue(context);
@@ -491,7 +528,7 @@ public class DATA {
                             NOTE note = new NOTE(noteJSON);
                             note.setNotebookID(notebookID);
 
-                            USER.getInstance().heper_addNote(notebookID, note);
+                            USER.getInstance().helper_addNote(notebookID, note);
                             USER.getInstance().setNewNoteID(note.getNoteID());
                             NotesFragment.updateListNotes();
                         } catch (JSONException e) {
