@@ -123,7 +123,7 @@ public class ShareFragment extends Fragment {
                 //if (isNewAddress){
                     //loadListNotes();
                     address.setText(getAddress(USER.getInstance().getCurrentLat(), USER.getInstance().getCurrentLong()));
-                    loadListSharedNotes();
+                    //loadListSharedNotes();
                     updateListSharedNotes();
                     //ArrayList<NOTE> listNotes = USER.getInstance().getNotesByGPS();
                     isNewAddress = false;
@@ -133,10 +133,13 @@ public class ShareFragment extends Fragment {
 
         // init list of shared notes
         listView = root.findViewById(R.id.list_shared_notes);
-        loadListSharedNotes();
+        //loadListSharedNotes();
+//        sharedNoteAdapter = new SharedNoteAdapter(getContext(),
+//                R.layout.list_shared_note_item,
+//                listSharedNotes);
         sharedNoteAdapter = new SharedNoteAdapter(getContext(),
                 R.layout.list_shared_note_item,
-                listSharedNotes);
+                USER.getInstance().getNotesByGPS());
 
         listView.setAdapter(sharedNoteAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
