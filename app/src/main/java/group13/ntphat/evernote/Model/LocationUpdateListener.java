@@ -41,26 +41,31 @@ public class LocationUpdateListener implements LocationListener{
 
     @Override
     public void onLocationChanged(Location location) {
-        longitude = location.getLongitude();
         latitude = location.getLatitude();
-        Toast.makeText(mContext, "Location changed: Loc: " + longitude.toString() +
-                " Long: " + latitude.toString(), Toast.LENGTH_SHORT).show();
+        longitude = location.getLongitude();
+
+//        Toast.makeText(mContext, "Location changed: Loc: " + longitude.toString() +
+//                " Long: " + latitude.toString(), Toast.LENGTH_SHORT).show();
         // get address from coordinates above
-        Geocoder geocoder = new Geocoder(mContext, Locale.getDefault());
+        //Geocoder geocoder = new Geocoder(mContext, Locale.getDefault());
 
         //update lat, long in shareFragment
-        ShareFragment.updateLocation(latitude, longitude);
+        //ShareFragment.updateLocation(latitude, longitude);
 
-        List<Address> addressList;
-        try{
-            addressList = geocoder.getFromLocation(latitude, longitude, 1);
-            if (addressList.size() > 0){
-                address = addressList.get(0).getAddressLine(0);
-                ShareFragment.updateAddressTextview(address);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        USER.getInstance().setCurrentLat(latitude);
+        USER.getInstance().setCurrentLong(longitude);
+        USER.getInstance().updateNoteByGPS(mContext, longitude, latitude);
+
+//        List<Address> addressList;
+//        try{
+//            addressList = geocoder.getFromLocation(latitude, longitude, 1);
+//            if (addressList.size() > 0){
+//                address = addressList.get(0).getAddressLine(0);
+//                ShareFragment.updateAddressTextview(address);
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 
     private String getAddress(){

@@ -230,11 +230,10 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
         clickedNote.setTitle(title.getText().toString());
         clickedNote.setCreateDate(getCurrentDateAsFormat("dd-MM-yyyy"));
         clickedNote.setFullName(USER.getInstance().getFullName());
+
         // just for debug
-        Double lat = 10.7618544;
-        Double lng = 106.6915129;
-        clickedNote.setGpsLat(lat);
-        clickedNote.setGpsLong(lng);
+        clickedNote.setGpsLat(USER.getInstance().getCurrentLat());
+        clickedNote.setGpsLong(USER.getInstance().getCurrentLong());
 
         if (clickedNote.getNoteID() == null){
             clickedNote.setNoteID(USER.getInstance().getNewNoteID());

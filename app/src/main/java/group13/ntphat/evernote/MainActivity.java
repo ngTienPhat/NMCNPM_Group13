@@ -50,6 +50,7 @@ import java.util.List;
 import java.util.Locale;
 
 import group13.ntphat.evernote.Model.DATA;
+import group13.ntphat.evernote.Model.LocationUpdateListener;
 import group13.ntphat.evernote.Model.USER;
 import group13.ntphat.evernote.ui.notebook.NewNotebookDialog;
 import group13.ntphat.evernote.ui.notes.NotesFragment;
@@ -66,6 +67,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private BroadcastReceiver killReceiver;
     private BroadcastReceiver changeInfoReceiver;
     private BroadcastReceiver uploadAvatarReceiver;
+    private LocationUpdateListener locationUpdateListener;
+
 
     private TextView txtFullname;
     private TextView txtEmail;
@@ -97,6 +100,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 createPopupMenu(view);
             }
         });
+
+        // start tracking user's GPS
+        locationUpdateListener = new LocationUpdateListener(this.getBaseContext());
 
         this.drawer = findViewById(R.id.drawer_layout);
         this.navigationView = findViewById(R.id.nav_view);

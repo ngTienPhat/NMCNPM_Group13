@@ -44,6 +44,7 @@ public class SharedNoteAdapter extends ArrayAdapter<NOTE>{
         ImageView noteSharedUserAvater = convertView.findViewById(R.id.user_avatar);
 
         NOTE note = listSharedNotes.get(position);
+        noteSharedUserName.setText(note.getFullName());
         createDate.setText(note.getCreateDate());
         noteTitle.setText(note.getTitle());
 
