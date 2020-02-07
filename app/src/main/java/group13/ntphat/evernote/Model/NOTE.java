@@ -48,8 +48,8 @@ public class NOTE {
         createDate = noteJSON.getString("createddate");
         content = noteJSON.getString("contentfile");
         fullName = noteJSON.getString("fullname");
-        gpsLong = noteJSON.getDouble("long");
-        gpsLat = noteJSON.getDouble("lat");
+        gpsLong = noteJSON.getDouble("longtitude");
+        gpsLat = noteJSON.getDouble("latitude");
 
         JSONArray tagsJSON = noteJSON.getJSONArray("tags");
         tags = new ArrayList<>();
@@ -64,8 +64,8 @@ public class NOTE {
         body.put("title", title);
         body.put("notebookid", notebookID);
         body.put("fullname", fullName);
-        body.put("long", gpsLong);
-        body.put("lat", gpsLat);
+        body.put("longtitude", gpsLong);
+        body.put("latitude", gpsLat);
 
         JSONArray tagsJSON = new JSONArray();
         for (int i = 0; i < tags.size(); i++) {
