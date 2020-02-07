@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class NOTE {
     private String noteID;
     private String notebookID;
-    private String author;
+    private String fullName;
     private String title;
     private String createDate;
     private String content;
@@ -20,11 +20,11 @@ public class NOTE {
     public NOTE() {
         tags = new ArrayList<>();
     }
-    public NOTE(String noteID, String notebookID, String author, String title, String createDate,
+    public NOTE(String noteID, String notebookID, String fullName, String title, String createDate,
                 String content, Double gpsLong, Double gpsLat) {
         this.noteID = noteID;
         this.notebookID = notebookID;
-        this.author = author;
+        this.fullName = fullName;
         this.title = title;
         this.createDate = createDate;
         this.gpsLong = gpsLong;
@@ -32,11 +32,11 @@ public class NOTE {
         this.content = content;
         this.tags = new ArrayList<>();
     }
-    public NOTE(String noteID, String notebookID, String author, String title, String createDate,
+    public NOTE(String noteID, String notebookID, String fullName, String title, String createDate,
                 String content) {
         this.noteID = noteID;
         this.notebookID = notebookID;
-        this.author = author;
+        this.fullName = fullName;
         this.title = title;
         this.createDate = createDate;
         this.content = content;
@@ -47,7 +47,7 @@ public class NOTE {
         title = noteJSON.getString("title");
         createDate = noteJSON.getString("createddate");
         content = noteJSON.getString("contentfile");
-        author = noteJSON.getString("fullname");
+        fullName = noteJSON.getString("fullname");
         gpsLong = noteJSON.getDouble("longtitude");
         gpsLat = noteJSON.getDouble("latitude");
 
@@ -63,7 +63,7 @@ public class NOTE {
         body.put("contentfile", content);
         body.put("title", title);
         body.put("notebookid", notebookID);
-        body.put("author", author);
+        body.put("fullname", fullName);
         body.put("long", gpsLong);
         body.put("lat", gpsLat);
 
@@ -126,12 +126,12 @@ public class NOTE {
         return false;
     }
 
-    public String getAuthor() {
-        return author;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setFullName(String author) {
+        this.fullName = author;
     }
 
     public Double getGpsLong() {
