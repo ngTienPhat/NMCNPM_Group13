@@ -294,7 +294,7 @@ public class USER {
         notesByGPS.addAll(notes);
     }
     public void updateNoteByGPS(Context context, Double gpsLong, Double gpsLat) {
-        DATA.getNoteByGPS(context, gpsLong, gpsLat);
+        DATA.getNoteByGPS(context, userID, gpsLong, gpsLat);
     }
 
     public void changeNotebook(String noteID, String oldNotebookID, String newNotebookID) {

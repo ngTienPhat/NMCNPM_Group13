@@ -329,9 +329,9 @@ public class DATA {
 
         queue.add(stringRequest);
     }
-    static public void getNoteByGPS(final Context context, Double gpsLong, Double gpsLat) {
+    static public void getNoteByGPS(final Context context, String userID, Double gpsLong, Double gpsLat) {
         RequestQueue queue = Volley.newRequestQueue(context);
-        String url = link + "users/" + "/getNoteByGPS/" + gpsLong + "+" + gpsLat;
+        String url = link + "users/" + userID + "/sharednote?longtitude=" + gpsLong + "&latitude=" + gpsLat;
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
