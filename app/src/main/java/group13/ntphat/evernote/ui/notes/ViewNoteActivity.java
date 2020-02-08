@@ -73,6 +73,9 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
     private ChipGroup chipGroup;
     private String isShare;
     private int sharedNotePosition;
+    private boolean isShareThisNote = false;
+    private boolean isSaveClicked = false;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -173,9 +176,11 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
             });
             // hide notebook's textView
             notebook.setVisibility(View.INVISIBLE);
-
             USER.getInstance().addNote(this.getBaseContext(), notebookId, "");
-            content = initDraftContent();
+
+            if(!isShare.equals("1")){
+                content = initDraftContent();
+            }
         }
         String notebookName = USER.getInstance().getNoteBook(notebookId).getNameNoteBook();
         notebook.setText(notebookName);
@@ -226,20 +231,22 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
 // ------------------------------------------------------------------------
 // SAVE FINAL CONTENT OF NOTE BEFORE END THIS ACTIVITY
     public void save_content(MenuItem item) throws JSONException {
+        isSaveClicked = true;
         if (isShare.equals("1")){
+            //USER.getInstance().addNote(this.getBaseContext(), notebookId, "");
             NOTE newNote = createNewNoteFromThisNote();
             USER.getInstance().updateNote(this.getBaseContext(), notebookId, newNote);
             Toast.makeText(ViewNoteActivity.this, "Saved to your account!", Toast.LENGTH_SHORT).show();
             return;
         }
-        setFinalInfo();
+        setFinalInfo(isShareThisNote);
         String newNotebookId = notebookId;
         USER.getInstance().updateNote(this.getBaseContext(), newNotebookId, clickedNote);
 
         Toast.makeText(ViewNoteActivity.this, "Saved!", Toast.LENGTH_SHORT).show();
     }
 
-    private NOTE createNewNoteFromThisNote(){
+    private NOTE createNewNoteFromThisNote() throws JSONException {
         NOTE newNote = new NOTE();
         newNote.setContent(new Gson().toJson(markDEditor.getDraft()));
         newNote.setTitle(title.getText().toString());
@@ -249,10 +256,14 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
         newNote.setGpsLong(USER.getInstance().getCurrentLong());
         newNote.setNoteID(USER.getInstance().getNewNoteID());
         newNote.setNotebookID(notebookId);
+
+        if(isShareThisNote)
+            newNote.turnOnShare();
+
         return newNote;
     }
 
-    private void setFinalInfo(){
+    private void setFinalInfo(boolean isShareNote){
         clickedNote.setContent(new Gson().toJson(markDEditor.getDraft()));
         clickedNote.setTitle(title.getText().toString());
         clickedNote.setCreateDate(getCurrentDateAsFormat("dd-MM-yyyy"));
@@ -261,6 +272,9 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
         clickedNote.setGpsLat(USER.getInstance().getCurrentLat());
         clickedNote.setGpsLong(USER.getInstance().getCurrentLong());
 
+        if (isShareNote){
+            clickedNote.turnOnShare();
+        }
         if (clickedNote.getNoteID() == null){
             clickedNote.setNoteID(USER.getInstance().getNewNoteID());
             clickedNote.setNotebookID(notebookId);
@@ -355,7 +369,7 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
                 String tagName = tagEditText.getText().toString();
                 USER.getInstance().addTag(notebookId, clickedNote.getNoteID(), tagName);
                 addNewTagNameToChipGroup(tagName);
-                setFinalInfo();
+                setFinalInfo(isShareThisNote);
                 try {
                     USER.getInstance().updateNote(ViewNoteActivity.this, clickedNote.getNotebookID(), clickedNote);
                 } catch (JSONException e) {
@@ -419,4 +433,19 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
         USER.getInstance().removeTag(notebookId, clickedNote.getNoteID(), tagName);
     }
 
+    public void share_note(MenuItem item) {
+        isShareThisNote = true;
+    }
+
+    @Override
+    protected void onDestroy() {
+        if(!isSaveClicked && (isNewNote || isShare.equals("1"))){
+            USER.getInstance().removeNote(
+                    this.getBaseContext(),
+                    notebookId,
+                    USER.getInstance().getNewNoteID());
+        }
+        isSaveClicked = false;
+        super.onDestroy();
+    }
 }
