@@ -140,27 +140,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-
-    // -----------------------------------------------------------------
-    // Request location update
-//    private void requestLocationUpdate(){
-//        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-//        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-//                && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-//            // TODO: Consider calling
-//            //    Activity#requestPermissions
-//            // here to request the missing permissions, and then overriding
-//            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-//            //                                          int[] grantResults)
-//            // to handle the case where the user grants the permission. See the documentation
-//            // for Activity#requestPermissions for more details.
-//            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 101);
-//            return;
-//        }
-//        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, locationListener);
-//    }
-
-
     // -----------------------------------------------------------------
     // set up navigation header
     private void setUpHeader() {
@@ -285,6 +264,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         Intent intent;
                         intent = new Intent(MainActivity.this, ViewNoteActivity.class);
                         intent.putExtra("noteid", "-1");
+                        intent.putExtra("isShare", "0");
+
                         startActivityForResult(intent, NOTE_CREATE_ACTIVITY_RESULT);
                         return true;
                     default:

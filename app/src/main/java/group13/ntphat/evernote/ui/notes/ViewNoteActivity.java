@@ -71,7 +71,8 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
     ArrayList<String> nb_ids = new ArrayList<>();
 
     private ChipGroup chipGroup;
-
+    private String isShare;
+    private int sharedNotePosition;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -110,11 +111,18 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
     // catch clicked Note info from listView
     private void getClickedNote(Intent catcher){
         String noteId = catcher.getStringExtra("noteid");
+        isShare = catcher.getStringExtra("isShare");
         // user click create new note
         if (noteId.equals("-1")){
             clickedNote = new NOTE();
             notebookId = USER.getInstance().getAllNoteBook().get(0).getNotebookID();
             isNewNote=true; // turn on new_note flag
+        }
+        else if (isShare.equals("1")){
+            sharedNotePosition = Integer.parseInt(catcher.getStringExtra("position"));
+            clickedNote = USER.getInstance().getNotesByGPS().get(sharedNotePosition);
+            notebookId = USER.getInstance().getAllNoteBook().get(0).getNotebookID();
+            isNewNote = true;
         }
         else{
             notebookId = catcher.getStringExtra("notebookid");
@@ -131,7 +139,7 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
         spinner = findViewById(R.id.notebook_chooser);
         chipGroup = findViewById(R.id.tag_chip_group);
 
-        if (!isNewNote){
+        if (!isNewNote || isShare.equals("1")){
             content = new Gson().fromJson(clickedNote.getContent(), DraftModel.class);
             title.setText(clickedNote.getTitle());
             if (content == null){
@@ -139,7 +147,7 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
             }
             spinner.setBackground(null);
         }
-        else{
+        if(isNewNote || isShare.equals("1")){
             // let spinner contain list of current notebooks.
             ArrayList<NOTEBOOK> list_nb = USER.getInstance().getAllNoteBook();
 
@@ -218,11 +226,30 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
 // ------------------------------------------------------------------------
 // SAVE FINAL CONTENT OF NOTE BEFORE END THIS ACTIVITY
     public void save_content(MenuItem item) throws JSONException {
+        if (isShare.equals("1")){
+            NOTE newNote = createNewNoteFromThisNote();
+            USER.getInstance().updateNote(this.getBaseContext(), notebookId, newNote);
+            Toast.makeText(ViewNoteActivity.this, "Saved to your account!", Toast.LENGTH_SHORT).show();
+            return;
+        }
         setFinalInfo();
         String newNotebookId = notebookId;
         USER.getInstance().updateNote(this.getBaseContext(), newNotebookId, clickedNote);
 
         Toast.makeText(ViewNoteActivity.this, "Saved!", Toast.LENGTH_SHORT).show();
+    }
+
+    private NOTE createNewNoteFromThisNote(){
+        NOTE newNote = new NOTE();
+        newNote.setContent(new Gson().toJson(markDEditor.getDraft()));
+        newNote.setTitle(title.getText().toString());
+        newNote.setCreateDate(getCurrentDateAsFormat("dd-MM-yyyy"));
+        newNote.setFullName(USER.getInstance().getFullName());
+        newNote.setGpsLat(USER.getInstance().getCurrentLat());
+        newNote.setGpsLong(USER.getInstance().getCurrentLong());
+        newNote.setNoteID(USER.getInstance().getNewNoteID());
+        newNote.setNotebookID(notebookId);
+        return newNote;
     }
 
     private void setFinalInfo(){
@@ -231,7 +258,6 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
         clickedNote.setCreateDate(getCurrentDateAsFormat("dd-MM-yyyy"));
         clickedNote.setFullName(USER.getInstance().getFullName());
 
-        // just for debug
         clickedNote.setGpsLat(USER.getInstance().getCurrentLat());
         clickedNote.setGpsLong(USER.getInstance().getCurrentLong());
 
@@ -253,6 +279,7 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
                 addImage(filePath);
             }
         }
+        // receive text from Speech2Text Intent
         if (requestCode == REQ_CODE && resultCode == RESULT_OK && data != null)
         {
             ArrayList result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
