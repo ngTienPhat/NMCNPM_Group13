@@ -15,11 +15,13 @@ public class NOTE {
     private String content;
     private Double gpsLong;
     private Double gpsLat;
+    private Boolean isShare;
     public ArrayList<String> tags;
 
     public NOTE() {
         gpsLat = 0.0;
         gpsLong = 0.0;
+        isShare = false;
         tags = new ArrayList<>();
     }
     public NOTE(String noteID, String notebookID, String fullName, String title, String createDate,
@@ -32,6 +34,7 @@ public class NOTE {
         this.gpsLong = gpsLong;
         this.gpsLat = gpsLat;
         this.content = content;
+        this.isShare = false;
         this.tags = new ArrayList<>();
     }
     public NOTE(String noteID, String notebookID, String fullName, String title, String createDate,
@@ -44,6 +47,7 @@ public class NOTE {
         this.content = content;
         this.gpsLong = 0.0;
         this.gpsLat = 0.0;
+        this.isShare = false;
         this.tags = new ArrayList<>();
     }
     public NOTE(JSONObject noteJSON) throws JSONException {
@@ -54,6 +58,7 @@ public class NOTE {
         fullName = noteJSON.getString("fullname");
         gpsLong = noteJSON.getDouble("longtitude");
         gpsLat = noteJSON.getDouble("latitude");
+        isShare = noteJSON.getBoolean("shared");
 
         JSONArray tagsJSON = noteJSON.getJSONArray("tags");
         tags = new ArrayList<>();
@@ -70,6 +75,7 @@ public class NOTE {
         body.put("fullname", fullName);
         body.put("longtitude", gpsLong);
         body.put("latitude", gpsLat);
+        body.put("shared", isShare);
 
         JSONArray tagsJSON = new JSONArray();
         for (int i = 0; i < tags.size(); i++) {
@@ -162,4 +168,11 @@ public class NOTE {
         tags.remove(tag);
     }
 
+    public void turnOnShare() {
+        isShare = true;
+    }
+    public void turnOffShare() {
+        isShare = false;
+    }
+    public Boolean getIsShare() { return isShare;}
 }
