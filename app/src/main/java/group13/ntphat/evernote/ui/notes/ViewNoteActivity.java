@@ -221,6 +221,7 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
         setFinalInfo();
         String newNotebookId = notebookId;
         USER.getInstance().updateNote(this.getBaseContext(), newNotebookId, clickedNote);
+
         Toast.makeText(ViewNoteActivity.this, "Saved!", Toast.LENGTH_SHORT).show();
     }
 
@@ -228,6 +229,12 @@ public class ViewNoteActivity extends AppCompatActivity implements EditorControl
         clickedNote.setContent(new Gson().toJson(markDEditor.getDraft()));
         clickedNote.setTitle(title.getText().toString());
         clickedNote.setCreateDate(getCurrentDateAsFormat("dd-MM-yyyy"));
+        clickedNote.setFullName(USER.getInstance().getFullName());
+
+        // just for debug
+        clickedNote.setGpsLat(USER.getInstance().getCurrentLat());
+        clickedNote.setGpsLong(USER.getInstance().getCurrentLong());
+
         if (clickedNote.getNoteID() == null){
             clickedNote.setNoteID(USER.getInstance().getNewNoteID());
             clickedNote.setNotebookID(notebookId);
