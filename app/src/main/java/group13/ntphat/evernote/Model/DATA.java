@@ -331,6 +331,7 @@ public class DATA {
     }
     static public void getNoteByGPS(final Context context, String userID, Double gpsLong, Double gpsLat) {
         RequestQueue queue = Volley.newRequestQueue(context);
+        boolean flag_change;
         String url = link + "users/" + userID + "/sharednote?longtitude=" + gpsLong + "&latitude=" + gpsLat;
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,

@@ -1,21 +1,21 @@
 package group13.ntphat.evernote.Model;
 
 import android.annotation.SuppressLint;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
-import android.location.Address;
-import android.location.Geocoder;
+import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.widget.Toast;
 
+import androidx.core.app.NotificationCompat;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Locale;
-
+import group13.ntphat.evernote.R;
 import group13.ntphat.evernote.ui.share.ShareFragment;
+
 
 public class LocationUpdateListener implements LocationListener{
     // ------------------------------------------------
@@ -24,7 +24,6 @@ public class LocationUpdateListener implements LocationListener{
     private LocationManager locationManager;
     private Double longitude, latitude;
     private String address;
-
 
     // ------------------------------------------------
     // METHODS
@@ -56,16 +55,11 @@ public class LocationUpdateListener implements LocationListener{
         USER.getInstance().setCurrentLong(longitude);
         USER.getInstance().updateNoteByGPS(mContext, longitude, latitude);
 
-//        List<Address> addressList;
-//        try{
-//            addressList = geocoder.getFromLocation(latitude, longitude, 1);
-//            if (addressList.size() > 0){
-//                address = addressList.get(0).getAddressLine(0);
-//                ShareFragment.updateAddressTextview(address);
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+
+        if ( USER.getInstance().getNewNoteArrive())
+        {
+            this.showNotiOnStatusBar();
+        }
     }
 
     private String getAddress(){
@@ -78,6 +72,37 @@ public class LocationUpdateListener implements LocationListener{
 
     private Double getLatitude(){
         return latitude;
+    }
+
+    private void showNotiOnStatusBar(){
+        int notifyId = 1;
+        String channel_id = "EZNOTE_channel_01";
+        CharSequence channel_name = "EZNOTE_channel";
+        String channel_description = "This is channel for notifying new note arrival";
+
+        NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel mChannel = new NotificationChannel(channel_id, channel_name, importance);
+            mChannel.setDescription(channel_description);
+            mChannel.enableLights(true);
+            mChannel.setShowBadge(false);
+            notificationManager.createNotificationChannel(mChannel);
+        }
+
+        Intent intent = new Intent(mContext, ShareFragment.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(mContext, 0, intent, 0);
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(mContext, channel_id)
+                .setSmallIcon(R.drawable.ic_notification)
+                .setContentTitle("New note arrive")
+                .setContentText("There are some notes shared around from your position")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true);
+
+        notificationManager.notify(notifyId, builder.build());
     }
 
     @Override

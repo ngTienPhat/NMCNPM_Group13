@@ -33,6 +33,8 @@ public class USER {
     private Double currentLong;
     private Double currentLat;
 
+    private boolean new_note_arrive = false;
+
     private USER() {
         notebooks = new ArrayList<>();
         notesByGPS = new ArrayList<>();
@@ -157,6 +159,10 @@ public class USER {
     }
     public void setCurrentLat(Double currentLat) {
         this.currentLat = currentLat;
+    }
+
+    public boolean getNewNoteArrive(){
+        return this.new_note_arrive;
     }
 
     public ArrayList<NOTEBOOK> getAllNoteBook() {
@@ -306,8 +312,28 @@ public class USER {
     }
 
     public void helper_updateNoteByGPS(ArrayList<NOTE> notes) {
+        boolean changed = false;
+        if ( notes.size() > 0)
+            for(NOTE new_note: notes){
+                boolean sub_flag = true;
+                for(int i = 0; i < notesByGPS.size(); i++)
+                {
+                    if ( new_note.getNoteID().equals(notesByGPS.get(i).getNoteID()))
+                    {
+                        sub_flag = false;
+                        break;
+                    }
+                }
+                if (sub_flag)
+                {
+                    changed = sub_flag;
+                    break;
+                }
+
+            }
         notesByGPS.clear();
         notesByGPS.addAll(notes);
+        this.new_note_arrive = changed;
     }
     public void updateNoteByGPS(Context context, Double gpsLong, Double gpsLat) {
         DATA.getNoteByGPS(context, userID, gpsLong, gpsLat);
