@@ -122,5 +122,6 @@ public class NotesFragment extends Fragment {
 //        intent.putExtra("content", note.getContent());
         intent.putExtra("noteid", note.getNoteID());
         intent.putExtra("notebookid", note.getNotebookID());
+        intent.putExtra("isShare", "0");
     }
 }

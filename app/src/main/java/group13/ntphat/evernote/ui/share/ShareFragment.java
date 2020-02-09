@@ -147,10 +147,21 @@ public class ShareFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent;
                 intent = new Intent(getContext(), ViewNoteActivity.class);
-                NOTE chosenNote = listSharedNotes.get(position);
+                NOTE chosenNote = USER.getInstance().getNotesByGPS().get(position);
+                putNoteToViewNoteActivity(intent, chosenNote, position);
+                startActivityForResult(intent, NOTE_ACTIVITY_RESULT);
                 // make note become ViewOnly: haven't coded it yet
             }
         });
+    }
+
+    private void putNoteToViewNoteActivity(Intent intent, NOTE note, int position){
+//        intent.putExtra("Notebook_name", USER.getInstance().getNoteBook(note.getNotebookID()).getNameNoteBook());
+//        intent.putExtra("content", note.getContent());
+        intent.putExtra("noteid", note.getNoteID());
+        intent.putExtra("notebookid", note.getNotebookID());
+        intent.putExtra("isShare", "1");
+        intent.putExtra("position", Integer.toString(position));
     }
 
 }

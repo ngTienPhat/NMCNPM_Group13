@@ -20,10 +20,11 @@
         android:icon="@drawable/ic_redo_24px"
         android:iconTint="@color/colorAccent"/>
 
-    <item android:id="@+id/text"
+    <item android:id="@+id/share"
         android:title="edit"
         app:showAsAction="always"
-        android:icon="@drawable/ic_font_download_24px"
+        android:icon="@drawable/ic_share"
+        android:onClick="share_note"
         android:iconTint="@color/colorAccent"/>
 
     <item android:id="@+id/attachment"
