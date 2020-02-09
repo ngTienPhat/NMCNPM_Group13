@@ -331,7 +331,6 @@ public class DATA {
     }
     static public void getNoteByGPS(final Context context, String userID, Double gpsLong, Double gpsLat) {
         RequestQueue queue = Volley.newRequestQueue(context);
-        boolean flag_change;
         String url = link + "users/" + userID + "/sharednote?longtitude=" + gpsLong + "&latitude=" + gpsLat;
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
@@ -345,7 +344,7 @@ public class DATA {
                                 NOTE note = new NOTE(notesJSON.getJSONObject(i));
                                 notes.add(note);
                             }
-                            USER.getInstance().helper_updateNoteByGPS(notes);
+                            USER.getInstance().helper_updateNoteByGPS(context, notes);
 
                             //NotesFragment.updateListNotes();
                             //sendIntendBroadcast(context,"getAllInfo", 1);

@@ -55,11 +55,6 @@ public class LocationUpdateListener implements LocationListener{
         USER.getInstance().setCurrentLong(longitude);
         USER.getInstance().updateNoteByGPS(mContext, longitude, latitude);
 
-
-        if ( USER.getInstance().getNewNoteArrive())
-        {
-            this.showNotiOnStatusBar();
-        }
     }
 
     private String getAddress(){
@@ -74,7 +69,7 @@ public class LocationUpdateListener implements LocationListener{
         return latitude;
     }
 
-    private void showNotiOnStatusBar(){
+    public static void showNotiOnStatusBar(Context mContext){
         int notifyId = 1;
         String channel_id = "EZNOTE_channel_01";
         CharSequence channel_name = "EZNOTE_channel";

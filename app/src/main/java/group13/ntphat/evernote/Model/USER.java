@@ -311,7 +311,7 @@ public class USER {
         return notesByGPS;
     }
 
-    public void helper_updateNoteByGPS(ArrayList<NOTE> notes) {
+    public void helper_updateNoteByGPS(Context mContext, ArrayList<NOTE> notes) {
         boolean changed = false;
         if ( notes.size() > 0)
             for(NOTE new_note: notes){
@@ -329,11 +329,12 @@ public class USER {
                     changed = sub_flag;
                     break;
                 }
-
             }
         notesByGPS.clear();
         notesByGPS.addAll(notes);
-        this.new_note_arrive = changed;
+
+        if(changed)
+            LocationUpdateListener.showNotiOnStatusBar(mContext);
     }
     public void updateNoteByGPS(Context context, Double gpsLong, Double gpsLat) {
         DATA.getNoteByGPS(context, userID, gpsLong, gpsLat);
